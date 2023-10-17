@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_HPBar : UI_Base
 {
-    enum GameObjects
+    private enum GameObjects
     {
         HPBar
     }

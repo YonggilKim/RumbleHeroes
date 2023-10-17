@@ -10,13 +10,17 @@ using UnityEngine.UI;
 
 public class UIManager
 {
-    int _order = 10;
-    int _toastOrder = 500;
+    private int _order = 10;
+    private int _toastOrder = 500;
 
-    Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    Stack<UI_Toast> _toastStack = new Stack<UI_Toast>();
-    UI_Scene _sceneUI = null;
-    public UI_Scene SceneUI { get { return _sceneUI; } }
+    private Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
+    private Stack<UI_Toast> _toastStack = new Stack<UI_Toast>();
+    private UI_Scene _sceneUI = null;
+    public UI_Scene SceneUI
+    {
+        set => _sceneUI = value;
+        get => _sceneUI;
+    }
 
     public event Action<int> OnTimeScaleChanged;
 
@@ -172,7 +176,7 @@ public class UIManager
         return popup;
     }
 
-    IEnumerator CoCloseToastUI()
+    private IEnumerator CoCloseToastUI()
     {
        yield return new WaitForSeconds(1f);
        CloseToastUI();
@@ -203,7 +207,7 @@ public class UIManager
 
     public void RefreshTimeScale()
     {
-        if (SceneManager.GetActiveScene().name != Define.Scene.GameScene.ToString())
+        if (SceneManager.GetActiveScene().name != Define.EScene.GameScene.ToString())
         {
             Time.timeScale = 1;
             return;

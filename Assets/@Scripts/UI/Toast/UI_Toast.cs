@@ -7,18 +7,18 @@ public class UI_Toast : UI_Base
 {
     #region Enum
 
-    enum Images
+    private enum Images
     {
         BackgroundImage
     }
 
-    enum Texts
+    private enum Texts
     {
         ToastMessageValueText,
     }
     public void OnEnable()
     {
-        // Tm ¿ÀÇÂ ¿¬Ãâ
+        // Tm ì˜¤í”ˆ ì—°ì¶œ
         //OpenAnimation();
         PopupOpenAnimation(gameObject);
     }
@@ -44,13 +44,13 @@ public class UI_Toast : UI_Base
 
     public void SetInfo(string msg)
     {
-        // ¸Þ½ÃÁö º¯°æ
+        // ë©”ì‹œì§€ ë³€ê²½
         transform.localScale = Vector3.one;
         GetText((int)Texts.ToastMessageValueText).text = msg;
         Refresh();
     }
 
-    void Refresh()
+    private void Refresh()
     {
 
 

@@ -12,7 +12,7 @@ public class LobbyScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.Scene.LobbyScene;
+        ESceneType = Define.EScene.LobbyScene;
 
         //TitleUI
         //Managers.UI.ShowSceneUI<UI_LobbyScene>();

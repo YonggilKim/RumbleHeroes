@@ -7,7 +7,7 @@ public class SceneManagerEx
 {
     public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
 
-    public void LoadScene(Define.Scene type, Transform parents = null)
+    public void LoadScene(Define.EScene type, Transform parents = null)
     {
         Managers.Clear();
         SceneManager.LoadScene(GetSceneName(type));
@@ -32,9 +32,9 @@ public class SceneManagerEx
 
     }
 
-    string GetSceneName(Define.Scene type)
+    private string GetSceneName(Define.EScene type)
     {
-        string name = System.Enum.GetName(typeof(Define.Scene), type);
+        string name = System.Enum.GetName(typeof(Define.EScene), type);
         return name;
     }
 

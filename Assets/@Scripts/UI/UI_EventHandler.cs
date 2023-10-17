@@ -14,7 +14,7 @@ public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerDown
     public Action<BaseEventData> OnBeginDragHandler = null;
     public Action<BaseEventData> OnEndDragHandler = null;
 
-    bool _pressed = false;
+    private bool _pressed = false;
 
     private void Update()
     {

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Animator
+  m_EditorClassIdentifier: 
+  m_GroupName: Animator
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 444a6ba2183c61b49a74527ff6e6114e
+  m_SerializeEntries:
+  - m_GUID: cfe9f63e802e8d44ca3edbaf941ea467
+    m_Address: Anim_Hero_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9865532e6fd2ca043a5ebf128cfdc8ca, type: 2}
+    - {fileID: 11400000, guid: ce17b467f49cc3a47ab46baf80ee1368, type: 2}

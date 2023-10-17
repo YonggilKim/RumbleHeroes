@@ -19,9 +19,17 @@ public class GameScene : BaseScene
     {
         Debug.Log("@>> GameScene Init()");
         base.Init();
-        SceneType = Define.Scene.GameScene;
+        ESceneType = Define.EScene.GameScene;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        //Managers.UI.ShowSceneUI<UI_Joystick>();
+        Managers.UI.ShowSceneUI<UI_Joystick>();
+
+        Managers.Object.Spawn<HeroController>(Vector3.zero, 201000);
+        LoadStage();
+    }
+    
+    public void LoadStage()
+    {
+        Managers.Object.LoadMap("BaseMap");
     }
 
     public override void Clear()

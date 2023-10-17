@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-class Pool
+internal class Pool
 {
-    GameObject _prefab;
-    IObjectPool<GameObject> _pool;
+    private GameObject _prefab;
+    private IObjectPool<GameObject> _pool;
 
-    Transform _root;
-    Transform Root
+    private Transform _root;
+
+    private Transform Root
     {
         get
         {
@@ -41,7 +42,8 @@ class Pool
     }
 
     #region Funcs
-    GameObject OnCreate()
+
+    private GameObject OnCreate()
     {
         GameObject go = GameObject.Instantiate(_prefab);
         go.transform.SetParent(Root);
@@ -49,17 +51,17 @@ class Pool
         return go;
     }
 
-    void OnGet(GameObject go)
+    private void OnGet(GameObject go)
     {
         go.SetActive(true);
     }
 
-    void OnRelease(GameObject go)
+    private void OnRelease(GameObject go)
     {
         go.SetActive(false);
     }
 
-    void OnDestroy(GameObject go)
+    private void OnDestroy(GameObject go)
     {
         GameObject.Destroy(go);
     }
@@ -68,7 +70,7 @@ class Pool
 
 public class PoolManager
 {
-    Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
+    private Dictionary<string, Pool> _pools = new Dictionary<string, Pool>();
 
     public GameObject Pop(GameObject prefab)
     {
@@ -92,7 +94,7 @@ public class PoolManager
         _pools.Clear();
     }
 
-    void CreatePool(GameObject original)
+    private void CreatePool(GameObject original)
     {
         Pool pool = new Pool(original);
         _pools.Add(original.name, pool);

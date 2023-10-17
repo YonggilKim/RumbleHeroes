@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class UI_ButtonAnimation : MonoBehaviour
 {
-
-    void Start()
+    private void Start()
     {
         gameObject.BindEvent(ButtonPointerDownAnimation, type: Define.UIEvent.PointerDown);
         gameObject.BindEvent(ButtonPointerUpAnimation, type: Define.UIEvent.PointerUp);

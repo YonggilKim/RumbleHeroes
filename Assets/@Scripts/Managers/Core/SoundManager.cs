@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SoundManager
 {
-    private AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.Max];
+    private AudioSource[] _audioSources = new AudioSource[(int)Define.ESound.Max];
     private Dictionary<string, AudioClip> _audioClips = new Dictionary<string, AudioClip>();
 
     private GameObject _soundRoot = null;
@@ -20,7 +20,7 @@ public class SoundManager
                 _soundRoot = new GameObject { name = "@SoundRoot" };
                 UnityEngine.Object.DontDestroyOnLoad(_soundRoot);
 
-                string[] soundTypeNames = System.Enum.GetNames(typeof(Define.Sound));
+                string[] soundTypeNames = System.Enum.GetNames(typeof(Define.ESound));
                 for (int count = 0; count < soundTypeNames.Length - 1; count++)
                 {
                     GameObject go = new GameObject { name = soundTypeNames[count] };
@@ -28,8 +28,8 @@ public class SoundManager
                     go.transform.parent = _soundRoot.transform;
                 }
 
-                _audioSources[(int)Define.Sound.Bgm].loop = true;
-                _audioSources[(int)Define.Sound.SubBgm].loop = true;
+                _audioSources[(int)Define.ESound.Bgm].loop = true;
+                _audioSources[(int)Define.ESound.SubBgm].loop = true;
             }
         }
     }
@@ -41,17 +41,17 @@ public class SoundManager
         _audioClips.Clear();
     }
 
-    public void Play(Define.Sound type)
+    public void Play(Define.ESound type)
     {
         AudioSource audioSource = _audioSources[(int)type];
         audioSource.Play();
     }
 
-    public void Play(Define.Sound type, string key, float pitch = 1.0f)
+    public void Play(Define.ESound type, string key, float pitch = 1.0f)
     {
         AudioSource audioSource = _audioSources[(int)type];
 
-        if (type == Define.Sound.Bgm)
+        if (type == Define.ESound.Bgm)
         {
             LoadAudioClip(key, (audioClip) =>
             {
@@ -63,7 +63,7 @@ public class SoundManager
                     audioSource.Play();
             });
         }
-        else if (type == Define.Sound.SubBgm)
+        else if (type == Define.ESound.SubBgm)
         {
             LoadAudioClip(key, (audioClip) =>
             {
@@ -86,11 +86,11 @@ public class SoundManager
         }
     }
 
-    public void Play(Define.Sound type, AudioClip audioClip, float pitch = 1.0f)
+    public void Play(Define.ESound type, AudioClip audioClip, float pitch = 1.0f)
     {
         AudioSource audioSource = _audioSources[(int)type];
 
-        if (type == Define.Sound.Bgm)
+        if (type == Define.ESound.Bgm)
         {
             if (audioSource.isPlaying)
                 audioSource.Stop();
@@ -99,7 +99,7 @@ public class SoundManager
             //if (Managers.Game.BGMOn)
                 audioSource.Play();
         }
-        else if (type == Define.Sound.SubBgm)
+        else if (type == Define.ESound.SubBgm)
         {
             if (audioSource.isPlaying)
                 audioSource.Stop();
@@ -116,7 +116,7 @@ public class SoundManager
         }
     }
 
-    public void Stop(Define.Sound type)
+    public void Stop(Define.ESound type)
     {
         AudioSource audioSource = _audioSources[(int)type];
         audioSource.Stop();
@@ -124,12 +124,12 @@ public class SoundManager
 
     public void PlayButtonClick()
     {
-        Play(Define.Sound.Effect, "Click_CommonButton");
+        Play(Define.ESound.Effect, "Click_CommonButton");
     }
 
     public void PlayPopupClose()
     {
-        Play(Define.Sound.Effect, "PopupClose_Common");
+        Play(Define.ESound.Effect, "PopupClose_Common");
     }
 
     private void LoadAudioClip(string key, Action<AudioClip> callback)

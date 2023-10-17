@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Define;
 
 namespace Data
@@ -47,7 +48,8 @@ namespace Data
         public float AtkRate;
         public float DefRate;
         public float MoveSpeedRate;
-        public string IconLabel;
+        public string SpriteName;
+        public string AnimatorName;
         public List<int> SkillTypeList;//InGameSkills를 제외한 추가스킬들
     }
 

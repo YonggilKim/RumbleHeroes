@@ -32,6 +32,8 @@ public class DataTransformer : EditorWindow
     public static void ParseExcel()
     {
         ParseSkillData("Skill");
+        ParseCreatureData("Creature");
+
         Debug.Log("Complete DataTransformer");
     }
 
@@ -110,6 +112,50 @@ public class DataTransformer : EditorWindow
         AssetDatabase.Refresh();
     }
 
+    static void ParseCreatureData(string filename)
+    {
+        CreatureDataLoader loader = new CreatureDataLoader();
+
+        #region ExcelData
+        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/Excel/{filename}Data.csv").Split("\n");
+
+        for (int y = 1; y < lines.Length; y++)
+        {
+            string[] row = lines[y].Replace("\r", "").Split(',');
+
+            if (row.Length == 0)
+                continue;
+            if (string.IsNullOrEmpty(row[0]))
+                continue;
+
+            int i = 0;
+            CreatureData cd = new CreatureData();
+            cd.DataId = ConvertValue<int>(row[i++]);
+            cd.DescriptionTextID = ConvertValue<string>(row[i++]);
+            cd.PrefabLabel = ConvertValue<string>(row[i++]);
+            cd.MaxHp = ConvertValue<float>(row[i++]);
+            cd.MaxHpBonus = ConvertValue<float>(row[i++]);
+            cd.Atk = ConvertValue<float>(row[i++]);
+            cd.AtkBonus = ConvertValue<float>(row[i++]);
+            cd.Def = ConvertValue<float>(row[i++]);
+            cd.MoveSpeed = ConvertValue<float>(row[i++]);
+            cd.TotalExp = ConvertValue<float>(row[i++]);
+            cd.HpRate = ConvertValue<float>(row[i++]);
+            cd.AtkRate = ConvertValue<float>(row[i++]);
+            cd.DefRate = ConvertValue<float>(row[i++]);
+            cd.MoveSpeedRate = ConvertValue<float>(row[i++]);
+            cd.SpriteName = ConvertValue<string>(row[i++]);
+            cd.AnimatorName = ConvertValue<string>(row[i++]);
+            cd.SkillTypeList = ConvertList<int>(row[i++]);
+            loader.creatures.Add(cd);
+        }
+
+        #endregion
+
+        string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
+        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
+        AssetDatabase.Refresh();
+    }
 #endif
 
 }

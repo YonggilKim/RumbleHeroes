@@ -11,17 +11,18 @@ using static Define;
 public class UI_TitleScene : UI_Scene
 {
     #region Enum
-    enum GameObjects
+
+    private enum GameObjects
     {
         StartButton
     }
 
-    enum Buttons
+    private enum Buttons
     {
     }
 
 
-    enum Texts
+    private enum Texts
     {
     }
     #endregion
@@ -34,7 +35,11 @@ public class UI_TitleScene : UI_Scene
 
         BindObject(typeof(GameObjects));
 
-        GetObject((int)GameObjects.StartButton).BindEvent(() => { Debug.Log("OnClick"); });
+        GetObject((int)GameObjects.StartButton).BindEvent(() =>
+        {
+            Debug.Log("OnClick");
+            Managers.Scene.LoadScene(EScene.GameScene);
+        });
 
         //BindButton(typeof(Buttons));
         //BindText(typeof(Texts));
@@ -46,10 +51,5 @@ public class UI_TitleScene : UI_Scene
     {
         Init();
     }
-    private void Start()
-    {
-       
-    }
-
-
+    
 }

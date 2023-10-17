@@ -5,11 +5,14 @@ using static Define;
 
 public class TitleScene : BaseScene
 {
+    public UI_TitleScene UI_Title;
+    
     protected override void Init()
     {
         base.Init();
+        Managers.UI.SceneUI = UI_Title;
 
-        SceneType = Define.Scene.TitleScene;
+        ESceneType = Define.EScene.TitleScene;
         //TitleUI
     }
 
@@ -26,7 +29,7 @@ public class TitleScene : BaseScene
         });
     }
 
-    void StartLoaded()
+    private void StartLoaded()
     {
         Managers.Data.Init();
 

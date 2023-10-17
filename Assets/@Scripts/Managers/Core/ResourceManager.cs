@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 public class ResourceManager
 {
     // 실제 로드한 리소스.
-    Dictionary<string, UnityEngine.Object> _resources = new Dictionary<string, UnityEngine.Object>();
+    private Dictionary<string, UnityEngine.Object> _resources = new Dictionary<string, UnityEngine.Object>();
 
     #region 리소스 로드
     public T Load<T>(string key) where T : Object

@@ -9,8 +9,38 @@ public class Define
     public static readonly Dictionary<Type, Array> _enumDict = new Dictionary<Type, Array>();
    
     #region Enum
+    public enum ECreatureState
+    {
+        Idle,
+        Skill,
+        Moving,
+        Gathering,
+        OnDamaged,
+        Dead
+    }
+    
+    public enum EObjectType
+    {
+        Player,
+        Hero,
+        Monster,
+        EliteMonster,
+        Boss,
+        Projectile,
+        Gem,
+        Soul,
+        Potion,
+        DropBox,
+        Magnet,
+        Bomb
 
-    public enum Scene
+    }
+    public enum EJoystickType
+    {
+        Fixed,
+        Flexible
+    }
+    public enum EScene
     {
         Unknown,
         TitleScene,
@@ -18,7 +48,7 @@ public class Define
         GameScene,
     }
 
-    public enum Sound
+    public enum ESound
     {
         Bgm,
         SubBgm,
