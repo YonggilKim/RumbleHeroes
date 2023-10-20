@@ -25,6 +25,8 @@ public class Define
         Hero,
         Monster,
         EliteMonster,
+        GR_Mine,
+        GR_Tree,
         Boss,
         Projectile,
         Gem,

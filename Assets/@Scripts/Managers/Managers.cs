@@ -12,9 +12,11 @@ public class Managers : MonoBehaviour
 
     private GameManager _game = new GameManager();
     private ObjectManager _object = new ObjectManager();
+    private MapManager _map = new MapManager();
     
     public static GameManager Game { get { return Instance?._game; } }
     public static ObjectManager Object { get { return Instance?._object; } }
+    public static MapManager Map { get { return Instance?._map; } }
     #endregion
 
     #region Core
@@ -34,7 +36,6 @@ public class Managers : MonoBehaviour
     public static SoundManager Sound { get { return Instance?._sound; } }
     public static UIManager UI { get { return Instance?._ui; } }
     #endregion
-
 
     public static void Init()
     {

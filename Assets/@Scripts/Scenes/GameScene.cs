@@ -1,12 +1,5 @@
-﻿using Data;
-using DG.Tweening.Plugins.Core.PathCore;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static Define;
 
 public class GameScene : BaseScene
 {
@@ -22,16 +15,19 @@ public class GameScene : BaseScene
         ESceneType = Define.EScene.GameScene;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Managers.UI.ShowSceneUI<UI_Joystick>();
-
+        
+        Managers.Map.LoadMap("BaseMap");
         Managers.Object.Spawn<HeroController>(Vector3.zero, 201000);
-        LoadStage();
-    }
-    
-    public void LoadStage()
-    {
-        Managers.Object.LoadMap("BaseMap");
-    }
 
+        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(2, 1, 0)));
+        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(3, 1, 0)));
+        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(3, 2, 0)));
+        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(4, 2, 0)));
+
+        Managers.Object.Spawn<GR_Mine>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(1, 2, 0)));
+
+    }
+        
     public override void Clear()
     {
 

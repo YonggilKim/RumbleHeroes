@@ -11,7 +11,7 @@ public class CreatureController : BaseController
 
     
     public Rigidbody2D _rigidBody { get; set; }
-    private Animator Anim { get; set; }
+    protected Animator Anim { get; set; }
 
     #region Stat
 

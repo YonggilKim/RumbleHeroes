@@ -27,7 +27,6 @@ public class UI_TitleScene : UI_Scene
     }
     #endregion
 
-
     public override bool Init()
     {
         if (base.Init() == false)
@@ -41,9 +40,6 @@ public class UI_TitleScene : UI_Scene
             Managers.Scene.LoadScene(EScene.GameScene);
         });
 
-        //BindButton(typeof(Buttons));
-        //BindText(typeof(Texts));
-        
         return true;
     }
 

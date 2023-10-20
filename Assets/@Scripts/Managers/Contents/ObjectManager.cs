@@ -61,18 +61,22 @@ public class ObjectManager
 
             return hc as T;
         }
-        // else if (type == typeof(MonsterController))
-        // {
-        //     Data.CreatureData cd = Managers.Data.CreatureDic[templateID];
-        //     GameObject go = Managers.Resource.Instantiate($"{cd.PrefabLabel}", pooling: true);
-        //     MonsterController mc = go.GetOrAddComponent<MonsterController>();
-        //     go.transform.position = position;
-        //     mc.SetInfo(templateID);
-        //     go.name = cd.PrefabLabel;
-        //     Monsters.Add(mc);
-        //
-        //     return mc as T;
-        // }
+        else if (type == typeof(GR_Tree))
+        {
+            GameObject go = Managers.Resource.Instantiate("GR_Tree");
+            go.transform.position = position;
+            GR_Tree gt = go.GetOrAddComponent<GR_Tree>();
+
+            return gt as T;
+        }
+        else if (type == typeof(GR_Mine))
+        {
+            GameObject go = Managers.Resource.Instantiate("GR_Mine");
+            go.transform.position = position;
+            GR_Mine gt = go.GetOrAddComponent<GR_Mine>();
+
+            return gt as T;
+        }
         return null;
     }
 

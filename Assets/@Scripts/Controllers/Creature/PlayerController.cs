@@ -15,7 +15,7 @@ public class PlayerController : CreatureController
     {
         base.Init();
 
-        EObjectType = Define.EObjectType.Player;
+        ObjectType = Define.EObjectType.Player;
         //
         // //event
         // Managers.Game.OnMoveDirChanged += HandleOnMoveDirChanged;
