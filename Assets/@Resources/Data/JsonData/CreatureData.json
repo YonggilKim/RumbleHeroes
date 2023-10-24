@@ -147,8 +147,8 @@
     },
     {
       "DataId": 202001,
-      "DescriptionTextID": "고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터1",
+      "PrefabLabel": "Monster_01",
       "MaxHp": 39.0,
       "MaxHpBonus": 5.0,
       "Atk": 2.0,
@@ -161,13 +161,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_01.sprite",
-      "AnimatorName": "Anim_Hero_06",
+      "AnimatorName": "Anim_Monster_01",
       "SkillTypeList": []
     },
     {
       "DataId": 202002,
-      "DescriptionTextID": "포레스트 고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터2",
+      "PrefabLabel": "Monster_02",
       "MaxHp": 39.0,
       "MaxHpBonus": 5.0,
       "Atk": 2.0,
@@ -180,13 +180,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_02.sprite",
-      "AnimatorName": "Anim_Hero_07",
+      "AnimatorName": "Anim_Monster_02",
       "SkillTypeList": []
     },
     {
       "DataId": 202003,
-      "DescriptionTextID": "케이브 고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터3",
+      "PrefabLabel": "Monster_03",
       "MaxHp": 39.0,
       "MaxHpBonus": 5.0,
       "Atk": 2.0,
@@ -199,13 +199,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_03.sprite",
-      "AnimatorName": "Anim_Hero_08",
+      "AnimatorName": "Anim_Monster_03",
       "SkillTypeList": []
     },
     {
       "DataId": 202004,
-      "DescriptionTextID": "크림슨 고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터4",
+      "PrefabLabel": "Monster_04",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -218,15 +218,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_04.sprite",
-      "AnimatorName": "Anim_Hero_09",
+      "AnimatorName": "Anim_Monster_04",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202005,
-      "DescriptionTextID": "퓨리 고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터5",
+      "PrefabLabel": "Monster_05",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -239,15 +239,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_05.sprite",
-      "AnimatorName": "Anim_Hero_10",
+      "AnimatorName": "Anim_Monster_05",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202006,
-      "DescriptionTextID": "새비지 고블린",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터6",
+      "PrefabLabel": "Monster_06",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -260,15 +260,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_06.sprite",
-      "AnimatorName": "Anim_Hero_11",
+      "AnimatorName": "Anim_Monster_06",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202007,
-      "DescriptionTextID": "오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터7",
+      "PrefabLabel": "Monster_07",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -281,13 +281,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_07.sprite",
-      "AnimatorName": "Anim_Hero_12",
+      "AnimatorName": "Anim_Monster_07",
       "SkillTypeList": []
     },
     {
       "DataId": 202008,
-      "DescriptionTextID": "포레스트 오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터8",
+      "PrefabLabel": "Monster_08",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -300,13 +300,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_08.sprite",
-      "AnimatorName": "Anim_Hero_13",
+      "AnimatorName": "Anim_Monster_08",
       "SkillTypeList": []
     },
     {
       "DataId": 202009,
-      "DescriptionTextID": "하이 오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터9",
+      "PrefabLabel": "Monster_09",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -319,13 +319,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_09.sprite",
-      "AnimatorName": "Anim_Hero_14",
+      "AnimatorName": "Anim_Monster_09",
       "SkillTypeList": []
     },
     {
       "DataId": 202010,
-      "DescriptionTextID": "크림슨 오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터10",
+      "PrefabLabel": "Monster_10",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -338,15 +338,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_10.sprite",
-      "AnimatorName": "Anim_Hero_15",
+      "AnimatorName": "Anim_Monster_10",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202011,
-      "DescriptionTextID": "새비지 오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터11",
+      "PrefabLabel": "Monster_11",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -359,15 +359,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_11.sprite",
-      "AnimatorName": "Anim_Hero_16",
+      "AnimatorName": "Anim_Monster_11",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202012,
-      "DescriptionTextID": "레드 오크",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터12",
+      "PrefabLabel": "Monster_12",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -380,15 +380,15 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_12.sprite",
-      "AnimatorName": "Anim_Hero_17",
+      "AnimatorName": "Anim_Monster_12",
       "SkillTypeList": [
         20091
       ]
     },
     {
       "DataId": 202013,
-      "DescriptionTextID": "놀",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터13",
+      "PrefabLabel": "Monster_13",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -401,13 +401,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_13.sprite",
-      "AnimatorName": "Anim_Hero_18",
+      "AnimatorName": "Anim_Monster_13",
       "SkillTypeList": []
     },
     {
       "DataId": 202014,
-      "DescriptionTextID": "포레스트 놀",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터14",
+      "PrefabLabel": "Monster_14",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -420,13 +420,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_14.sprite",
-      "AnimatorName": "Anim_Hero_19",
+      "AnimatorName": "Anim_Monster_14",
       "SkillTypeList": []
     },
     {
       "DataId": 202015,
-      "DescriptionTextID": "케이브 놀",
-      "PrefabLabel": "MonsterPrefab",
+      "DescriptionTextID": "몬스터15",
+      "PrefabLabel": "Monster_15",
       "MaxHp": 65.0,
       "MaxHpBonus": 9.0,
       "Atk": 2.0,
@@ -439,13 +439,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_15.sprite",
-      "AnimatorName": "Anim_Hero_20",
+      "AnimatorName": "Anim_Monster_15",
       "SkillTypeList": []
     },
     {
       "DataId": 202016,
       "DescriptionTextID": "크림슨 놀",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_16",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -458,7 +458,7 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_16.sprite",
-      "AnimatorName": "Anim_Hero_21",
+      "AnimatorName": "Anim_Monster_16",
       "SkillTypeList": [
         20091
       ]
@@ -466,7 +466,7 @@
     {
       "DataId": 202017,
       "DescriptionTextID": "새비지 놀",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_17",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -479,7 +479,7 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_17.sprite",
-      "AnimatorName": "Anim_Hero_22",
+      "AnimatorName": "Anim_Monster_17",
       "SkillTypeList": [
         20091
       ]
@@ -487,7 +487,7 @@
     {
       "DataId": 202018,
       "DescriptionTextID": "레드 놀",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_18",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -500,7 +500,7 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_18.sprite",
-      "AnimatorName": "Anim_Hero_23",
+      "AnimatorName": "Anim_Monster_18",
       "SkillTypeList": [
         20091
       ]
@@ -508,7 +508,7 @@
     {
       "DataId": 202019,
       "DescriptionTextID": "보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_19",
       "MaxHp": 13.0,
       "MaxHpBonus": 3.0,
       "Atk": 2.0,
@@ -521,13 +521,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_19.sprite",
-      "AnimatorName": "Anim_Hero_24",
+      "AnimatorName": "Anim_Monster_19",
       "SkillTypeList": []
     },
     {
       "DataId": 202020,
       "DescriptionTextID": "포레스트 보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_20",
       "MaxHp": 13.0,
       "MaxHpBonus": 3.0,
       "Atk": 2.0,
@@ -540,13 +540,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_20.sprite",
-      "AnimatorName": "Anim_Hero_25",
+      "AnimatorName": "Anim_Monster_20",
       "SkillTypeList": []
     },
     {
       "DataId": 202021,
       "DescriptionTextID": "스웜프 보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_21",
       "MaxHp": 13.0,
       "MaxHpBonus": 3.0,
       "Atk": 2.0,
@@ -559,13 +559,13 @@
       "DefRate": 1.0,
       "MoveSpeedRate": 1.0,
       "SpriteName": "MonsterIcon_21.sprite",
-      "AnimatorName": "Anim_Hero_26",
+      "AnimatorName": "Anim_Monster_21",
       "SkillTypeList": []
     },
     {
       "DataId": 202022,
       "DescriptionTextID": "크림슨 보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_22",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -586,7 +586,7 @@
     {
       "DataId": 202023,
       "DescriptionTextID": "레드 보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_23",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -607,7 +607,7 @@
     {
       "DataId": 202024,
       "DescriptionTextID": "새비지 보블",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_24",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,
@@ -628,7 +628,7 @@
     {
       "DataId": 202025,
       "DescriptionTextID": "비블리스",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_25",
       "MaxHp": 78.0,
       "MaxHpBonus": 10.0,
       "Atk": 2.0,
@@ -647,7 +647,7 @@
     {
       "DataId": 202026,
       "DescriptionTextID": "포레스트 비블리스",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_26",
       "MaxHp": 78.0,
       "MaxHpBonus": 10.0,
       "Atk": 2.0,
@@ -666,7 +666,7 @@
     {
       "DataId": 202027,
       "DescriptionTextID": "스웜프 비블리스",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_27",
       "MaxHp": 78.0,
       "MaxHpBonus": 10.0,
       "Atk": 2.0,
@@ -685,7 +685,7 @@
     {
       "DataId": 202028,
       "DescriptionTextID": "크림슨 비블리스",
-      "PrefabLabel": "MonsterPrefab",
+      "PrefabLabel": "Monster_28",
       "MaxHp": 26.0,
       "MaxHpBonus": 4.0,
       "Atk": 2.0,

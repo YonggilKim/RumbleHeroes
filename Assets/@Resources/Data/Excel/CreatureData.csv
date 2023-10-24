@@ -4,34 +4,34 @@
 201002,영웅3,Hero,100,2,10,2,0,6,200,1,1,1,1,Player_Icon.sprite,Anim_Hero_03,10001&10011&10021&10031&10041&10051&10061&10081&10133
 201003,영웅4,Hero,100,2,10,2,0,6,200,1,1,1,1,Player_Icon.sprite,Anim_Hero_04,10001&10011&10021&10031&10041&10051&10061&10081&10134
 201004,영웅5,Hero,100,2,10,2,0,6,200,1,1,1,1,Player_Icon.sprite,Anim_Hero_05,10001&10011&10021&10031&10041&10051&10061&10081&10135
-202001,고블린,MonsterPrefab,39,5,2,2,0,1.5,200,1,1,1,1,MonsterIcon_01.sprite,Anim_Hero_06,
-202002,포레스트 고블린,MonsterPrefab,39,5,2,2,1,1.5,200,1,1,1,1,MonsterIcon_02.sprite,Anim_Hero_07,
-202003,케이브 고블린,MonsterPrefab,39,5,2,2,2,1.5,200,1,1,1,1,MonsterIcon_03.sprite,Anim_Hero_08,
-202004,크림슨 고블린,MonsterPrefab,26,4,2,2,3,1.5,200,1,1,1,1,MonsterIcon_04.sprite,Anim_Hero_09,20091
-202005,퓨리 고블린,MonsterPrefab,26,4,2,2,4,1.5,200,1,1,1,1,MonsterIcon_05.sprite,Anim_Hero_10,20091
-202006,새비지 고블린,MonsterPrefab,26,4,2,2,5,1.5,200,1,1,1,1,MonsterIcon_06.sprite,Anim_Hero_11,20091
-202007,오크,MonsterPrefab,65,9,2,2,6,2.5,200,1,1,1,1,MonsterIcon_07.sprite,Anim_Hero_12,
-202008,포레스트 오크,MonsterPrefab,65,9,2,2,7,2.5,200,1,1,1,1,MonsterIcon_08.sprite,Anim_Hero_13,
-202009,하이 오크,MonsterPrefab,65,9,2,2,8,2.5,200,1,1,1,1,MonsterIcon_09.sprite,Anim_Hero_14,
-202010,크림슨 오크,MonsterPrefab,26,4,2,2,9,1.5,200,1,1,1,1,MonsterIcon_10.sprite,Anim_Hero_15,20091
-202011,새비지 오크,MonsterPrefab,26,4,2,2,10,1.5,200,1,1,1,1,MonsterIcon_11.sprite,Anim_Hero_16,20091
-202012,레드 오크,MonsterPrefab,26,4,2,2,11,1.5,200,1,1,1,1,MonsterIcon_12.sprite,Anim_Hero_17,20091
-202013,놀,MonsterPrefab,65,9,2,2,12,2.5,200,1,1,1,1,MonsterIcon_13.sprite,Anim_Hero_18,
-202014,포레스트 놀,MonsterPrefab,65,9,2,2,13,2.5,200,1,1,1,1,MonsterIcon_14.sprite,Anim_Hero_19,
-202015,케이브 놀,MonsterPrefab,65,9,2,2,14,2.5,200,1,1,1,1,MonsterIcon_15.sprite,Anim_Hero_20,
-202016,크림슨 놀,MonsterPrefab,26,4,2,2,15,1.5,200,1,1,1,1,MonsterIcon_16.sprite,Anim_Hero_21,20091
-202017,새비지 놀,MonsterPrefab,26,4,2,2,16,1.5,200,1,1,1,1,MonsterIcon_17.sprite,Anim_Hero_22,20091
-202018,레드 놀,MonsterPrefab,26,4,2,2,17,1.5,200,1,1,1,1,MonsterIcon_18.sprite,Anim_Hero_23,20091
-202019,보블,MonsterPrefab,13,3,2,2,18,3,200,1,1,1,1,MonsterIcon_19.sprite,Anim_Hero_24,
-202020,포레스트 보블,MonsterPrefab,13,3,2,2,19,3,200,1,1,1,1,MonsterIcon_20.sprite,Anim_Hero_25,
-202021,스웜프 보블,MonsterPrefab,13,3,2,2,20,3,200,1,1,1,1,MonsterIcon_21.sprite,Anim_Hero_26,
-202022,크림슨 보블,MonsterPrefab,26,4,2,2,21,1.5,200,1,1,1,1,MonsterIcon_22.sprite,Anim_Hero_27,20091
-202023,레드 보블,MonsterPrefab,26,4,2,2,22,1.5,200,1,1,1,1,MonsterIcon_23.sprite,Anim_Hero_28,20091
-202024,새비지 보블,MonsterPrefab,26,4,2,2,23,1.5,200,1,1,1,1,MonsterIcon_24.sprite,Anim_Hero_29,20091
-202025,비블리스,MonsterPrefab,78,10,2,2,24,1.5,200,1,1,1,1,MonsterIcon_25.sprite,Anim_Hero_30,
-202026,포레스트 비블리스,MonsterPrefab,78,10,2,2,25,1.5,200,1,1,1,1,MonsterIcon_26.sprite,Anim_Hero_31,
-202027,스웜프 비블리스,MonsterPrefab,78,10,2,2,26,1.5,200,1,1,1,1,MonsterIcon_27.sprite,Anim_Hero_32,
-202028,크림슨 비블리스,MonsterPrefab,26,4,2,2,27,1.5,200,1,1,1,1,MonsterIcon_28.sprite,Anim_Hero_33,20091
+202001,몬스터1,Monster_01,39,5,2,2,0,1.5,200,1,1,1,1,MonsterIcon_01.sprite,Anim_Monster_01,
+202002,몬스터2,Monster_02,39,5,2,2,1,1.5,200,1,1,1,1,MonsterIcon_02.sprite,Anim_Monster_02,
+202003,몬스터3,Monster_03,39,5,2,2,2,1.5,200,1,1,1,1,MonsterIcon_03.sprite,Anim_Monster_03,
+202004,몬스터4,Monster_04,26,4,2,2,3,1.5,200,1,1,1,1,MonsterIcon_04.sprite,Anim_Monster_04,20091
+202005,몬스터5,Monster_05,26,4,2,2,4,1.5,200,1,1,1,1,MonsterIcon_05.sprite,Anim_Monster_05,20091
+202006,몬스터6,Monster_06,26,4,2,2,5,1.5,200,1,1,1,1,MonsterIcon_06.sprite,Anim_Monster_06,20091
+202007,몬스터7,Monster_07,65,9,2,2,6,2.5,200,1,1,1,1,MonsterIcon_07.sprite,Anim_Monster_07,
+202008,몬스터8,Monster_08,65,9,2,2,7,2.5,200,1,1,1,1,MonsterIcon_08.sprite,Anim_Monster_08,
+202009,몬스터9,Monster_09,65,9,2,2,8,2.5,200,1,1,1,1,MonsterIcon_09.sprite,Anim_Monster_09,
+202010,몬스터10,Monster_10,26,4,2,2,9,1.5,200,1,1,1,1,MonsterIcon_10.sprite,Anim_Monster_10,20091
+202011,몬스터11,Monster_11,26,4,2,2,10,1.5,200,1,1,1,1,MonsterIcon_11.sprite,Anim_Monster_11,20091
+202012,몬스터12,Monster_12,26,4,2,2,11,1.5,200,1,1,1,1,MonsterIcon_12.sprite,Anim_Monster_12,20091
+202013,몬스터13,Monster_13,65,9,2,2,12,2.5,200,1,1,1,1,MonsterIcon_13.sprite,Anim_Monster_13,
+202014,몬스터14,Monster_14,65,9,2,2,13,2.5,200,1,1,1,1,MonsterIcon_14.sprite,Anim_Monster_14,
+202015,몬스터15,Monster_15,65,9,2,2,14,2.5,200,1,1,1,1,MonsterIcon_15.sprite,Anim_Monster_15,
+202016,크림슨 놀,Monster_16,26,4,2,2,15,1.5,200,1,1,1,1,MonsterIcon_16.sprite,Anim_Monster_16,20091
+202017,새비지 놀,Monster_17,26,4,2,2,16,1.5,200,1,1,1,1,MonsterIcon_17.sprite,Anim_Monster_17,20091
+202018,레드 놀,Monster_18,26,4,2,2,17,1.5,200,1,1,1,1,MonsterIcon_18.sprite,Anim_Monster_18,20091
+202019,보블,Monster_19,13,3,2,2,18,3,200,1,1,1,1,MonsterIcon_19.sprite,Anim_Monster_19,
+202020,포레스트 보블,Monster_20,13,3,2,2,19,3,200,1,1,1,1,MonsterIcon_20.sprite,Anim_Monster_20,
+202021,스웜프 보블,Monster_21,13,3,2,2,20,3,200,1,1,1,1,MonsterIcon_21.sprite,Anim_Monster_21,
+202022,크림슨 보블,Monster_22,26,4,2,2,21,1.5,200,1,1,1,1,MonsterIcon_22.sprite,Anim_Hero_27,20091
+202023,레드 보블,Monster_23,26,4,2,2,22,1.5,200,1,1,1,1,MonsterIcon_23.sprite,Anim_Hero_28,20091
+202024,새비지 보블,Monster_24,26,4,2,2,23,1.5,200,1,1,1,1,MonsterIcon_24.sprite,Anim_Hero_29,20091
+202025,비블리스,Monster_25,78,10,2,2,24,1.5,200,1,1,1,1,MonsterIcon_25.sprite,Anim_Hero_30,
+202026,포레스트 비블리스,Monster_26,78,10,2,2,25,1.5,200,1,1,1,1,MonsterIcon_26.sprite,Anim_Hero_31,
+202027,스웜프 비블리스,Monster_27,78,10,2,2,26,1.5,200,1,1,1,1,MonsterIcon_27.sprite,Anim_Hero_32,
+202028,크림슨 비블리스,Monster_28,26,4,2,2,27,1.5,200,1,1,1,1,MonsterIcon_28.sprite,Anim_Hero_33,20091
 202029,레드 비블리스,MonsterPrefab,26,4,2,2,28,1.5,200,1,1,1,1,MonsterIcon_29.sprite,Anim_Hero_34,20091
 202030,새비지 비블리스,MonsterPrefab,26,4,2,2,29,1.5,200,1,1,1,1,MonsterIcon_30.sprite,Anim_Hero_35,20091
 202031,커즈 트리,MonsterPrefab,39,5,2,2,30,1.5,200,1,1,1,1,MonsterIcon_31.sprite,Anim_Hero_36,

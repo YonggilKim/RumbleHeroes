@@ -49,7 +49,6 @@ public class UI_Joystick : UI_Scene
     public void OnPointerDown()
     {
         // SetActiveJoystick(true);
-
         _joystickTouchPos = Input.mousePosition;
 
         if (Managers.Game.eJoystickType == Define.EJoystickType.Flexible)
@@ -108,6 +107,8 @@ public class UI_Joystick : UI_Scene
         _handler.transform.position = _joystickOriginalPos;
         _joystickBG.transform.position = _joystickOriginalPos;
         Managers.Game.MoveDir = _moveDir;
+        Managers.Game.Hero.CreatureState = Define.ECreatureState.Idle;
+
         // SetActiveJoystick(false);
     }
 

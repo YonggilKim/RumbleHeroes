@@ -22,6 +22,31 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+  - m_GUID: 50ba25d72074242489899b206b9082a3
+    m_Address: Anim_Monster_01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: a25f6ba075dd4cc448b9a4676929fed2
+    m_Address: Anim_Monster_12
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 7c5e45dd427023a41ad97e4bcab66b97
+    m_Address: Anim_Monster_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 00c133cbc4f03b444aae3c940fb3126d
+    m_Address: Anim_Monster_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: bc9ae64bfb0f5704abdffd18bb4aee0c
+    m_Address: Anim_Monster_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

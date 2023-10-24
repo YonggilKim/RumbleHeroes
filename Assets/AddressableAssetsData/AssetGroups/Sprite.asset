@@ -20,31 +20,38 @@ MonoBehaviour:
   - m_GUID: cf2c89b920966174eb4caf10eb12677b
     m_Address: tree_0.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: 8aff7d0e51060044ea05f0b78fc6d7fd
     m_Address: tree_2.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: 5990e2728049f3542a06b6ac4379ea02
     m_Address: tree_3.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: ce9441a88c26c2647aedb8d0df4e5001
     m_Address: tree_4.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: 1bdbc86395b25f34ab71dbc01b1f818c
     m_Address: tree_10.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: d7af4d64758579146955e39c74506b2a
     m_Address: tree_23.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   - m_GUID: 7b34a5577bae5a84fa87814f91e9ed47
     m_Address: tree_24.sprite
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

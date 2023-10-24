@@ -237,7 +237,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded3dd0f7e430f543b7b4225b0d0bd2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreatureSprite: {fileID: 6599454290486401065}
   CreatureData:
     DataId: 0
     DescriptionTextID: 
@@ -273,7 +272,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.63}
   serializedVersion: 2
-  m_Radius: 0.65
+  m_Radius: 0.39
 --- !u!50 &7108465861557128910
 Rigidbody2D:
   serializedVersion: 4
@@ -294,4 +293,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

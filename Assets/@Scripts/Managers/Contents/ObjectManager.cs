@@ -9,8 +9,9 @@ using static Define;
 public class ObjectManager
 {
     public HeroController Hero { get; private set; }
+    public HashSet<HeroController> Heros { get; } = new HashSet<HeroController>();
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
-
+    
     public ObjectManager()
     {
         Init();
@@ -66,7 +67,6 @@ public class ObjectManager
             GameObject go = Managers.Resource.Instantiate("GR_Tree");
             go.transform.position = position;
             GR_Tree gt = go.GetOrAddComponent<GR_Tree>();
-
             return gt as T;
         }
         else if (type == typeof(GR_Mine))
@@ -74,8 +74,16 @@ public class ObjectManager
             GameObject go = Managers.Resource.Instantiate("GR_Mine");
             go.transform.position = position;
             GR_Mine gt = go.GetOrAddComponent<GR_Mine>();
-
             return gt as T;
+        }
+        else if (type == typeof(MonsterController))
+        {
+            GameObject go = Managers.Resource.Instantiate(Managers.Data.CreatureDic[templateID].PrefabLabel);
+            go.transform.position = position;
+            MonsterController mc = go.GetOrAddComponent<MonsterController>();
+            mc.SetInfo(templateID);
+            Monsters.Add(mc);
+            return mc as T;
         }
         return null;
     }
@@ -88,10 +96,13 @@ public class ObjectManager
         {
             // ?
         }
-        
         else if (type == typeof(MonsterController))
         {
             Monsters.Remove(obj as MonsterController);
+            Managers.Resource.Destroy(obj.gameObject);
+        }
+        else if (type == typeof(InteractionObject))
+        {
             Managers.Resource.Destroy(obj.gameObject);
         }
     }

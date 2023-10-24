@@ -9,10 +9,16 @@ public class Define
     public static readonly Dictionary<Type, Array> _enumDict = new Dictionary<Type, Array>();
    
     #region Enum
+
+    public enum EAction
+    {
+        
+    }
+
     public enum ECreatureState
     {
         Idle,
-        Skill,
+        Attack,
         Moving,
         Gathering,
         OnDamaged,

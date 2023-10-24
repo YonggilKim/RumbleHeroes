@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -48,37 +49,47 @@ public class HeroController : CreatureController
 
     protected override void UpdateAnimation()
     {
+        base.UpdateAnimation();
         switch (CreatureState)
         {
             case Define.ECreatureState.Idle:
-                Anim.Play("Idle");
                 break;
-            case Define.ECreatureState.Skill:
-                Anim.Play("Skill");
+            case Define.ECreatureState.Attack:
                 break;
             case Define.ECreatureState.Moving:
-                Anim.Play("Move");
                 break;
             case Define.ECreatureState.Gathering:
-                Anim.Play("Gathering");
                 break;
             case Define.ECreatureState.OnDamaged:
-                Anim.Play("OnDamaged");
                 break;
             case Define.ECreatureState.Dead:
-                Anim.Play("Die");
                 break;
             default:
                 break;
         }
     }
 
+    protected override void AutoWorking()
+    {
+        base.AutoWorking();
+
+        //1-1 몬스터가 있으면 몬스터로 돌진
+        //1-2 가장가까운 자원으로 간다
+        //2 아무것도 없으면 가만히 있는다.
+    }
+
     private void UpdatePlayerDirection()
     {
         if (_moveDir.x < 0)
-            CreatureSprite.flipX = false;
+            CurrentSprite.flipX = false;
         else
-            CreatureSprite.flipX = true;
+            CurrentSprite.flipX = true;
+
+        if (InteractTarget)
+        {
+            Vector3 dirVec = InteractTarget.CenterPosition - CenterPosition;
+            CurrentSprite.flipX = !(dirVec.x < 0);
+        }
     }
 
     private void MovePlayer()
@@ -88,20 +99,19 @@ public class HeroController : CreatureController
         Vector3 dir = _moveDir * (MoveSpeed * Time.deltaTime);
         transform.position += dir;
 
-
         if (dir != Vector3.zero)
         {
             //MOVE
             Indicator.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
             CreatureState = Define.ECreatureState.Moving;
             CellPos = Managers.Map.CurrentGrid.WorldToCell(transform.position);
-            Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
+            InteractTarget = null;
+            // Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
         }
         else
         {
             //IDLE
             _rigidBody.velocity = Vector2.zero;
-            CreatureState = Define.ECreatureState.Idle;
         }
     }
 
@@ -112,10 +122,10 @@ public class HeroController : CreatureController
         if (Managers.Map.CurrentGrid == null)
             return;
 
-        Gizmos.color = Color.green;
-
-        Vector3 gridSize = Managers.Map.CurrentGrid.cellSize;
-
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(CenterPosition, 7f);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(CenterPosition, 0.1f);
         for (int i = Managers.Map.MinX; i < Managers.Map.MaxX; i++)
         {
             for (int j = Managers.Map.MinY; j < Managers.Map.MaxY; j++)
@@ -130,7 +140,6 @@ public class HeroController : CreatureController
                 style.normal.textColor = Color.white;
                 style.fontSize = 12;
                 Handles.Label(worldPosition + Vector3.up * 0.8f, label, style);
-
                 //label = string.Format("World: ({0:F1}, {1:F1}, {2:F1})", worldPosition.x, worldPosition.y, worldPosition.z);
                 //Handles.Label(worldPosition + new Vector3(0, -0.2f, 0), label, style);
             }
@@ -143,4 +152,5 @@ public class HeroController : CreatureController
     {
         _moveDir = dir;
     }
+    
 }

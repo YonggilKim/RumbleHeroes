@@ -24,12 +24,11 @@ public static class Extension
         return go != null && go.activeSelf;
     }
     
-    // 어드레서블 오브젝트 확인
-    //public static bool IsValid(this BaseController bc)
-    //{
-    //    return bc != null && bc.isActiveAndEnabled;
-    //}
-
+    public static bool IsValid(this BaseController bc)
+    {
+        return bc != null && bc.isActiveAndEnabled;
+    }
+    
     public static void DestroyChilds(this GameObject go)
     {
         Transform[] children = new Transform[go.transform.childCount];
@@ -52,9 +51,7 @@ public static class Extension
         {
             n--;
             int k = UnityEngine.Random.Range(0, n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            (list[k], list[n]) = (list[n], list[k]);//swap
         }
     }
 }
