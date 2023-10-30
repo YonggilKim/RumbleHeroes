@@ -18,11 +18,24 @@ public class GameManager : MonoBehaviour
             OnMoveDirChanged?.Invoke(_moveDir);
         }
     }
+    
+    private Define.EJoystickState _joystickState;
+    public Define.EJoystickState JoystickState
+    {
+        get => _joystickState;
+        set
+        {
+            _joystickState = value;
+            OnJoystickTypeChanged?.Invoke(_joystickState);
+        }
+    }
+
     #endregion
  
     #region Action
     
     public event Action<Vector2> OnMoveDirChanged;
+    public event Action<Define.EJoystickState> OnJoystickTypeChanged;
     
     #endregion
     

@@ -11,6 +11,7 @@ public class HeroController : CreatureController
     private Vector2 _moveDir = Vector2.zero;
     public Vector3Int CellPos { get; set; } = Vector3Int.zero;
 
+    private Coroutine ScanningCoroutine;
     public bool IsLeader = false;
 
     public Vector2 MoveDir
@@ -23,12 +24,13 @@ public class HeroController : CreatureController
     {
         base.Init();
 
-        ObjectType = Define.EObjectType.Player;
+        ObjectType = Define.EObjectType.Hero;
 
         IsLeader = true;
 
         //event
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChanged;
+        Managers.Game.OnJoystickTypeChanged += HandleOnJoystickStateChanged;
 
         //camera
         FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
@@ -69,15 +71,60 @@ public class HeroController : CreatureController
         }
     }
 
-    protected override void AutoWorking()
+    protected override void Scanning()
     {
-        base.AutoWorking();
-
-        //1-1 몬스터가 있으면 몬스터로 돌진
-        //1-2 가장가까운 자원으로 간다
-        //2 아무것도 없으면 가만히 있는다.
+        base.Scanning();
+        if(ScanningCoroutine == null)
+            ScanningCoroutine = StartCoroutine(CoScanning());
     }
 
+    IEnumerator CoScanning()
+    {
+        while (true)
+        {
+            //1. 주변을 검색한다.
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 3);
+
+            List<MonsterController> monsters = new List<MonsterController>();
+            List<InteractionObject> objects = new List<InteractionObject>();
+        
+            foreach (var collider in hitColliders)
+            {
+                MonsterController monster = collider.GetComponent<MonsterController>();
+                if(monster && monster.Hp > 0)
+                    monsters.Add(monster);
+            
+                InteractionObject interactionObject = collider.GetComponent<InteractionObject>();
+                if(interactionObject &&interactionObject.Hp > 0)
+                    objects.Add(interactionObject);
+            }
+
+            if (monsters.Count > 0)
+            {
+                monsters = monsters.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
+                MonsterController target = monsters[0];
+                //Attack
+                Attack(target);
+                break;
+            }
+            else if(objects.Count > 0)
+            {
+                objects = objects.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
+                InteractionObject target = objects[0];
+                Attack(target);
+                break;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    protected void StopScanningCoroutine()
+    {
+        if (ScanningCoroutine != null)
+        {
+            StopCoroutine(ScanningCoroutine);
+            ScanningCoroutine = null; 
+        }
+    }
     private void UpdatePlayerDirection()
     {
         if (_moveDir.x < 0)
@@ -85,9 +132,9 @@ public class HeroController : CreatureController
         else
             CurrentSprite.flipX = true;
 
-        if (InteractTarget)
+        if (InteractingTarget)
         {
-            Vector3 dirVec = InteractTarget.CenterPosition - CenterPosition;
+            Vector3 dirVec = InteractingTarget.CenterPosition - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
         }
     }
@@ -103,9 +150,9 @@ public class HeroController : CreatureController
         {
             //MOVE
             Indicator.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
-            CreatureState = Define.ECreatureState.Moving;
             CellPos = Managers.Map.CurrentGrid.WorldToCell(transform.position);
-            InteractTarget = null;
+            CurrentSprite.flipX = !(dir.x < 0);
+
             // Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
         }
         else
@@ -117,40 +164,28 @@ public class HeroController : CreatureController
 
     private bool isDraw = false;
 
-    private void OnDrawGizmos()
-    {
-        if (Managers.Map.CurrentGrid == null)
-            return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(CenterPosition, 7f);
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(CenterPosition, 0.1f);
-        for (int i = Managers.Map.MinX; i < Managers.Map.MaxX; i++)
-        {
-            for (int j = Managers.Map.MinY; j < Managers.Map.MaxY; j++)
-            {
-                Vector3Int cellPosition = new Vector3Int(i, j, 0);
-                Vector3 worldPosition = Managers.Map.CurrentGrid.CellToWorld(cellPosition) ;
-                Gizmos.color = (i == 0 && j == 0) ? Color.blue : Color.green;
-                Gizmos.DrawWireSphere(worldPosition + Vector3.up * 1f, 0.1f);
-
-                string label = string.Format("({0}, {1})", i, j);
-                GUIStyle style = new GUIStyle();
-                style.normal.textColor = Color.white;
-                style.fontSize = 12;
-                Handles.Label(worldPosition + Vector3.up * 0.8f, label, style);
-                //label = string.Format("World: ({0:F1}, {1:F1}, {2:F1})", worldPosition.x, worldPosition.y, worldPosition.z);
-                //Handles.Label(worldPosition + new Vector3(0, -0.2f, 0), label, style);
-            }
-        }
-
-        isDraw = true;
-    }
-
     private void HandleOnMoveDirChanged(Vector2 dir)
     {
         _moveDir = dir;
     }
-    
+
+    private void HandleOnJoystickStateChanged(Define.EJoystickState joystickState)
+    {
+        switch (joystickState)
+        {
+            case Define.EJoystickState.PointDown:
+                InteractingTarget = null;
+                StopMoveCoroutine();
+                StopScanningCoroutine();
+                break;
+            case Define.EJoystickState.Dragging:
+                CreatureState = Define.ECreatureState.Moving;
+                break;
+            case Define.EJoystickState.PointUp:
+                CreatureState = Define.ECreatureState.Idle;
+                break;
+            default:
+                break;
+        }
+    }
 }

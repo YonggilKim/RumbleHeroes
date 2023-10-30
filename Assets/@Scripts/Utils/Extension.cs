@@ -26,6 +26,23 @@ public static class Extension
     
     public static bool IsValid(this BaseController bc)
     {
+        if (bc == null || bc.isActiveAndEnabled == false)
+        {
+            return false;
+        }
+
+        CreatureController creature = bc as CreatureController;
+        if (creature != null && creature.Hp == 0)
+        {
+            return false;
+        }
+
+        GatheringResource gr = bc as GatheringResource;
+        if (gr != null && gr.Hp == 0)
+        {
+            return false;
+        }
+        
         return bc != null && bc.isActiveAndEnabled;
     }
     

@@ -10,11 +10,17 @@ public class Define
    
     #region Enum
 
-    public enum EAction
+    public enum EJoystickState
+    {
+        PointDown,
+        Dragging,
+        PointUp
+    }
+
+    public enum ESkillType
     {
         
     }
-
     public enum ECreatureState
     {
         Idle,

@@ -8,7 +8,7 @@ public class BaseController : MonoBehaviour
     
     public Vector3 CenterPosition => transform.position + Vector3.up * ColliderRadius;
     public float ColliderRadius { get; set; }
-    
+    protected DamageFlash DamageFlashComp;
     private bool _init = false;
 
     private void Awake()
@@ -22,20 +22,14 @@ public class BaseController : MonoBehaviour
             return false;
         
         ColliderRadius = gameObject.GetOrAddComponent<CircleCollider2D>().radius;
-        
+        DamageFlashComp = gameObject.GetOrAddComponent<DamageFlash>();
         _init = true;
         return true;
     }
-    
-    private void OnDrawGizmos()
-    {
-        if (Managers.Map.CurrentGrid == null)
-            return;
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(CenterPosition, 0.1f);
-    }
-    
+
     public virtual void OnDamaged(BaseController Attacker)
-    {}
+    {
+        DamageFlashComp.CallDamageFlash();
+    }
 }

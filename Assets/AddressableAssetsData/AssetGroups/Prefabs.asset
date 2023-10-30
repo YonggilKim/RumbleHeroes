@@ -38,7 +38,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
   - m_GUID: 851af04b55ae85e4ea70f6379cd82406
-    m_Address: Monster_12
+    m_Address: Monster_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload

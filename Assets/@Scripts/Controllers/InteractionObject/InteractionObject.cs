@@ -30,6 +30,7 @@ public class InteractionObject : BaseController
     
     public override void OnDamaged(BaseController Attacker)
     {
+        base.OnDamaged(Attacker);
         Hp = Mathf.Clamp(Hp-1, 0, MaxHp);
         if (Hp == 0)
         {
