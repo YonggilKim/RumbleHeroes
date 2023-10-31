@@ -20,15 +20,12 @@ public class UI_Joystick : UI_Scene
 
     private void OnDestroy()
     {
-        Managers.UI.OnTimeScaleChanged -= OnTimeScaleChanged;
     }
 
     public override bool Init()
     {
         if (base.Init() == false)
             return false;
-
-        Managers.UI.OnTimeScaleChanged += OnTimeScaleChanged;
 
         BindObject(typeof(GameObjects));
         _handler = GetObject((int)GameObjects.Handler);
@@ -113,16 +110,6 @@ public class UI_Joystick : UI_Scene
 
         // SetActiveJoystick(false);
     }
-
-    public void OnTimeScaleChanged(int timeScale)
-    {
-        if (timeScale == 1)
-        { 
-            gameObject.SetActive(true);
-            OnPointerUp();
-        }
-        else
-            gameObject.SetActive(false);
-    }
+    
     #endregion
 }

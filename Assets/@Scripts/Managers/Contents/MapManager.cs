@@ -26,6 +26,19 @@ public struct PQNode : IComparable<PQNode>
 	}
 }
 
+public struct MonsterSpawnInfo
+{
+	public MonsterSpawnInfo(int dataId, int x, int y)
+	{
+		DataId = dataId;
+		Vector3Int pos = new Vector3Int(x, y, 0);
+		SpawnPos = pos;
+	}
+
+	public int DataId;
+	public Vector3Int SpawnPos;
+}
+
 public class MapManager 
 {
 	public Grid CurrentGrid { get; private set; }
@@ -38,8 +51,11 @@ public class MapManager
 	public int SizeX { get { return MaxX - MinX + 1; } }
 	public int SizeY { get { return MaxY - MinY + 1; } }
 
+	public List<MonsterSpawnInfo> MonsterSpawnInfos { get; private set; } = new List<MonsterSpawnInfo>();
 	bool[,] _collision;
-
+	private int[,] _monsters;
+	
+	
 	public bool CanGo(Vector3Int cellPos)
 	{
 		if (cellPos.x < MinX || cellPos.x > MaxX)
@@ -60,33 +76,67 @@ public class MapManager
 		go.transform.position = Vector3.zero;
 		go.name = $"@Map_{mapName}";
 
-		GameObject collision = Util.FindChild(go, "Tilemap_Collision", true);
-		if (collision != null)
-			collision.SetActive(false);
+		#region collision
+			GameObject collision = Util.FindChild(go, "Tilemap_Collision", true);
+			if (collision != null)
+				collision.SetActive(false);
 
-		CurrentGrid = go.GetComponent<Grid>();
+			CurrentGrid = go.GetComponent<Grid>();
 
-		// Collision 관련 파일
-		TextAsset txt = Managers.Resource.Load<TextAsset>($"{mapName}Collision");
-		StringReader reader = new StringReader(txt.text);
+			// Collision 관련 파일
+			TextAsset txt = Managers.Resource.Load<TextAsset>($"{mapName}Collision");
+			StringReader reader = new StringReader(txt.text);
 
-		MinX = int.Parse(reader.ReadLine());
-		MaxX = int.Parse(reader.ReadLine());
-		MinY = int.Parse(reader.ReadLine());
-		MaxY = int.Parse(reader.ReadLine());
+			MinX = int.Parse(reader.ReadLine());
+			MaxX = int.Parse(reader.ReadLine());
+			MinY = int.Parse(reader.ReadLine());
+			MaxY = int.Parse(reader.ReadLine());
 
-		int xCount = MaxX - MinX + 1;
-		int yCount = MaxY - MinY + 1;
-		_collision = new bool[yCount, xCount];
+			int xCount = MaxX - MinX + 1;
+			int yCount = MaxY - MinY + 1;
+			_collision = new bool[yCount, xCount];
 
-		for (int y = 0; y < yCount; y++)
-		{
-			string line = reader.ReadLine();
-			for (int x = 0; x < xCount; x++)
+			for (int y = 0; y < yCount; y++)
 			{
-				_collision[y, x] = (line[x] == '1' ? true : false);
+				string line = reader.ReadLine();
+				for (int x = 0; x < xCount; x++)
+				{
+					_collision[y, x] = (line[x] == '1' ? true : false);
+				}
+			}
+		#endregion
+
+		#region  몬스터 위치정보 가져오기
+
+		Tilemap tmBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
+		Tilemap tmMonster = Util.FindChild<Tilemap>(go, "Tilemap_Monster", true);
+		
+		if (tmMonster != null)
+			tmMonster.gameObject.SetActive(false);
+		
+		for (int y = tmBase.cellBounds.yMax; y >= tmBase.cellBounds.yMin; y--)
+		{
+			for (int x = tmBase.cellBounds.xMin; x <= tmBase.cellBounds.xMax; x++)
+			{
+				TileBase tile = tmMonster.GetTile(new Vector3Int(x, y, 0));
+				if (tile != null)
+				{
+					Debug.Log($"({x},{y}) name : {tile.name}");
+					
+					int dataId = int.Parse(tile.name);
+
+					MonsterSpawnInfo info = new MonsterSpawnInfo(dataId, x, y);
+					MonsterSpawnInfos.Add(info);
+				}
 			}
 		}
+
+		#endregion
+	}
+
+	private void SetCollisionData()
+	{
+		
 	}
 
 	public void DestroyMap()

@@ -69,6 +69,26 @@ public static class Util
         return parsedColor;
     }
 
+    // Animator 컴포넌트 내에 특정 애니메이션 클립이 존재하는지 확인하는 함수
+    public static bool HasAnimationClip(Animator animator, string clipName)
+    {
+        if (animator.runtimeAnimatorController == null)
+        {
+            return false;
+        }
+
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    
     //Enum값중 랜덤값 반환
     public static T GetRandomEnumValue<T>() where T : struct, Enum
     {

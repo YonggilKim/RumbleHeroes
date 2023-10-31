@@ -7,11 +7,15 @@ using UnityEngine;
 
 public class MonsterController : CreatureController
 {
+    private bool isAggressive { get; set; } = false;
+
     protected override bool Init()
     {
         base.Init();
         ObjectType = Define.EObjectType.Monster;
 
+        isAggressive = Util.HasAnimationClip(Anim, "Attack");
+        
         return true;
     }
 
@@ -46,7 +50,12 @@ public class MonsterController : CreatureController
     protected override void Scanning()
     {
         base.Scanning();
-        StartCoroutine(CoScanning());
+        if(isAggressive)
+            StartCoroutine(CoScanning());
+        else
+        {
+            //TODO AUTO MOVING
+        }
     }
 
     protected override void OnDead()
@@ -65,9 +74,11 @@ public class MonsterController : CreatureController
     {
         Collider2D[] hitColliders;
         List<HeroController> heros = new List<HeroController>();
+        yield return new WaitForFixedUpdate();
+
         while (CreatureState == Define.ECreatureState.Idle)
         {
-            hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 3);
+            hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 5);
             
             foreach (var collider in hitColliders)
             {

@@ -42,6 +42,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+  - m_GUID: b873463474911204caade21515a1d132
+    m_Address: Monster_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 5614d21aecaa7ac4aa5652ad5ab864f9
+    m_Address: Monster_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 395a876896fddf14b8ef6411ec46ff58
+    m_Address: Monster_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

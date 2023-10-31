@@ -29,6 +29,8 @@ public class HeroController : CreatureController
         IsLeader = true;
 
         //event
+        Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChanged;
+        Managers.Game.OnJoystickTypeChanged -= HandleOnJoystickStateChanged;
         Managers.Game.OnMoveDirChanged += HandleOnMoveDirChanged;
         Managers.Game.OnJoystickTypeChanged += HandleOnJoystickStateChanged;
 
@@ -74,8 +76,11 @@ public class HeroController : CreatureController
     protected override void Scanning()
     {
         base.Scanning();
-        if(ScanningCoroutine == null)
+        if (ScanningCoroutine == null)
+        {
+            Debug.Log("Start Scanning...");
             ScanningCoroutine = StartCoroutine(CoScanning());
+        }
     }
 
     IEnumerator CoScanning()
@@ -83,7 +88,7 @@ public class HeroController : CreatureController
         while (true)
         {
             //1. 주변을 검색한다.
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 3);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 4);
 
             List<MonsterController> monsters = new List<MonsterController>();
             List<InteractionObject> objects = new List<InteractionObject>();
@@ -105,14 +110,14 @@ public class HeroController : CreatureController
                 MonsterController target = monsters[0];
                 //Attack
                 Attack(target);
-                break;
+                yield break;
             }
             else if(objects.Count > 0)
             {
                 objects = objects.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
                 InteractionObject target = objects[0];
                 Attack(target);
-                break;
+                yield break;
             }
             yield return new WaitForSeconds(0.5f);
         }
@@ -121,6 +126,7 @@ public class HeroController : CreatureController
     {
         if (ScanningCoroutine != null)
         {
+            Debug.Log("StopScanningCoroutine");
             StopCoroutine(ScanningCoroutine);
             ScanningCoroutine = null; 
         }
@@ -177,11 +183,16 @@ public class HeroController : CreatureController
                 InteractingTarget = null;
                 StopMoveCoroutine();
                 StopScanningCoroutine();
+                CreatureState = Define.ECreatureState.Moving;
+
                 break;
             case Define.EJoystickState.Dragging:
-                CreatureState = Define.ECreatureState.Moving;
+                // CreatureState = Define.ECreatureState.Moving;
                 break;
             case Define.EJoystickState.PointUp:
+                StopMoveCoroutine();
+                StopScanningCoroutine();
+                Debug.Log("---------------------------------------------------------");
                 CreatureState = Define.ECreatureState.Idle;
                 break;
             default:

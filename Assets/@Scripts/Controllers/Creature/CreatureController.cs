@@ -99,12 +99,12 @@ public class CreatureController : BaseController
     
     protected virtual void UpdateAnimation()
     {
-        _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll; 
+        _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;;
         switch (CreatureState)
         {
             case Define.ECreatureState.Idle:
-                Scanning();
                 Anim.Play("Idle");
+                Scanning();
                 break;
             case Define.ECreatureState.Attack:
                 Anim.Play("Attack");
@@ -122,6 +122,7 @@ public class CreatureController : BaseController
                 break;
             case Define.ECreatureState.Dead:
                 Anim.Play("Die");
+                _rigidBody.simulated = false;
                 break;
             default:
                 break;
@@ -130,32 +131,18 @@ public class CreatureController : BaseController
     
     protected virtual void Attack(BaseController target)
     {
-        StartCoroutine(CoAttack(target));
+        MoveCoroutine = StartCoroutine(CoMove(target));
     }
-    
-    protected IEnumerator CoAttack(BaseController target)
-    {
-        yield return null;
-        
-        MoveCoroutine = StartCoroutine(CoMove(target, () =>
-        {
-            InteractingTarget = target;
-            if (ObjectType == Define.EObjectType.Hero)
-            {
-                Debug.Log("이동 완료");
-                InteractingTarget.transform.localScale = Vector3.one * 1.5f;
-            }
-
-            // 이동이 완료되면 공격
-            CreatureState = Define.ECreatureState.Attack;
-        }));
-      
-    }
-    
     
     protected IEnumerator CoMove(BaseController target, Action callback = null)
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        if (ObjectType == Define.EObjectType.Hero)
+        {
+            Debug.Log("CoMove");
+        }
+
+        yield return new WaitForFixedUpdate();
         CreatureState = Define.ECreatureState.Moving;
         float elapsed = 0;
 
@@ -166,6 +153,7 @@ public class CreatureController : BaseController
                 break;
             // if (elapsed > 3.0f)
             //     break;
+            // CreatureState = Define.ECreatureState.Moving;
 
             float stopDistance;
 
@@ -181,8 +169,8 @@ public class CreatureController : BaseController
 
             float dist = Vector3.Distance(CenterPosition, target.CenterPosition);
             
-            if(ObjectType == Define.EObjectType.Hero)
-                Debug.Log($"{gameObject.name} to {target.gameObject.name} Distance = {dist}, dist = {dist} , stopDistance = {stopDistance}");
+            // if(ObjectType == Define.EObjectType.Hero)
+                // Debug.Log($"{gameObject.name} to {target.gameObject.name} Distance = {dist}, dist = {dist} , stopDistance = {stopDistance}");
             if (dist <= stopDistance)
             {
                 break;
@@ -197,6 +185,17 @@ public class CreatureController : BaseController
 
             yield return null;
         }
+        
+        InteractingTarget = target;
+        if (ObjectType == Define.EObjectType.Hero)
+        {
+            Debug.Log("이동 완료");
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        // 이동이 완료되면 공격
+        CreatureState = Define.ECreatureState.Attack;
+        
         callback?.Invoke();
     }
 
@@ -221,7 +220,6 @@ public class CreatureController : BaseController
         else
         {
             CreatureState = Define.ECreatureState.Idle;
-            Scanning();
         }
     }
 
@@ -232,20 +230,22 @@ public class CreatureController : BaseController
             SetIdleStateAndScanning();
             return;
         }
-              
-        float dist = Vector3.Distance(CenterPosition, InteractingTarget.CenterPosition);
-        float stopDistance = (ColliderRadius + InteractingTarget.ColliderRadius) + 0.1f;
 
-        if (dist > stopDistance)
+        if (ObjectType == Define.EObjectType.Monster)
         {
-            SetIdleStateAndScanning();
+            float dist = Vector3.Distance(CenterPosition, InteractingTarget.CenterPosition);
+            float stopDistance = (ColliderRadius + InteractingTarget.ColliderRadius) + 0.1f;
+            
+            if (dist > stopDistance)
+            {
+                SetIdleStateAndScanning();
+            }
         }
     }
     
     private void SetIdleStateAndScanning()
     {
         CreatureState = Define.ECreatureState.Idle;
-        InteractingTarget.transform.localScale = Vector3.one;
         InteractingTarget = null;
     }
     
