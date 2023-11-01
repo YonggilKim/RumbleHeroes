@@ -12,7 +12,7 @@ public class GR_Tree : GatheringResource
        
         ObjectType = Define.EObjectType.GR_Tree;
         int num = Random.Range(0, TreeImgs.Length);
-        CurrentSprite.sprite = TreeImgs[num];
+        // CurrentSprite.sprite = TreeImgs[num];
         
         return true;
     }

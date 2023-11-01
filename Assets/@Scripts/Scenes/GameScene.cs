@@ -17,13 +17,18 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Joystick>();
         
         Managers.Map.LoadMap("BaseMap");
-        Managers.Object.Spawn<HeroController>(Vector3.zero, 201000);
+        HeroController LeaderHero = Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201000);
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201001).MyLeader = LeaderHero;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201002).MyLeader = LeaderHero;;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201004).MyLeader = LeaderHero;;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201006).MyLeader = LeaderHero;;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201008).MyLeader = LeaderHero;;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(0,-3,0)), 201009).MyLeader = LeaderHero;;
 
-        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(2, 1, 0)));
-        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(3, 1, 0)));
-        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(3, 2, 0)));
-        Managers.Object.Spawn<GR_Tree>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(4, 2, 0)));
-        Managers.Object.Spawn<GR_Mine>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(1, 2, 0)));
+        foreach (var spawnInfo in Managers.Map.GatheringResourceSpawnInfos)
+        {
+            Managers.Object.Spawn<GatheringResource>(Managers.Map.CurrentGrid.GetCellCenterWorld(spawnInfo.SpawnPos), spawnInfo.DataId);
+        }
         
         foreach (var spawnInfo in Managers.Map.MonsterSpawnInfos)
         {

@@ -5,9 +5,9 @@ using UnityEngine.Serialization;
 
 public class GatheringResource : InteractionObject
 {
-    public float Hp { get; set; } = 100;
-    public int ResourceAmount { get; set; } = 100;
-
+    public int ResourceAmount;
+    public float RegenTime;
+    public string SpriteName;
     //GR Stage
 
     protected override bool Init()
@@ -16,4 +16,18 @@ public class GatheringResource : InteractionObject
       
         return true;
     }
+    
+    public void SetInfo(int creatureId)
+    {
+        DataId = creatureId;
+        Dictionary<int, Data.GatheringResourceData> dict = Managers.Data.GatheringResourceDic;
+        
+        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(dict[creatureId].SpriteName);
+        MaxHp = dict[creatureId].MaxHp;
+        ResourceAmount = dict[creatureId].ResourceAmount;
+        RegenTime = dict[creatureId].RegenTime;
+        SpriteName = dict[creatureId].SpriteName;
+
+    }
+    
 }

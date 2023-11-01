@@ -3,7 +3,7 @@
     {
       "DataId": 201000,
       "DescriptionTextID": "영웅1",
-      "PrefabLabel": "Hero",
+      "PrefabLabel": "Hero_01",
       "MaxHp": 100.0,
       "MaxHpBonus": 2.0,
       "Atk": 10.0,
@@ -32,7 +32,7 @@
     {
       "DataId": 201001,
       "DescriptionTextID": "영웅2",
-      "PrefabLabel": "Hero",
+      "PrefabLabel": "Hero_02",
       "MaxHp": 100.0,
       "MaxHpBonus": 2.0,
       "Atk": 10.0,
@@ -61,7 +61,7 @@
     {
       "DataId": 201002,
       "DescriptionTextID": "영웅3",
-      "PrefabLabel": "Hero",
+      "PrefabLabel": "Hero_03",
       "MaxHp": 100.0,
       "MaxHpBonus": 2.0,
       "Atk": 10.0,
@@ -90,7 +90,7 @@
     {
       "DataId": 201003,
       "DescriptionTextID": "영웅4",
-      "PrefabLabel": "Hero",
+      "PrefabLabel": "Hero_04",
       "MaxHp": 100.0,
       "MaxHpBonus": 2.0,
       "Atk": 10.0,
@@ -119,7 +119,7 @@
     {
       "DataId": 201004,
       "DescriptionTextID": "영웅5",
-      "PrefabLabel": "Hero",
+      "PrefabLabel": "Hero_05",
       "MaxHp": 100.0,
       "MaxHpBonus": 2.0,
       "Atk": 10.0,

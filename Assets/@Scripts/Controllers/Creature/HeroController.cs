@@ -10,9 +10,9 @@ public class HeroController : CreatureController
     [SerializeField] public GameObject Indicator;
     private Vector2 _moveDir = Vector2.zero;
     public Vector3Int CellPos { get; set; } = Vector3Int.zero;
-
+    public HeroController MyLeader { get; set; } = null;
     private Coroutine ScanningCoroutine;
-    public bool IsLeader = false;
+    public bool IsLeader => MyLeader.IsValid();
 
     public Vector2 MoveDir
     {
@@ -26,7 +26,6 @@ public class HeroController : CreatureController
 
         ObjectType = Define.EObjectType.Hero;
 
-        IsLeader = true;
 
         //event
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChanged;

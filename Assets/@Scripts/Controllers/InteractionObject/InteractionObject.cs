@@ -12,7 +12,6 @@ public class InteractionObject : BaseController
     public Material DefaultMat;
     public Material HitEffectMat;
 
-    public Data.CreatureData CreatureData;
     public virtual int DataId { get; set; }
     public virtual float Hp { get; set; }
     public virtual float MaxHp { get; set; }

@@ -26,9 +26,9 @@ public struct PQNode : IComparable<PQNode>
 	}
 }
 
-public struct MonsterSpawnInfo
+public struct ObjectSpawnInfo
 {
-	public MonsterSpawnInfo(int dataId, int x, int y)
+	public ObjectSpawnInfo(int dataId, int x, int y)
 	{
 		DataId = dataId;
 		Vector3Int pos = new Vector3Int(x, y, 0);
@@ -51,7 +51,8 @@ public class MapManager
 	public int SizeX { get { return MaxX - MinX + 1; } }
 	public int SizeY { get { return MaxY - MinY + 1; } }
 
-	public List<MonsterSpawnInfo> MonsterSpawnInfos { get; private set; } = new List<MonsterSpawnInfo>();
+	public List<ObjectSpawnInfo> MonsterSpawnInfos { get; private set; } = new List<ObjectSpawnInfo>();
+	public List<ObjectSpawnInfo> GatheringResourceSpawnInfos { get; private set; } = new List<ObjectSpawnInfo>();
 	bool[,] _collision;
 	private int[,] _monsters;
 	
@@ -125,8 +126,34 @@ public class MapManager
 					
 					int dataId = int.Parse(tile.name);
 
-					MonsterSpawnInfo info = new MonsterSpawnInfo(dataId, x, y);
+					ObjectSpawnInfo info = new ObjectSpawnInfo(dataId, x, y);
 					MonsterSpawnInfos.Add(info);
+				}
+			}
+		}
+
+		#endregion
+		
+		#region  나무 위치정보 가져오기
+
+		Tilemap tmTree = Util.FindChild<Tilemap>(go, "Tilemap_Trees", true);
+		
+		if (tmTree != null)
+			tmTree.gameObject.SetActive(false);
+		
+		for (int y = tmBase.cellBounds.yMax; y >= tmBase.cellBounds.yMin; y--)
+		{
+			for (int x = tmBase.cellBounds.xMin; x <= tmBase.cellBounds.xMax; x++)
+			{
+				TileBase tile = tmTree.GetTile(new Vector3Int(x, y, 0));
+				if (tile != null)
+				{
+					Debug.Log($"({x},{y}) name : {tile.name}");
+					
+					int dataId = int.Parse(tile.name);
+
+					ObjectSpawnInfo info = new ObjectSpawnInfo(dataId, x, y);
+					GatheringResourceSpawnInfos.Add(info);
 				}
 			}
 		}

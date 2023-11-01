@@ -59,22 +59,17 @@ public class ObjectManager
             hc.SetInfo(templateID);
             Hero = hc;
             Managers.Game.Hero = hc;
-
+            Heros.Add(hc);
             return hc as T;
         }
-        else if (type == typeof(GR_Tree))
+        else if( type == typeof(GatheringResource))
         {
-            GameObject go = Managers.Resource.Instantiate("GR_Tree");
+            GameObject go = Managers.Resource.Instantiate(Managers.Data.GatheringResourceDic[templateID].PrefabLabel);
             go.transform.position = position;
-            GR_Tree gt = go.GetOrAddComponent<GR_Tree>();
-            return gt as T;
-        }
-        else if (type == typeof(GR_Mine))
-        {
-            GameObject go = Managers.Resource.Instantiate("GR_Mine");
-            go.transform.position = position;
-            GR_Mine gt = go.GetOrAddComponent<GR_Mine>();
-            return gt as T;
+            GatheringResource gr = go.GetOrAddComponent<GatheringResource>();
+            gr.SetInfo(templateID);
+
+            return gr as T;
         }
         else if (type == typeof(MonsterController))
         {

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 200
+  m_SortingOrder: 201
   m_Sprite: {fileID: 21300000, guid: 1bdbc86395b25f34ab71dbc01b1f818c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,24 +101,9 @@ MonoBehaviour:
   CurrentSprite: {fileID: 0}
   DefaultMat: {fileID: 0}
   HitEffectMat: {fileID: 0}
-  CreatureData:
-    DataId: 0
-    DescriptionTextID: 
-    PrefabLabel: 
-    MaxHp: 0
-    MaxHpBonus: 0
-    Atk: 0
-    AtkBonus: 0
-    Def: 0
-    MoveSpeed: 0
-    TotalExp: 0
-    HpRate: 0
-    AtkRate: 0
-    DefRate: 0
-    MoveSpeedRate: 0
-    SpriteName: 
-    AnimatorName: 
-    SkillTypeList: 
+  ResourceAmount: 0
+  RegenTime: 0
+  SpriteName: 
   TreeImgs:
   - {fileID: 21300000, guid: cf2c89b920966174eb4caf10eb12677b, type: 3}
   - {fileID: 21300000, guid: 8aff7d0e51060044ea05f0b78fc6d7fd, type: 3}

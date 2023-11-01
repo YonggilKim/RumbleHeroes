@@ -52,6 +52,46 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+  - m_GUID: 7815d79ccc002924d995e450d716215e
+    m_Address: aloe_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 1b16e826e1e890f4d896f5c57ab25c7e
+    m_Address: brush_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: c09ac7f9d00d4da4dbfbe127afb6074f
+    m_Address: brush_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 6c6b3e8a11c5a06408cc86f804900854
+    m_Address: mine_0
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 37e9c510804ff934284f4c8ec9a59d97
+    m_Address: mine_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 170de9ff0f2a3b242b764af10c0a9abe
+    m_Address: mine_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 042e4f2b6eaab4845a0eb10e72a985db
+    m_Address: mine_4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 40ffe554659acec4aa4a7dff5c8cc3a9
+    m_Address: mine_5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

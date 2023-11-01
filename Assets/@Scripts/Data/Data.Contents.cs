@@ -117,4 +117,32 @@ namespace Data
         }
     }
     #endregion
+    
+    #region GatheringResources
+    [Serializable]
+    public class GatheringResourceData
+    {
+        public int DataId;
+        public string DescriptionTextID;
+        public string PrefabLabel;
+        public float MaxHp;
+        public int ResourceAmount;
+        public float RegenTime;
+        public string SpriteName;
+    }
+
+    [Serializable]
+    public class GatheringResourceDataLoader : ILoader<int, GatheringResourceData>
+    {
+        public List<GatheringResourceData> creatures = new List<GatheringResourceData>();
+        public Dictionary<int, GatheringResourceData> MakeDict()
+        {
+            Dictionary<int, GatheringResourceData> dict = new Dictionary<int, GatheringResourceData>();
+            foreach (GatheringResourceData creature in creatures)
+                dict.Add(creature.DataId, creature);
+            return dict;
+        }
+    }
+    #endregion
+
 }

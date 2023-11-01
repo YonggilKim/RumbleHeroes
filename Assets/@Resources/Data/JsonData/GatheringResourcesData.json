@@ -1,0 +1,139 @@
+{
+  "creatures": [
+    {
+      "DataId": 300000,
+      "DescriptionTextID": "나무1",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "aloe_1.sprite"
+    },
+    {
+      "DataId": 300001,
+      "DescriptionTextID": "나무2",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "brush_1.sprite"
+    },
+    {
+      "DataId": 300002,
+      "DescriptionTextID": "나무3",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "brush_2.sprite"
+    },
+    {
+      "DataId": 300003,
+      "DescriptionTextID": "나무4",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_0.sprite"
+    },
+    {
+      "DataId": 300004,
+      "DescriptionTextID": "나무5",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_2.sprite"
+    },
+    {
+      "DataId": 300005,
+      "DescriptionTextID": "나무6",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_3.sprite"
+    },
+    {
+      "DataId": 300006,
+      "DescriptionTextID": "나무7",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_4.sprite"
+    },
+    {
+      "DataId": 300007,
+      "DescriptionTextID": "나무8",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_10.sprite"
+    },
+    {
+      "DataId": 300008,
+      "DescriptionTextID": "나무9",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_23.sprite"
+    },
+    {
+      "DataId": 300009,
+      "DescriptionTextID": "나무10",
+      "PrefabLabel": "GR_Tree",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "tree_24.sprite"
+    },
+    {
+      "DataId": 301000,
+      "DescriptionTextID": "미네랄1",
+      "PrefabLabel": "GR_Mine",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "mine_0.sprite"
+    },
+    {
+      "DataId": 301001,
+      "DescriptionTextID": "미네랄2",
+      "PrefabLabel": "GR_Mine",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "mine_1.sprite"
+    },
+    {
+      "DataId": 301002,
+      "DescriptionTextID": "미네랄3",
+      "PrefabLabel": "GR_Mine",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "mine_2.sprite"
+    },
+    {
+      "DataId": 301004,
+      "DescriptionTextID": "미네랄4",
+      "PrefabLabel": "GR_Mine",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "mine_4.sprite"
+    },
+    {
+      "DataId": 301005,
+      "DescriptionTextID": "미네랄5",
+      "PrefabLabel": "GR_Mine",
+      "MaxHp": 100.0,
+      "ResourceAmount": 10,
+      "RegenTime": 60.0,
+      "SpriteName": "mine_5.sprite"
+    }
+  ]
+}

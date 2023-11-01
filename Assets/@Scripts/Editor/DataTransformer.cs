@@ -28,14 +28,7 @@ public class DataTransformer : EditorWindow
             File.Delete(path);
     }
 
-    [MenuItem("Tools/ParseExcel %#K")]
-    public static void ParseExcel()
-    {
-        ParseSkillData("Skill");
-        ParseCreatureData("Creature");
 
-        Debug.Log("Complete DataTransformer");
-    }
 
     public static T ConvertValue<T>(string value)
     {
@@ -55,6 +48,16 @@ public class DataTransformer : EditorWindow
     }
     #endregion
   
+    [MenuItem("Tools/ParseExcel %#K")]
+    public static void ParseExcel()
+    {
+        ParseSkillData("Skill");
+        ParseCreatureData("Creature");
+        ParseGatheringResourcesData("GatheringResources");
+
+        Debug.Log("Complete DataTransformer");
+    }
+    
     static void ParseSkillData(string filename)
     {
         SkillDataLoader loader = new SkillDataLoader();
@@ -148,6 +151,42 @@ public class DataTransformer : EditorWindow
             cd.AnimatorName = ConvertValue<string>(row[i++]);
             cd.SkillTypeList = ConvertList<int>(row[i++]);
             loader.creatures.Add(cd);
+        }
+
+        #endregion
+
+        string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
+        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
+        AssetDatabase.Refresh();
+    }
+    
+    static void ParseGatheringResourcesData(string filename)
+    {
+        GatheringResourceDataLoader loader = new GatheringResourceDataLoader();
+
+        #region ExcelData
+        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/Excel/{filename}Data.csv").Split("\n");
+
+        for (int y = 1; y < lines.Length; y++)
+        {
+            string[] row = lines[y].Replace("\r", "").Split(',');
+
+            if (row.Length == 0)
+                continue;
+            if (string.IsNullOrEmpty(row[0]))
+                continue;
+
+            int i = 0;
+            GatheringResourceData gr = new GatheringResourceData();
+            gr.DataId = ConvertValue<int>(row[i++]);
+            gr.DescriptionTextID = ConvertValue<string>(row[i++]);
+            gr.PrefabLabel = ConvertValue<string>(row[i++]);
+            gr.MaxHp = ConvertValue<float>(row[i++]);
+            gr.ResourceAmount = ConvertValue<int>(row[i++]);
+            gr.RegenTime = ConvertValue<float>(row[i++]);
+            gr.SpriteName = ConvertValue<string>(row[i++]);
+
+            loader.creatures.Add(gr);
         }
 
         #endregion
