@@ -84,8 +84,8 @@ public class CreatureController : BaseController
         InitCreatureStat();
         var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
         CurrentSprite.sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
-        var ra = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
-        Anim.runtimeAnimatorController = ra;
+        // var ra = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
+        // Anim.runtimeAnimatorController = ra;
         Init();
     }
 
@@ -131,7 +131,12 @@ public class CreatureController : BaseController
     
     protected virtual void Attack(BaseController target)
     {
-        MoveCoroutine = StartCoroutine(CoMove(target));
+        MoveCoroutine = null;
+        MoveCoroutine = StartCoroutine(CoMove(target, () =>
+        {
+            // 이동이 완료되면 공격
+            CreatureState = Define.ECreatureState.Attack;
+        }));
     }
     
     protected IEnumerator CoMove(BaseController target, Action callback = null)
@@ -193,8 +198,7 @@ public class CreatureController : BaseController
         }
 
         yield return new WaitForSeconds(0.2f);
-        // 이동이 완료되면 공격
-        CreatureState = Define.ECreatureState.Attack;
+
         
         callback?.Invoke();
     }

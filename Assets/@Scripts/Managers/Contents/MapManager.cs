@@ -82,6 +82,7 @@ public class MapManager
 			if (collision != null)
 				collision.SetActive(false);
 
+			// CurrentGrid = Util.FindChild<Grid>(go, "SmallGrid");
 			CurrentGrid = go.GetComponent<Grid>();
 
 			// Collision 관련 파일
@@ -111,13 +112,14 @@ public class MapManager
 
 		Tilemap tmBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
 		Tilemap tmMonster = Util.FindChild<Tilemap>(go, "Tilemap_Monster", true);
+        
 		
 		if (tmMonster != null)
 			tmMonster.gameObject.SetActive(false);
 		
-		for (int y = tmBase.cellBounds.yMax; y >= tmBase.cellBounds.yMin; y--)
+		for (int y = tmMonster.cellBounds.yMax; y >= tmMonster.cellBounds.yMin; y--)
 		{
-			for (int x = tmBase.cellBounds.xMin; x <= tmBase.cellBounds.xMax; x++)
+			for (int x = tmMonster.cellBounds.xMin; x <= tmMonster.cellBounds.xMax; x++)
 			{
 				TileBase tile = tmMonster.GetTile(new Vector3Int(x, y, 0));
 				if (tile != null)
@@ -141,9 +143,9 @@ public class MapManager
 		if (tmTree != null)
 			tmTree.gameObject.SetActive(false);
 		
-		for (int y = tmBase.cellBounds.yMax; y >= tmBase.cellBounds.yMin; y--)
+		for (int y = tmTree.cellBounds.yMax; y >= tmTree.cellBounds.yMin; y--)
 		{
-			for (int x = tmBase.cellBounds.xMin; x <= tmBase.cellBounds.xMax; x++)
+			for (int x = tmTree.cellBounds.xMin; x <= tmTree.cellBounds.xMax; x++)
 			{
 				TileBase tile = tmTree.GetTile(new Vector3Int(x, y, 0));
 				if (tile != null)

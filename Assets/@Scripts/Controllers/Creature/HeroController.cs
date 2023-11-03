@@ -10,9 +10,29 @@ public class HeroController : CreatureController
     [SerializeField] public GameObject Indicator;
     private Vector2 _moveDir = Vector2.zero;
     public Vector3Int CellPos { get; set; } = Vector3Int.zero;
-    public HeroController MyLeader { get; set; } = null;
+    private HeroController _myHero;
+
+    public HeroController MyLeader
+    {
+        get => _myHero;
+        set
+        {
+            _myHero = value;
+            if (_myHero)
+            {
+                Indicator.gameObject.SetActive(false);
+                IsLeader = false;
+            }
+            else
+            {
+                Indicator.gameObject.SetActive(true);
+                IsLeader = true;
+            }
+            //1. 화살표 제거 
+        }
+    } 
     private Coroutine ScanningCoroutine;
-    public bool IsLeader => MyLeader.IsValid();
+    public bool IsLeader = false;
 
     public Vector2 MoveDir
     {
@@ -25,8 +45,8 @@ public class HeroController : CreatureController
         base.Init();
 
         ObjectType = Define.EObjectType.Hero;
-
-
+        CreatureState = Define.ECreatureState.Idle;
+        
         //event
         Managers.Game.OnMoveDirChanged -= HandleOnMoveDirChanged;
         Managers.Game.OnJoystickTypeChanged -= HandleOnJoystickStateChanged;
@@ -39,13 +59,13 @@ public class HeroController : CreatureController
 
         Vector3 pos = Managers.Map.CurrentGrid.GetCellCenterWorld(CellPos);
         // Vector3 pos2 = Managers.Map.CurrentGrid.CellToWorld(CellPos);
-        transform.position = pos;
 
         return true;
     }
 
     private void FixedUpdate()
     {
+        if(IsLeader == false) return;
         UpdatePlayerDirection();
         MovePlayer();
     }
@@ -62,6 +82,7 @@ public class HeroController : CreatureController
             case Define.ECreatureState.Moving:
                 break;
             case Define.ECreatureState.Gathering:
+                MoveCrew();
                 break;
             case Define.ECreatureState.OnDamaged:
                 break;
@@ -158,12 +179,21 @@ public class HeroController : CreatureController
             CellPos = Managers.Map.CurrentGrid.WorldToCell(transform.position);
             CurrentSprite.flipX = !(dir.x < 0);
 
-            // Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
+            Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
         }
         else
         {
             //IDLE
             _rigidBody.velocity = Vector2.zero;
+        }
+    }
+
+    private void MoveCrew()
+    {
+        if (MyLeader)
+        {
+            MoveCoroutine = null;
+            MoveCoroutine = StartCoroutine(CoMove(MyLeader));
         }
     }
 
@@ -182,7 +212,14 @@ public class HeroController : CreatureController
                 InteractingTarget = null;
                 StopMoveCoroutine();
                 StopScanningCoroutine();
-                CreatureState = Define.ECreatureState.Moving;
+                if (IsLeader)
+                {
+                    CreatureState = Define.ECreatureState.Moving;
+                }
+                else
+                {
+                    CreatureState = Define.ECreatureState.Gathering;
+                }
 
                 break;
             case Define.EJoystickState.Dragging:

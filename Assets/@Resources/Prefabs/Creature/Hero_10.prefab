@@ -194,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 201
-  m_Sprite: {fileID: 21300000, guid: 041a7ee174f106946be31a62f3e177fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eda3d64fd45ea0f40b8ef5457e1cd4d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -256,6 +256,7 @@ MonoBehaviour:
     AnimatorName: 
     SkillTypeList: 
   Indicator: {fileID: 6348288741095228773}
+  IsLeader: 0
 --- !u!58 &9012526146850103789
 CircleCollider2D:
   m_ObjectHideFlags: 0

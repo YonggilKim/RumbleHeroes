@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d25a294413ef7fd429c6b0c8b86aaa64
   m_SerializeEntries:
-  - m_GUID: e74cf8f96ee28d748a2104ba96c207f9
-    m_Address: Hero
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - Preload
   - m_GUID: 24d09195cf93fe940973b1094e7e6ae1
     m_Address: BaseMap
     m_ReadOnly: 0
@@ -54,6 +49,56 @@ MonoBehaviour:
     - Preload
   - m_GUID: 395a876896fddf14b8ef6411ec46ff58
     m_Address: Monster_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 98f81ea9e0919c34f880db00e2eb9358
+    m_Address: Hero_02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 38b4791478ecc9c44a501975b4ba4797
+    m_Address: Hero_03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 418f29f2739649c419ecded729a9bfd4
+    m_Address: Hero_04
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 5566a354b8c29ba418d8b8a87d8aa2ab
+    m_Address: Hero_05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 0fe13620ca78fc646ac612b75989a719
+    m_Address: Hero_06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 6c8dffb57b27aff4ba7286c1be8bf265
+    m_Address: Hero_07
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 0dd733ce90910a14582272bb30bec28e
+    m_Address: Hero_08
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: b17a9e9b7841ee142b9fc15ee23db4ea
+    m_Address: Hero_09
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: c2c9114418d3ced4f83ef1256ec95597
+    m_Address: Hero_10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: e74cf8f96ee28d748a2104ba96c207f9
+    m_Address: Hero_01
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
