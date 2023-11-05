@@ -13,39 +13,40 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/Creature/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.10/Tests/Runtime/DecalTests.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": -1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2Ws5jVfUM6mMST7Iv9jPbIRvb8d" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "CodeLensConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\rookiss-5\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\rookiss-5\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\rookiss-5\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\tmddl\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\tmddl\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\tmddl\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.19f1\Editor\Unity.exe" />
@@ -73,10 +74,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="29324">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="29324" />
+      <option name="pid" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -93,6 +94,8 @@
       <option name="presentableId" value="Default" />
       <updated>1697508582943</updated>
       <workItem from="1697508586419" duration="19431000" />
+      <workItem from="1699162583155" duration="26000" />
+      <workItem from="1699162621652" duration="3540000" />
     </task>
     <servers />
   </component>
@@ -110,66 +113,31 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/@Scripts/Managers/Contents/ObjectManager.cs</url>
           <line>54</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Managers\Contents\ObjectManager.cs" initialLine="54" containingFunctionPresentation="Method 'Spawn'">
-            <startOffsets>
-              <option value="1417" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1514" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Managers\Contents\ObjectManager.cs" initialLine="54" containingFunctionPresentation="Method 'Spawn'" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/@Scripts/UI/Scene/UI_Joystick.cs</url>
           <line>50</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\Scene\UI_Joystick.cs" initialLine="50" containingFunctionPresentation="Method 'OnPointerDown'">
-            <startOffsets>
-              <option value="1379" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1403" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\Scene\UI_Joystick.cs" initialLine="50" containingFunctionPresentation="Method 'OnPointerDown'" />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/@Scripts/UI/UI_EventHandler.cs</url>
           <line>34</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\UI_EventHandler.cs" initialLine="34" containingFunctionPresentation="Method 'OnPointerDown'">
-            <startOffsets>
-              <option value="1009" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1025" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\UI_EventHandler.cs" initialLine="34" containingFunctionPresentation="Method 'OnPointerDown'" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/@Scripts/UI/UI_EventHandler.cs</url>
           <line>26</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\UI_EventHandler.cs" initialLine="26" containingFunctionPresentation="Method 'OnPointerClick'">
-            <startOffsets>
-              <option value="845" />
-            </startOffsets>
-            <endOffsets>
-              <option value="872" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\UI_EventHandler.cs" initialLine="26" containingFunctionPresentation="Method 'OnPointerClick'" />
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/@Scripts/UI/Scene/UI_Joystick.cs</url>
           <line>33</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\Scene\UI_Joystick.cs" initialLine="33" containingFunctionPresentation="Method 'Init'">
-            <startOffsets>
-              <option value="754" />
-            </startOffsets>
-            <endOffsets>
-              <option value="801" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\UI\Scene\UI_Joystick.cs" initialLine="33" containingFunctionPresentation="Method 'Init'" />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>

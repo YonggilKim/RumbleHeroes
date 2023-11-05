@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -162,24 +163,19 @@ public class CreatureController : BaseController
 
             float stopDistance;
 
-            if (ObjectType == Define.EObjectType.Hero)
+            stopDistance = (ColliderRadius + target.ColliderRadius) + 0.3f;
+            if (ObjectType == Define.EObjectType.Hero && target.ObjectType == Define.EObjectType.Hero)
             {
-                stopDistance = (ColliderRadius + target.ColliderRadius) + 0.3f;
-            }
-            else
-            {
-                //monster
-                stopDistance = (ColliderRadius + target.ColliderRadius) + 0.1f;
+                stopDistance = 0;
             }
 
             float dist = Vector3.Distance(CenterPosition, target.CenterPosition);
             
-            // if(ObjectType == Define.EObjectType.Hero)
-                // Debug.Log($"{gameObject.name} to {target.gameObject.name} Distance = {dist}, dist = {dist} , stopDistance = {stopDistance}");
             if (dist <= stopDistance)
             {
                 break;
             }
+
 
             Vector2 position = _rigidBody.position;
             Vector2 dirVec = target.CenterPosition - CenterPosition;

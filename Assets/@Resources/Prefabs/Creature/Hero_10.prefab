@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8870652349080396753}
   - component: {fileID: 4812057392316634101}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IndicatorArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2315269484342156528}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IndicatorCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 8161705230591437842}
   - component: {fileID: 9012526146850103789}
   - component: {fileID: 7108465861557128910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hero_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}

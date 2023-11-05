@@ -21,11 +21,14 @@ public class HeroController : CreatureController
             if (_myHero)
             {
                 Indicator.gameObject.SetActive(false);
+                _rigidBody.mass = 5;
                 IsLeader = false;
             }
             else
             {
                 Indicator.gameObject.SetActive(true);
+                _rigidBody.mass = 10;
+                FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
                 IsLeader = true;
             }
             //1. 화살표 제거 
@@ -54,8 +57,8 @@ public class HeroController : CreatureController
         Managers.Game.OnJoystickTypeChanged += HandleOnJoystickStateChanged;
 
         //camera
-        FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
-        transform.localScale = Vector3.one;
+        // FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
+        // transform.localScale = Vector3.one;
 
         Vector3 pos = Managers.Map.CurrentGrid.GetCellCenterWorld(CellPos);
         // Vector3 pos2 = Managers.Map.CurrentGrid.CellToWorld(CellPos);
