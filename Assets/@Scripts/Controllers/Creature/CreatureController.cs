@@ -109,6 +109,8 @@ public class CreatureController : BaseController
                 break;
             case Define.ECreatureState.Attack:
                 Anim.Play("Attack");
+                _rigidBody.constraints = RigidbodyConstraints2D.None; 
+                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; 
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");

@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     #region Value
     public Transform PlayerTransform;
+    public BaseController Target;
     public float Height { get; set; } = 0;
     public float Width { get; set; } = 0;
 
@@ -24,6 +25,7 @@ public class CameraController : MonoBehaviour
         Height = Camera.main.orthographicSize;
         Width = Height * Screen.width / Screen.height;
     }
+    public float smoothSpeed = 5.0f; // 스무딩 속도
 
     private void LateUpdate()
     {

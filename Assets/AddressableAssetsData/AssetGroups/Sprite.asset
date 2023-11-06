@@ -68,27 +68,27 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
   - m_GUID: 6c6b3e8a11c5a06408cc86f804900854
-    m_Address: mine_0..sprite
+    m_Address: mine_0.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
   - m_GUID: 37e9c510804ff934284f4c8ec9a59d97
-    m_Address: mine_1..sprite
+    m_Address: mine_1.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
   - m_GUID: 170de9ff0f2a3b242b764af10c0a9abe
-    m_Address: mine_2..sprite
+    m_Address: mine_2.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
   - m_GUID: 042e4f2b6eaab4845a0eb10e72a985db
-    m_Address: mine_4..sprite
+    m_Address: mine_4.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
   - m_GUID: 40ffe554659acec4aa4a7dff5c8cc3a9
-    m_Address: mine_5..sprite
+    m_Address: mine_5.sprite
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload

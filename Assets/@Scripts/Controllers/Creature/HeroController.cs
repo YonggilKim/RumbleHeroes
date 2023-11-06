@@ -29,6 +29,7 @@ public class HeroController : CreatureController
                 Indicator.gameObject.SetActive(true);
                 _rigidBody.mass = 10;
                 FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
+                FindObjectOfType<CameraController>().Target = this;
                 IsLeader = true;
             }
             //1. 화살표 제거 
@@ -83,6 +84,7 @@ public class HeroController : CreatureController
             case Define.ECreatureState.Attack:
                 break;
             case Define.ECreatureState.Moving:
+                
                 break;
             case Define.ECreatureState.Gathering:
                 MoveCrew();
