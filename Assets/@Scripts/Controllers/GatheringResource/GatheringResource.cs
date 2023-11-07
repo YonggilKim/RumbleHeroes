@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GatheringResource : InteractionObject
 {
-    public int ResourceAmount;
-    public float RegenTime;
-    public string SpriteName;
+    private Data.GatheringResourceData _data;
     //GR Stage
 
     protected override bool Init()
@@ -20,14 +17,25 @@ public class GatheringResource : InteractionObject
     public void SetInfo(int creatureId)
     {
         DataId = creatureId;
-        Dictionary<int, Data.GatheringResourceData> dict = Managers.Data.GatheringResourceDic;
-        
-        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(dict[creatureId].SpriteName);
-        MaxHp = dict[creatureId].MaxHp;
-        ResourceAmount = dict[creatureId].ResourceAmount;
-        RegenTime = dict[creatureId].RegenTime;
-        SpriteName = dict[creatureId].SpriteName;
+        _data = Managers.Data.GatheringResourceDic[creatureId];
+        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
 
+        MaxHp = _data.MaxHp;
+        Hp = _data.MaxHp;
     }
-    
+    public override void OnDamaged(InteractionObject Attacker)
+    {
+        base.OnDamaged(Attacker);
+        
+        Hp = Mathf.Clamp(Hp-1, 0, MaxHp);
+        if (Hp == 0)
+        {
+            Despawn();
+        }
+    }
+
+    public override void Despawn()
+    {
+        base.Despawn();
+    }
 }

@@ -98,7 +98,7 @@ public class MonsterController : CreatureController
         Attack(target);
     }
 
-    protected override void Attack(BaseController target)
+    protected override void Attack(InteractionObject target)
     {
         base.Attack(target);
     }

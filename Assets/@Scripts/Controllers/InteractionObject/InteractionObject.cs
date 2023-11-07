@@ -9,9 +9,11 @@ public class InteractionObject : BaseController
     protected SpriteRenderer CurrentSprite;
     protected string SpriteName;
     protected Animator Anim { get; set; }
-    public Material DefaultMat;
-    public Material HitEffectMat;
 
+    public Vector3 CenterPosition => transform.position + Vector3.up * ColliderRadius;
+    public float ColliderRadius { get; set; }
+    protected DamageFlash DamageFlashComp;
+    
     public virtual int DataId { get; set; }
     public virtual float Hp { get; set; }
     public virtual float MaxHp { get; set; }
@@ -20,24 +22,22 @@ public class InteractionObject : BaseController
     {
         base.Init();
         CurrentSprite = gameObject.GetOrAddComponent<SpriteRenderer>();
-        
-        Hp = 3;
-        MaxHp = 3;
-        
+        ColliderRadius = gameObject.GetOrAddComponent<CircleCollider2D>().radius;
+        DamageFlashComp = gameObject.GetOrAddComponent<DamageFlash>();
+        Anim = GetComponent<Animator>();
+        if (Anim == null)
+            Anim = Util.FindChild<Animator>(gameObject);
+
         return true;
     }
     
-    public override void OnDamaged(BaseController Attacker)
+    
+    public virtual void OnDamaged(InteractionObject Attacker)
     {
-        base.OnDamaged(Attacker);
-        Hp = Mathf.Clamp(Hp-1, 0, MaxHp);
-        if (Hp == 0)
-        {
-            Depleted();
-        }
+        DamageFlashComp.CallDamageFlash();
     }
 
-    public void Depleted()
+    public virtual void Despawn()
     {
         //TODO Play Animation
         Managers.Object.Despawn(this);

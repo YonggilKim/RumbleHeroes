@@ -51,6 +51,7 @@ namespace Data
         public string SpriteName;
         public string AnimatorName;
         public List<int> SkillTypeList;//InGameSkills를 제외한 추가스킬들
+        public int DropItemId;
     }
 
     [Serializable]
@@ -129,6 +130,7 @@ namespace Data
         public int ResourceAmount;
         public float RegenTime;
         public string SpriteName;
+        public int DropItemId;
     }
 
     [Serializable]
@@ -139,6 +141,30 @@ namespace Data
         {
             Dictionary<int, GatheringResourceData> dict = new Dictionary<int, GatheringResourceData>();
             foreach (GatheringResourceData creature in creatures)
+                dict.Add(creature.DataId, creature);
+            return dict;
+        }
+    }
+    #endregion
+
+    #region DropItem
+    [Serializable]
+    public class DropItemData
+    {
+        public int DataId;
+        public string DescriptionTextID;
+        public string PrefabLabel;
+        public string SpriteName;
+    }
+
+    [Serializable]
+    public class DropItemDataLoader : ILoader<int, DropItemData>
+    {
+        public List<DropItemData> creatures = new List<DropItemData>();
+        public Dictionary<int, DropItemData> MakeDict()
+        {
+            Dictionary<int, DropItemData> dict = new Dictionary<int, DropItemData>();
+            foreach (DropItemData creature in creatures)
                 dict.Add(creature.DataId, creature);
             return dict;
         }

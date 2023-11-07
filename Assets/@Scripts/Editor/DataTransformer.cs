@@ -54,7 +54,7 @@ public class DataTransformer : EditorWindow
         ParseSkillData("Skill");
         ParseCreatureData("Creature");
         ParseGatheringResourcesData("GatheringResources");
-
+        ParseDropItemData("DropItem");
         Debug.Log("Complete DataTransformer");
     }
     
@@ -150,6 +150,7 @@ public class DataTransformer : EditorWindow
             cd.SpriteName = ConvertValue<string>(row[i++]);
             cd.AnimatorName = ConvertValue<string>(row[i++]);
             cd.SkillTypeList = ConvertList<int>(row[i++]);
+            cd.DropItemId = ConvertValue<int>(row[i++]);
             loader.creatures.Add(cd);
         }
 
@@ -185,7 +186,39 @@ public class DataTransformer : EditorWindow
             gr.ResourceAmount = ConvertValue<int>(row[i++]);
             gr.RegenTime = ConvertValue<float>(row[i++]);
             gr.SpriteName = ConvertValue<string>(row[i++]);
+            gr.DropItemId = ConvertValue<int>(row[i++]);
+            loader.creatures.Add(gr);
+        }
 
+        #endregion
+
+        string jsonStr = JsonConvert.SerializeObject(loader, Formatting.Indented);
+        File.WriteAllText($"{Application.dataPath}/@Resources/Data/JsonData/{filename}Data.json", jsonStr);
+        AssetDatabase.Refresh();
+    }
+    
+    static void ParseDropItemData(string filename)
+    {
+        DropItemDataLoader loader = new DropItemDataLoader();
+
+        #region ExcelData
+        string[] lines = File.ReadAllText($"{Application.dataPath}/@Resources/Data/Excel/{filename}Data.csv").Split("\n");
+
+        for (int y = 1; y < lines.Length; y++)
+        {
+            string[] row = lines[y].Replace("\r", "").Split(',');
+
+            if (row.Length == 0)
+                continue;
+            if (string.IsNullOrEmpty(row[0]))
+                continue;
+
+            int i = 0;
+            DropItemData gr = new DropItemData();
+            gr.DataId = ConvertValue<int>(row[i++]);
+            gr.DescriptionTextID = ConvertValue<string>(row[i++]);
+            gr.PrefabLabel = ConvertValue<string>(row[i++]);
+            gr.SpriteName = ConvertValue<string>(row[i++]);
             loader.creatures.Add(gr);
         }
 

@@ -10,7 +10,7 @@ public class Move : SequenceSkill
     string AnimationName { get; } = "Moving";
     private float Speed { get; set; } = 2.0f;
     private CreatureController _owner;
-    private BaseController _target;
+    private InteractionObject _target;
     private Transform targetPos;
     
     private void Awake()

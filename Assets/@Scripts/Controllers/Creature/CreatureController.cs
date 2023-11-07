@@ -7,16 +7,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CreatureController : BaseController
+public class CreatureController : InteractionObject
 {
     public Rigidbody2D _rigidBody { get; set; }
-
     #region Stat
 
     public Data.CreatureData CreatureData;
-    public virtual int DataId { get; set; }
-    public virtual float Hp { get; set; }
-    public virtual float MaxHp { get; set; }
+
     public virtual float MaxHpBonusRate { get; set; } = 1;
     public virtual float HealBonusRate { get; set; } = 1;
     public virtual float HpRegen { get; set; }
@@ -32,11 +29,8 @@ public class CreatureController : BaseController
     // public virtual SkillBook Skills { get; set; }
     
     #endregion
-    protected SpriteRenderer CurrentSprite;
-    protected string SpriteName;
-    protected Animator Anim { get; set; }
     
-    public BaseController InteractingTarget { get; set; }
+    public InteractionObject InteractingTarget { get; set; }
     private Define.ECreatureState _creatureState = Define.ECreatureState.Moving;
     public virtual Define.ECreatureState CreatureState
     {
@@ -63,16 +57,12 @@ public class CreatureController : BaseController
     {
         base.Init();
 
-        _rigidBody = GetComponent<Rigidbody2D>();
+        _rigidBody = gameObject.GetComponent<Rigidbody2D>() ;
 
         CurrentSprite = GetComponent<SpriteRenderer>();
         
         if (CurrentSprite == null)
             CurrentSprite = Util.FindChild<SpriteRenderer>(gameObject);
-
-        Anim = GetComponent<Animator>();
-        if (Anim == null)
-            Anim = Util.FindChild<Animator>(gameObject);
 
         return true;
     }
@@ -109,8 +99,6 @@ public class CreatureController : BaseController
                 break;
             case Define.ECreatureState.Attack:
                 Anim.Play("Attack");
-                _rigidBody.constraints = RigidbodyConstraints2D.None; 
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; 
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");
@@ -132,7 +120,7 @@ public class CreatureController : BaseController
         }
     }
     
-    protected virtual void Attack(BaseController target)
+    protected virtual void Attack(InteractionObject target)
     {
         MoveCoroutine = null;
         MoveCoroutine = StartCoroutine(CoMove(target, () =>
@@ -142,9 +130,9 @@ public class CreatureController : BaseController
         }));
     }
     
-    protected IEnumerator CoMove(BaseController target, Action callback = null)
+    protected IEnumerator CoMove(InteractionObject target, Action callback = null)
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
+
         if (ObjectType == Define.EObjectType.Hero)
         {
             Debug.Log("CoMove");
@@ -159,9 +147,6 @@ public class CreatureController : BaseController
             elapsed += Time.deltaTime;
             if(target.IsValid() == false)
                 break;
-            // if (elapsed > 3.0f)
-            //     break;
-            // CreatureState = Define.ECreatureState.Moving;
 
             float stopDistance;
 
@@ -177,8 +162,6 @@ public class CreatureController : BaseController
             {
                 break;
             }
-
-
             Vector2 position = _rigidBody.position;
             Vector2 dirVec = target.CenterPosition - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
@@ -251,7 +234,7 @@ public class CreatureController : BaseController
         InteractingTarget = null;
     }
     
-    public override void OnDamaged(BaseController Attacker)
+    public override void OnDamaged(InteractionObject Attacker)
     {
         base.OnDamaged(Attacker);
         
@@ -283,5 +266,6 @@ public class CreatureController : BaseController
             Gizmos.DrawLine(CenterPosition, InteractingTarget.CenterPosition); // 시작점에서 끝점까지 선 그리기
         }
     }
-    
+
+
 }

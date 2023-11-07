@@ -33,21 +33,15 @@ public class Define
     
     public enum EObjectType
     {
-        Player,
-        Hero,
-        Monster,
-        EliteMonster,
-        GR_Mine,
-        GR_Tree,
-        Boss,
-        Projectile,
-        Gem,
-        Soul,
-        Potion,
-        DropBox,
-        Magnet,
-        Bomb
-
+        Player = 0,
+        Hero = 1,
+        Monster = 2,
+        EliteMonster = 3,
+        GR_Mine = 101,
+        GR_Tree = 102,
+        Meat = 400000,
+        Firewood = 400001,
+        Mineral = 400002,
     }
     public enum EJoystickType
     {

@@ -1,0 +1,22 @@
+{
+  "creatures": [
+    {
+      "DataId": 400000,
+      "DescriptionTextID": "생고기",
+      "PrefabLabel": "DropItem",
+      "SpriteName": "Object_Meat.sprite"
+    },
+    {
+      "DataId": 400001,
+      "DescriptionTextID": "장작",
+      "PrefabLabel": "DropItem",
+      "SpriteName": "Object_Firewood.sprite"
+    },
+    {
+      "DataId": 400002,
+      "DescriptionTextID": "미네랄",
+      "PrefabLabel": "DropItem",
+      "SpriteName": "Object_Mineral.sprite"
+    }
+  ]
+}

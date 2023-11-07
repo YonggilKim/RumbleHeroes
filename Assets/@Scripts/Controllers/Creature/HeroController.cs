@@ -84,7 +84,6 @@ public class HeroController : CreatureController
             case Define.ECreatureState.Attack:
                 break;
             case Define.ECreatureState.Moving:
-                
                 break;
             case Define.ECreatureState.Gathering:
                 MoveCrew();
@@ -116,7 +115,7 @@ public class HeroController : CreatureController
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 4);
 
             List<MonsterController> monsters = new List<MonsterController>();
-            List<InteractionObject> objects = new List<InteractionObject>();
+            List<GatheringResource> objects = new List<GatheringResource>();
         
             foreach (var collider in hitColliders)
             {
@@ -124,9 +123,10 @@ public class HeroController : CreatureController
                 if(monster && monster.Hp > 0)
                     monsters.Add(monster);
             
-                InteractionObject interactionObject = collider.GetComponent<InteractionObject>();
-                if(interactionObject &&interactionObject.Hp > 0)
-                    objects.Add(interactionObject);
+                GatheringResource gatheringResource = collider.GetComponent<GatheringResource>();
+                var test = collider.GetComponent<GatheringResource>();
+                if(gatheringResource &&gatheringResource.Hp > 0)
+                    objects.Add(gatheringResource);
             }
 
             if (monsters.Count > 0)
@@ -140,7 +140,7 @@ public class HeroController : CreatureController
             else if(objects.Count > 0)
             {
                 objects = objects.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
-                InteractionObject target = objects[0];
+                GatheringResource target = objects[0];
                 Attack(target);
                 yield break;
             }
@@ -168,15 +168,15 @@ public class HeroController : CreatureController
             Vector3 dirVec = InteractingTarget.CenterPosition - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
         }
+      
     }
 
     private void MovePlayer()
     {
         _rigidBody.velocity = Vector2.zero;
-
         Vector3 dir = _moveDir * (MoveSpeed * Time.deltaTime);
         transform.position += dir;
-
+        _rigidBody.MovePosition( transform.position + dir);
         if (dir != Vector3.zero)
         {
             //MOVE
