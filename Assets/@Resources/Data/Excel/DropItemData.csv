@@ -1,4 +1,5 @@
-﻿DataId,DescriptionTextID,PrefabLabel,SpriteName
-400000,생고기,DropItem,Object_Meat.sprite
-400001,장작,DropItem,Object_Firewood.sprite
-400002,미네랄,DropItem,Object_Mineral.sprite
+﻿DataId,DescriptionTextID,PrefabLabel,SpriteName,Amount
+400000,생고기,DropItem,Object_Meat.sprite,1
+400001,생고기2,DropItem,Object_Meat.sprite,2
+400100,장작,DropItem,Object_Firewood.sprite,1
+400200,미네랄,DropItem,Object_Mineral.sprite,1

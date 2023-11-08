@@ -4,19 +4,29 @@
       "DataId": 400000,
       "DescriptionTextID": "생고기",
       "PrefabLabel": "DropItem",
-      "SpriteName": "Object_Meat.sprite"
+      "SpriteName": "Object_Meat.sprite",
+      "Amount": 1
     },
     {
       "DataId": 400001,
-      "DescriptionTextID": "장작",
+      "DescriptionTextID": "생고기2",
       "PrefabLabel": "DropItem",
-      "SpriteName": "Object_Firewood.sprite"
+      "SpriteName": "Object_Meat.sprite",
+      "Amount": 2
     },
     {
-      "DataId": 400002,
+      "DataId": 400100,
+      "DescriptionTextID": "장작",
+      "PrefabLabel": "DropItem",
+      "SpriteName": "Object_Firewood.sprite",
+      "Amount": 1
+    },
+    {
+      "DataId": 400200,
       "DescriptionTextID": "미네랄",
       "PrefabLabel": "DropItem",
-      "SpriteName": "Object_Mineral.sprite"
+      "SpriteName": "Object_Mineral.sprite",
+      "Amount": 1
     }
   ]
 }

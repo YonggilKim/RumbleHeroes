@@ -28,8 +28,6 @@ public class DataTransformer : EditorWindow
             File.Delete(path);
     }
 
-
-
     public static T ConvertValue<T>(string value)
     {
         if (string.IsNullOrEmpty(value))
@@ -219,6 +217,7 @@ public class DataTransformer : EditorWindow
             gr.DescriptionTextID = ConvertValue<string>(row[i++]);
             gr.PrefabLabel = ConvertValue<string>(row[i++]);
             gr.SpriteName = ConvertValue<string>(row[i++]);
+            gr.Amount = ConvertValue<int>(row[i++]);
             loader.creatures.Add(gr);
         }
 

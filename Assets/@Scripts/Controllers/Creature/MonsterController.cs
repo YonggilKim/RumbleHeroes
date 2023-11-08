@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MonsterController : CreatureController
 {
@@ -61,6 +62,12 @@ public class MonsterController : CreatureController
     protected override void OnDead()
     {
         base.OnDead();
+        var dropItem = Managers.Object.Spawn<DropItemController>(transform.position, _creatureData.DropItemId);
+        Vector2 ran = new Vector2(transform.position.x + Random.Range( -10, -15) * 0.1f, transform.position.y);
+        Vector2 ran2 = new Vector2(transform.position.x + Random.Range( 10, 15) * 0.1f, transform.position.y);
+        Vector2 dropPos = Random.value < 0.5 ? ran : ran2;
+        // Vector2 DropPos = new Vector2(1f, transform.position.y);
+        dropItem.SetInfo(_creatureData.DropItemId, dropPos);
         StartCoroutine(CoOndead());
     }
 
@@ -78,7 +85,7 @@ public class MonsterController : CreatureController
 
         while (CreatureState == Define.ECreatureState.Idle)
         {
-            hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 5);
+            hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 10);
             
             foreach (var collider in hitColliders)
             {

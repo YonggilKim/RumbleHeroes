@@ -155,6 +155,7 @@ namespace Data
         public string DescriptionTextID;
         public string PrefabLabel;
         public string SpriteName;
+        public int Amount;
     }
 
     [Serializable]

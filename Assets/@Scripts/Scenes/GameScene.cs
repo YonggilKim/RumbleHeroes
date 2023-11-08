@@ -31,9 +31,9 @@ public class GameScene : BaseScene
         Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201001).MyLeader = LeaderHero;
         Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201002).MyLeader = LeaderHero;
         Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201004).MyLeader = LeaderHero;
-        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201006).MyLeader = LeaderHero;
-        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201008).MyLeader = LeaderHero;
-
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201006).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201008).MyLeader = LeaderHero;
+        //
 
 
         

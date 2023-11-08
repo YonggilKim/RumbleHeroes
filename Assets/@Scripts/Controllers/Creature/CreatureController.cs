@@ -9,10 +9,10 @@ using UnityEngine.Serialization;
 
 public class CreatureController : InteractionObject
 {
-    public Rigidbody2D _rigidBody { get; set; }
+    protected Rigidbody2D _rigidBody { get; set; }
     #region Stat
 
-    public Data.CreatureData CreatureData;
+    protected Data.CreatureData _creatureData;
 
     public virtual float MaxHpBonusRate { get; set; } = 1;
     public virtual float HealBonusRate { get; set; } = 1;
@@ -71,10 +71,10 @@ public class CreatureController : InteractionObject
     {
         DataId = creatureId;
         Dictionary<int, Data.CreatureData> dict = Managers.Data.CreatureDic;
-        CreatureData = dict[creatureId];
+        _creatureData = dict[creatureId];
         InitCreatureStat();
-        var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
-        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
+        var sprite = Managers.Resource.Load<Sprite>(_creatureData.SpriteName);
+        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_creatureData.SpriteName);
         // var ra = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
         // Anim.runtimeAnimatorController = ra;
         Init();
@@ -82,10 +82,10 @@ public class CreatureController : InteractionObject
 
     public virtual void InitCreatureStat(bool isFullHp = true)
     {
-        MaxHp = CreatureData.MaxHp;
-        Atk = CreatureData.Atk * CreatureData.AtkRate;
+        MaxHp = _creatureData.MaxHp;
+        Atk = _creatureData.Atk * _creatureData.AtkRate;
         Hp = MaxHp;
-        MoveSpeed = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
+        MoveSpeed = _creatureData.MoveSpeed * _creatureData.MoveSpeedRate;
     }
     
     protected virtual void UpdateAnimation()

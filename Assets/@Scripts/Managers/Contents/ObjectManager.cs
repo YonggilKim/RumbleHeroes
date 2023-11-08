@@ -2,6 +2,7 @@ using Data;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEngine;
 using static Define;
@@ -62,7 +63,7 @@ public class ObjectManager
             Heros.Add(hc);
             return hc as T;
         }
-        else if( type == typeof(GatheringResource))
+        if( type == typeof(GatheringResource))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.GatheringResourceDic[templateID].PrefabLabel);
             go.transform.position = position;
@@ -71,7 +72,7 @@ public class ObjectManager
 
             return gr as T;
         }
-        else if (type == typeof(MonsterController))
+        if (type == typeof(MonsterController))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.CreatureDic[templateID].PrefabLabel);
             go.transform.position = position;
@@ -80,6 +81,14 @@ public class ObjectManager
             Monsters.Add(mc);
             return mc as T;
         }
+        if (type == typeof(DropItemController))
+        {
+            GameObject go = Managers.Resource.Instantiate(Managers.Data.DropItemDic[templateID].PrefabLabel);
+            go.transform.position = position;
+            DropItemController di = go.GetOrAddComponent<DropItemController>();
+            return di as T;
+        }
+
         return null;
     }
 
@@ -97,6 +106,10 @@ public class ObjectManager
             Managers.Resource.Destroy(obj.gameObject);
         }
         else if (type == typeof(InteractionObject))
+        {
+            Managers.Resource.Destroy(obj.gameObject);
+        }
+        else if (type == typeof(DropItemController))
         {
             Managers.Resource.Destroy(obj.gameObject);
         }

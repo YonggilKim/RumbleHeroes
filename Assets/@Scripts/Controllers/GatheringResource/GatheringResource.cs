@@ -30,6 +30,13 @@ public class GatheringResource : InteractionObject
         Hp = Mathf.Clamp(Hp-1, 0, MaxHp);
         if (Hp == 0)
         {
+            var dropItem = Managers.Object.Spawn<DropItemController>(transform.position, _data.DropItemId);
+            Vector2 ran = new Vector2(transform.position.x + Random.Range( -10, -15) * 0.1f, transform.position.y);
+            Vector2 ran2 = new Vector2(transform.position.x + Random.Range( 10, 15) * 0.1f, transform.position.y);
+            Vector2 dropPos = Random.value < 0.5 ? ran : ran2;
+            // Vector2 DropPos = new Vector2(1f, transform.position.y);
+            dropItem.SetInfo(_data.DropItemId, dropPos);
+            
             Despawn();
         }
     }
