@@ -28,7 +28,7 @@ public class Move : SequenceSkill
     IEnumerator CoMove(Action callback = null)
     {
         _rb = GetComponent<Rigidbody2D>();
-        transform.GetChild(0).GetComponent<Animator>().Play(AnimagtionName);
+        // transform.GetChild(0).GetComponent<Animator>().Play(AnimagtionName);
         float elapsed = 0;
 
         while (true)

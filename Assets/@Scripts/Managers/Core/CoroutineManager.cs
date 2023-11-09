@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// MonoBehaviour¸¦ »ó¼Ó¹ŞÁö ¾Ê´Â ½ºÅ©¸³Æ®¿¡¼­ ÄÚ·çÆ¾ÀÌ ÇÊ¿äÇÒ¶§ ¾²·Á°í ¸¸µç Å¬·¡½º
+/// MonoBehaviourë¥¼ ìƒì†ë°›ì§€ ì•ŠëŠ” ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì½”ë£¨í‹´ì´ í•„ìš”í• ë•Œ ì“°ë ¤ê³  ë§Œë“  í´ë˜ìŠ¤
 /// </summary>
 public class CoroutineManager : MonoBehaviour
 {

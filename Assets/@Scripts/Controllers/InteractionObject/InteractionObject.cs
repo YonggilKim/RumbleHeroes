@@ -8,7 +8,7 @@ public class InteractionObject : BaseController
     // ReSharper disable once InconsistentNaming
     protected SpriteRenderer CurrentSprite;
     protected string SpriteName;
-    protected Animator Anim { get; set; }
+    public Animator Anim { get; set; }
 
     public Vector3 CenterPosition => transform.position + Vector3.up * ColliderRadius;
     public float ColliderRadius { get; set; }

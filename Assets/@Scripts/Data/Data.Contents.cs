@@ -40,6 +40,7 @@ namespace Data
         public float MaxHp;
         public float MaxHpBonus;
         public float Atk;
+        public float AtkRange;
         public float AtkBonus;
         public float Def;
         public float MoveSpeed;
@@ -50,7 +51,7 @@ namespace Data
         public float MoveSpeedRate;
         public string SpriteName;
         public string AnimatorName;
-        public List<int> SkillTypeList;//InGameSkills를 제외한 추가스킬들
+        public List<int> SkillIdList = new List<int>();//InGameSkills를 제외한 추가스킬들
         public int DropItemId;
     }
 
@@ -74,10 +75,12 @@ namespace Data
     {
         public int DataId;
         public string Name;
+        public string ClassName;
         public string Description;
         public string PrefabLabel; //프리팹 경로
         public string IconLabel;//아이콘 경로
         public string SoundLabel;// 발동사운드 경로
+        public string AnimName; //
         public string Category;//스킬 카테고리
         public float CoolTime; // 쿨타임
         public float DamageMultiplier; //스킬데미지 (곱하기)

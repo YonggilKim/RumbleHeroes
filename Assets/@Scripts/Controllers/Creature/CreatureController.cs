@@ -12,7 +12,7 @@ public class CreatureController : InteractionObject
     protected Rigidbody2D _rigidBody { get; set; }
     #region Stat
 
-    protected Data.CreatureData _creatureData;
+    public Data.CreatureData CreatureData { get; private set; }
 
     public virtual float MaxHpBonusRate { get; set; } = 1;
     public virtual float HealBonusRate { get; set; } = 1;
@@ -26,7 +26,7 @@ public class CreatureController : InteractionObject
     public virtual float DamageReduction { get; set; }
     public virtual float MoveSpeedRate { get; set; } = 1;
     public virtual float MoveSpeed { get; set; } = 4;
-    // public virtual SkillBook Skills { get; set; }
+    public virtual SkillBook Skills { get; set; }
     
     #endregion
     
@@ -57,6 +57,7 @@ public class CreatureController : InteractionObject
     {
         base.Init();
 
+        Skills = gameObject.GetOrAddComponent<SkillBook>();
         _rigidBody = gameObject.GetComponent<Rigidbody2D>() ;
 
         CurrentSprite = GetComponent<SpriteRenderer>();
@@ -71,21 +72,30 @@ public class CreatureController : InteractionObject
     {
         DataId = creatureId;
         Dictionary<int, Data.CreatureData> dict = Managers.Data.CreatureDic;
-        _creatureData = dict[creatureId];
+        CreatureData = dict[creatureId];
         InitCreatureStat();
-        var sprite = Managers.Resource.Load<Sprite>(_creatureData.SpriteName);
-        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_creatureData.SpriteName);
-        // var ra = Managers.Resource.Load<RuntimeAnimatorController>(CreatureData.AnimatorName);
-        // Anim.runtimeAnimatorController = ra;
+        var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
+        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
+
+        
         Init();
+        InitSkill();
     }
 
     public virtual void InitCreatureStat(bool isFullHp = true)
     {
-        MaxHp = _creatureData.MaxHp;
-        Atk = _creatureData.Atk * _creatureData.AtkRate;
+        MaxHp = CreatureData.MaxHp;
+        Atk = CreatureData.Atk * CreatureData.AtkRate;
         Hp = MaxHp;
-        MoveSpeed = _creatureData.MoveSpeed * _creatureData.MoveSpeedRate;
+        MoveSpeed = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
+    }
+    
+    public virtual void InitSkill()
+    {
+        foreach (int skillId in CreatureData.SkillIdList)
+        {
+             Skills.AddSkill(skillId);
+        }
     }
     
     protected virtual void UpdateAnimation()
@@ -98,7 +108,7 @@ public class CreatureController : InteractionObject
                 Scanning();
                 break;
             case Define.ECreatureState.Attack:
-                Anim.Play("Attack");
+                // Anim.Play("Attack");
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");
@@ -127,6 +137,7 @@ public class CreatureController : InteractionObject
         {
             // 이동이 완료되면 공격
             CreatureState = Define.ECreatureState.Attack;
+            Skills.BaseAttackSkill.DoSkill();
         }));
     }
     
@@ -192,6 +203,7 @@ public class CreatureController : InteractionObject
             MoveCoroutine = null; 
         }
     }
+   
     protected virtual void Scanning() { }
 
     protected virtual void OnDead()
@@ -266,6 +278,5 @@ public class CreatureController : InteractionObject
             Gizmos.DrawLine(CenterPosition, InteractingTarget.CenterPosition); // 시작점에서 끝점까지 선 그리기
         }
     }
-
 
 }

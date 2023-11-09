@@ -10,6 +10,12 @@ public class Define
    
     #region Enum
 
+    public enum EAnimationState
+    {
+        Attack,
+        End,
+    }
+    
     public enum EJoystickState
     {
         PointDown,
@@ -19,7 +25,8 @@ public class Define
 
     public enum ESkillType
     {
-        
+        None,
+        MeleeAttack
     }
     public enum ECreatureState
     {
@@ -37,6 +44,7 @@ public class Define
         Hero = 1,
         Monster = 2,
         EliteMonster = 3,
+        Projectile = 4,
         GR_Mine = 101,
         GR_Tree = 102,
         Meat = 400000,

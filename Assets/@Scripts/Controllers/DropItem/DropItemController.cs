@@ -22,7 +22,6 @@ public class DropItemController : BaseController
     protected override bool Init()
     {
         base.Init();
-
         _currentSprite = gameObject.GetOrAddComponent<SpriteRenderer>();
         return true;
     }
@@ -30,8 +29,11 @@ public class DropItemController : BaseController
     public void SetInfo(int DataId, Vector2 pos)
     {
         _data = Managers.Data.DropItemDic[DataId];
+        ObjectType = (Define.EObjectType)_data.DataId;
+        
         var sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
         _currentSprite.sprite =Managers.Resource.Load<Sprite>(_data.SpriteName);
+        
         TargetPosition = pos;
         _startPosition = transform.position;
         StartCoroutine("Shoot");

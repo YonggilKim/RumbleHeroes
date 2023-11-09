@@ -75,11 +75,12 @@ public class DataTransformer : EditorWindow
             SkillData skillData = new SkillData();
             skillData.DataId = ConvertValue<int>(row[i++]);
             skillData.Name = ConvertValue<string>(row[i++]);
+            skillData.ClassName = ConvertValue<string>(row[i++]);
             skillData.Description = ConvertValue<string>(row[i++]);
             skillData.PrefabLabel = ConvertValue<string>(row[i++]);
             skillData.IconLabel = ConvertValue<string>(row[i++]);
             skillData.SoundLabel = ConvertValue<string>(row[i++]);
-            skillData.Category = ConvertValue<string>(row[i++]);
+            skillData.AnimName = ConvertValue<string>(row[i++]);
             skillData.CoolTime = ConvertValue<float>(row[i++]);
             skillData.DamageMultiplier = ConvertValue<float>(row[i++]);
             skillData.ProjectileSpacing = ConvertValue<float>(row[i++]);
@@ -137,6 +138,7 @@ public class DataTransformer : EditorWindow
             cd.MaxHp = ConvertValue<float>(row[i++]);
             cd.MaxHpBonus = ConvertValue<float>(row[i++]);
             cd.Atk = ConvertValue<float>(row[i++]);
+            cd.AtkRange = ConvertValue<float>(row[i++]);
             cd.AtkBonus = ConvertValue<float>(row[i++]);
             cd.Def = ConvertValue<float>(row[i++]);
             cd.MoveSpeed = ConvertValue<float>(row[i++]);
@@ -147,7 +149,7 @@ public class DataTransformer : EditorWindow
             cd.MoveSpeedRate = ConvertValue<float>(row[i++]);
             cd.SpriteName = ConvertValue<string>(row[i++]);
             cd.AnimatorName = ConvertValue<string>(row[i++]);
-            cd.SkillTypeList = ConvertList<int>(row[i++]);
+            cd.SkillIdList = ConvertList<int>(row[i++]);
             cd.DropItemId = ConvertValue<int>(row[i++]);
             loader.creatures.Add(cd);
         }

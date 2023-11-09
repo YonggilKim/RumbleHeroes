@@ -8,7 +8,7 @@ public class SkillStat
     public float MaxHp;
     public Data.SkillData SkillData;
 }
-public class SkillBase : BaseController
+public abstract class SkillBase : BaseController
 {
     public CreatureController Owner { get; set; }
     #region Level
@@ -21,7 +21,7 @@ public class SkillBase : BaseController
     #endregion
     #region skillData
     [SerializeField]
-    public Data.SkillData _skillData;
+    private Data.SkillData _skillData;
     public Data.SkillData SkillData 
     {
         get
@@ -35,13 +35,29 @@ public class SkillBase : BaseController
     }
     #endregion
 
-    public float TotalDamage { get; set; } = 0;
+    public Define.ESkillType SkillType;
+    protected string AnimationName;
     public bool IsLearnedSkill { get { return Level > 0; } }
 
+    protected override bool Init()
+    {
+        base.Init();
+      
+        return true;
+    }
 
     public virtual void OnChangedSkillData() { }
 
-    protected virtual void GenerateProjectile(CreatureController Owner, string prefabName, Vector3 startPos, Vector3 dir, Vector3 targetPos, SkillBase skill)
+    public abstract void DoSkill(Action callback = null);
+
+    public void SetInfo(int skillId)
+    {
+        SkillData = Managers.Data.SkillDic[skillId];
+        AnimationName = SkillData.AnimName;
+        Owner = GetComponent<CreatureController>();
+    }
+
+    protected virtual void GenerateProjectile(CreatureController owner, string prefabName, Vector3 startPos, Vector3 dir, Vector3 targetPos, SkillBase skill)
     {
         // ProjectileController pc = Managers.Object.Spawn<ProjectileController>(startPos, prefabName: prefabName);
         // pc.SetInfo(Owner, startPos, dir, targetPos, skill);
@@ -51,5 +67,8 @@ public class SkillBase : BaseController
     {
 
     }
+
+    //하이어라키의 애니메이션에서 받는 이벤트
+    public virtual void OnAnimationEvent(int param){ }
 
 }

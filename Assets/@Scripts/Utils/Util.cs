@@ -60,12 +60,12 @@ public static class Util
     public static Color HexToColor(string color)
     {
         Color parsedColor;
-        
-        if(color.Contains("#") == false)
-            ColorUtility.TryParseHtmlString("#"+color, out parsedColor);
+
+        if (color.Contains("#") == false)
+            ColorUtility.TryParseHtmlString("#" + color, out parsedColor);
         else
             ColorUtility.TryParseHtmlString(color, out parsedColor);
-        
+
         return parsedColor;
     }
 
@@ -88,7 +88,23 @@ public static class Util
         return false;
     }
 
-    
+    public static ESkillType GetSkillTypeFromInt(int value)
+    {
+        foreach (ESkillType skillType in Enum.GetValues(typeof(ESkillType)))
+        {
+            int minValue = (int)skillType;
+            int maxValue = minValue + 5; // 100501~ 100506 사이 값이면 100501값 리턴
+
+            if (value >= minValue && value <= maxValue)
+            {
+                return skillType;
+            }
+        }
+
+        Debug.LogError($" Faild add skill : {value}");
+        return ESkillType.None;
+    }
+
     //Enum값중 랜덤값 반환
     public static T GetRandomEnumValue<T>() where T : struct, Enum
     {
@@ -103,10 +119,9 @@ public static class Util
         return (T)values.GetValue(index);
     }
 
-    //string값 으로 Enum값 찾기
+//string값 으로 Enum값 찾기
     public static T ParseEnum<T>(string value)
     {
         return (T)Enum.Parse(typeof(T), value, true);
     }
-
 }

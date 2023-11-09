@@ -13,20 +13,18 @@ public class SkillBook : MonoBehaviour
     private List<SkillBase> _skillList = new List<SkillBase>();
     public List<SkillBase> SkillList { get { return _skillList; } } 
     public List<SequenceSkill> SequenceSkills { get; } = new List<SequenceSkill>();
-
-
     public List<SkillBase> ActivatedSkills
     {
         get { return SkillList.Where(skill => skill.IsLearnedSkill).ToList(); }
     }
+    public SkillBase BaseAttackSkill { get; set; }
 
     public event Action UpdateSkillUi;
-    public EObjectType _ownerType;
+    public CreatureController _owner;
 
     public void Awake()
     {
-        _ownerType = GetComponent<CreatureController>().ObjectType;
-
+        _owner = GetComponent<CreatureController>();
     }
 
     public void Init()
@@ -36,24 +34,61 @@ public class SkillBook : MonoBehaviour
         //ActivatedSkills.Clear();
         //SavedSkill.Clear();
     }
-    public void SetInfo(EObjectType type)
-    {
-        _ownerType = type;
-    }
 
     public void LoadSkill(Define.ESkillType skillType, int level)
     {
-        //모든스킬은 0으로 시작함. 레벨 수 만큼 레벨업ㅎ ㅏ기
-        AddSkill(skillType);
-        for(int i = 0; i < level; i++)
-            LevelUpSkill(skillType);
-
+        // AddSkill(skillType);
     }
 
-    public void AddSkill(Define.ESkillType skillType, int skillId = 0)
+    public void AddSkill(int skillId = 0)
     {
-        string className = skillType.ToString();
+        string className = Managers.Data.SkillDic[skillId].ClassName;
 
+        SkillBase skill = gameObject.AddComponent(Type.GetType(className)) as SkillBase;
+        if (skill)
+        {
+            skill.SetInfo(skillId);
+            SkillList.Add(skill);
+            if (skillId == _owner.CreatureData.SkillIdList[0])
+                BaseAttackSkill = skill;
+        }
+
+        
+        // if (skillType == ESkillType.FrozenHeart || skillType == ESkillType.SavageSmash || skillType == ESkillType.EletronicField)
+        // {
+        //     GameObject go = Managers.Resource.Instantiate(skillType.ToString(), gameObject.transform);
+        //     if (go != null)
+        //     {
+        //         SkillBase skill = go.GetOrAddComponent<SkillBase>();
+        //         SkillList.Add(skill);
+        //         if(SavedBattleSkill.ContainsKey(skillType))
+        //             SavedBattleSkill[skillType] = skill.Level;
+        //         else
+        //             SavedBattleSkill.Add(skillType, skill.Level);
+        //     }
+        // }
+        // else
+        // {
+        //     // AddComponent만 하면됌
+        //     SequenceSkill skill = gameObject.AddComponent(Type.GetType(className)) as SequenceSkill;
+        //     if (skill != null)
+        //     {
+        //         skill.ActivateSkill();
+        //         skill.Owner = GetComponent<CreatureController>();
+        //         skill.DataId = skillId;
+        //         SkillList.Add(skill);
+        //         SequenceSkills.Add(skill);
+        //     }
+        //     else
+        //     {
+        //         RepeatSkill skillbase = gameObject.GetComponent(Type.GetType(className)) as RepeatSkill;
+        //         SkillList.Add(skillbase);
+        //         if (SavedBattleSkill.ContainsKey(skillType))
+        //             SavedBattleSkill[skillType] = skillbase.Level;
+        //         else
+        //             SavedBattleSkill.Add(skillType, skillbase.Level);
+        //     }
+        // }
     }
 
     public void AddActiavtedSkills(SkillBase skill)
