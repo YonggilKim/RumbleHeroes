@@ -39,7 +39,7 @@ public class CreatureController : InteractionObject
         {
             if (ObjectType == Define.EObjectType.Hero)
             {
-                Debug.Log($"Hero State : {value}");
+                // Debug.Log($"Hero State : {value}");
             }
 
             _creatureState = value;
@@ -108,7 +108,8 @@ public class CreatureController : InteractionObject
                 Scanning();
                 break;
             case Define.ECreatureState.Attack:
-                // Anim.Play("Attack");
+                _rigidBody.constraints = RigidbodyConstraints2D.None; 
+                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; 
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");
@@ -130,10 +131,10 @@ public class CreatureController : InteractionObject
         }
     }
     
-    protected virtual void Attack(InteractionObject target)
+    protected virtual void MoveAndAttack(InteractionObject target)
     {
         MoveCoroutine = null;
-        MoveCoroutine = StartCoroutine(CoMove(target, () =>
+        MoveCoroutine = StartCoroutine(CoMove(target, false, () =>
         {
             // 이동이 완료되면 공격
             CreatureState = Define.ECreatureState.Attack;
@@ -141,45 +142,36 @@ public class CreatureController : InteractionObject
         }));
     }
     
-    protected IEnumerator CoMove(InteractionObject target, Action callback = null)
+    protected IEnumerator CoMove(InteractionObject target,bool isGathering, Action callback = null)
     {
-
-        if (ObjectType == Define.EObjectType.Hero)
-        {
-            Debug.Log("CoMove");
-        }
-
         yield return new WaitForFixedUpdate();
         CreatureState = Define.ECreatureState.Moving;
         float elapsed = 0;
-
+        
         while (true)
         {
             elapsed += Time.deltaTime;
             if(target.IsValid() == false)
                 break;
-
-            float stopDistance;
-
-            stopDistance = (ColliderRadius + target.ColliderRadius) + 0.3f;
-            if (ObjectType == Define.EObjectType.Hero && target.ObjectType == Define.EObjectType.Hero)
+        
+            if (ObjectType == Define.EObjectType.Hero)
             {
-                stopDistance = 0;
+                if(target.ObjectType == Define.EObjectType.Hero)
+                    Debug.Log("CoMove");
+                
             }
-
             float dist = Vector3.Distance(CenterPosition, target.CenterPosition);
-            
-            if (dist <= stopDistance)
-            {
+            float stopDist = isGathering ? 1f : CreatureData.AtkRange;
+        
+            if (dist <= stopDist)
                 break;
-            }
             Vector2 position = _rigidBody.position;
             Vector2 dirVec = target.CenterPosition - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
-            
             Vector2 nextVec = dirVec.normalized * (MoveSpeed * Time.fixedDeltaTime);
+        
             _rigidBody.MovePosition(position + nextVec);
-
+        
             yield return null;
         }
         

@@ -23,14 +23,14 @@ public class GameScene : BaseScene
         LeaderHero.MyLeader = null;
         
         // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201001).MyLeader = LeaderHero;
-        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-39,-13,0)), 201002).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-36,-13,0)), 201002).MyLeader = LeaderHero;
         // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-40,-12,0)), 201004).MyLeader = LeaderHero;
-        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-37,-13,0)), 201006).MyLeader = LeaderHero;
-        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-39,-11,0)), 201008).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-37,-14,0)), 201006).MyLeader = LeaderHero;
+        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-42,-11,0)), 201008).MyLeader = LeaderHero;
 
-        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201001).MyLeader = LeaderHero;
-        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201002).MyLeader = LeaderHero;
-        Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201004).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201001).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201002).MyLeader = LeaderHero;
+        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201004).MyLeader = LeaderHero;
         // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201006).MyLeader = LeaderHero;
         // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201008).MyLeader = LeaderHero;
         //

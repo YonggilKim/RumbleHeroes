@@ -102,12 +102,12 @@ public class MonsterController : CreatureController
         heros = heros.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
         HeroController target = heros[0];
         //Attack
-        Attack(target);
+        MoveAndAttack(target);
     }
 
-    protected override void Attack(InteractionObject target)
+    protected override void MoveAndAttack(InteractionObject target)
     {
-        base.Attack(target);
+        base.MoveAndAttack(target);
     }
     
     // private void OnDrawGizmos()

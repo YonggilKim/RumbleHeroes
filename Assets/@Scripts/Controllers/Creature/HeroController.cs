@@ -21,13 +21,11 @@ public class HeroController : CreatureController
             if (_myHero)
             {
                 Indicator.gameObject.SetActive(false);
-                _rigidBody.mass = 5;
                 IsLeader = false;
             }
             else
             {
                 Indicator.gameObject.SetActive(true);
-                _rigidBody.mass = 10;
                 FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
                 FindObjectOfType<CameraController>().Target = this;
                 IsLeader = true;
@@ -37,12 +35,6 @@ public class HeroController : CreatureController
     } 
     private Coroutine ScanningCoroutine;
     public bool IsLeader = false;
-
-    public Vector2 MoveDir
-    {
-        get => _moveDir;
-        set => _moveDir = value.normalized;
-    }
 
     protected override bool Init()
     {
@@ -69,7 +61,7 @@ public class HeroController : CreatureController
 
     private void FixedUpdate()
     {
-        if(IsLeader == false) return;
+        // if(IsLeader == false) return;
         UpdatePlayerDirection();
         MovePlayer();
     }
@@ -86,7 +78,7 @@ public class HeroController : CreatureController
             case Define.ECreatureState.Moving:
                 break;
             case Define.ECreatureState.Gathering:
-                MoveCrew();
+                // MoveCrew();
                 break;
             case Define.ECreatureState.OnDamaged:
                 break;
@@ -134,19 +126,20 @@ public class HeroController : CreatureController
                 monsters = monsters.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
                 MonsterController target = monsters[0];
                 //Attack
-                Attack(target);
+                MoveAndAttack(target);
                 yield break;
             }
             else if(objects.Count > 0)
             {
                 objects = objects.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
                 GatheringResource target = objects[0];
-                Attack(target);
+                MoveAndAttack(target);
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
+    
     protected void StopScanningCoroutine()
     {
         if (ScanningCoroutine != null)
@@ -173,18 +166,19 @@ public class HeroController : CreatureController
 
     private void MovePlayer()
     {
-        _rigidBody.velocity = Vector2.zero;
+        // _rigidBody.velocity = Vector2.zero;
         Vector3 dir = _moveDir * (MoveSpeed * Time.deltaTime);
-        transform.position += dir;
-        _rigidBody.MovePosition( transform.position + dir);
+        // transform.position += dir;
         if (dir != Vector3.zero)
         {
+            _rigidBody.MovePosition( transform.position + dir);
             //MOVE
             Indicator.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
             CellPos = Managers.Map.CurrentGrid.WorldToCell(transform.position);
             CurrentSprite.flipX = !(dir.x < 0);
+             // Debug.Log($"@>>{gameObject.name} Move to ... Speed : {MoveSpeed}  , dir : {transform.position + dir}");
 
-            Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
+            // Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
         }
         else
         {
@@ -197,8 +191,8 @@ public class HeroController : CreatureController
     {
         if (MyLeader)
         {
-            MoveCoroutine = null;
-            MoveCoroutine = StartCoroutine(CoMove(MyLeader));
+            if(MoveCoroutine == null)
+                MoveCoroutine = StartCoroutine(CoMove(MyLeader,true));
         }
     }
 
@@ -217,19 +211,18 @@ public class HeroController : CreatureController
                 InteractingTarget = null;
                 StopMoveCoroutine();
                 StopScanningCoroutine();
-                if (IsLeader)
-                {
-                    CreatureState = Define.ECreatureState.Moving;
-                }
-                else
-                {
-                    CreatureState = Define.ECreatureState.Gathering;
-                }
+                CreatureState = Define.ECreatureState.Moving;
+                // if (IsLeader)
+                // {
+                //     CreatureState = Define.ECreatureState.Moving;
+                // }
+                // else
+                // {
+                // }
 
                 break;
             case Define.EJoystickState.Dragging:
-                // CreatureState = Define.ECreatureState.Moving;
-                break;
+             break;
             case Define.EJoystickState.PointUp:
                 StopMoveCoroutine();
                 StopScanningCoroutine();
