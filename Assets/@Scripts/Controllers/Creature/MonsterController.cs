@@ -77,34 +77,6 @@ public class MonsterController : CreatureController
         Managers.Object.Despawn(this);
     }
 
-    IEnumerator CoScanning()
-    {
-        Collider2D[] hitColliders;
-        List<HeroController> heros = new List<HeroController>();
-        yield return new WaitForFixedUpdate();
-
-        while (CreatureState == Define.ECreatureState.Idle)
-        {
-            hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 10);
-            
-            foreach (var collider in hitColliders)
-            {
-                HeroController monster = collider.GetComponent<HeroController>();
-                if(monster)
-                    heros.Add(monster);
-            }
-
-            if (heros.Count > 0)
-                break;
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        heros = heros.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
-        HeroController target = heros[0];
-        //Attack
-        MoveAndAttack(target);
-    }
-
     protected override void MoveAndAttack(InteractionObject target)
     {
         base.MoveAndAttack(target);

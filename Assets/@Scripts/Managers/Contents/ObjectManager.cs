@@ -1,3 +1,4 @@
+using System;
 using Data;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,9 @@ public class ObjectManager
     public HeroController Hero { get; private set; }
     public HashSet<HeroController> Heros { get; } = new HashSet<HeroController>();
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
-    
+    public HashSet<InteractionObject> InteractionObjects { get; } = new HashSet<InteractionObject>();
+
+
     public ObjectManager()
     {
         Init();
@@ -20,7 +23,6 @@ public class ObjectManager
 
     public void Init()
     {
-
     }
 
     public void Clear()
@@ -59,19 +61,21 @@ public class ObjectManager
             HeroController hc = go.GetOrAddComponent<HeroController>();
             hc.SetInfo(templateID);
             Hero = hc;
-            Managers.Game.Hero = hc;
             Heros.Add(hc);
             return hc as T;
         }
-        if( type == typeof(GatheringResource))
+
+        if (type == typeof(GatheringResource))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.GatheringResourceDic[templateID].PrefabLabel);
             go.transform.position = position;
             GatheringResource gr = go.GetOrAddComponent<GatheringResource>();
             gr.SetInfo(templateID);
+            InteractionObjects.Add(gr);
 
             return gr as T;
         }
+
         if (type == typeof(MonsterController))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.CreatureDic[templateID].PrefabLabel);
@@ -79,8 +83,10 @@ public class ObjectManager
             MonsterController mc = go.GetOrAddComponent<MonsterController>();
             mc.SetInfo(templateID);
             Monsters.Add(mc);
+            InteractionObjects.Add(mc);
             return mc as T;
         }
+
         if (type == typeof(DropItemController))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.DropItemDic[templateID].PrefabLabel);
@@ -112,6 +118,95 @@ public class ObjectManager
         else if (type == typeof(DropItemController))
         {
             Managers.Resource.Destroy(obj.gameObject);
+        }
+    }
+
+    public InteractionObject GetInteracctionTarget(InteractionObject scanner, Vector3 pivotPosition)
+    {
+        int scanRange = 10;
+        
+        if (scanner.ObjectType == EObjectType.Hero)
+        {
+            scanRange = 6;
+            pivotPosition = Managers.Game.Leader.GatheringPoint;
+        }
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)pivotPosition, scanRange);
+        List<InteractionObject> targets = new List<InteractionObject>();
+
+        foreach (var collider in hitColliders)
+        {
+            InteractionObject interactionObject = collider.GetComponent<InteractionObject>();
+            if (interactionObject && interactionObject.Hp > 0)
+                targets.Add(interactionObject);
+        }
+
+        switch (scanner.ObjectType)
+        {
+            case EObjectType.Hero:
+                //targets 에서 ObjectType가 Monster, GatheringResource만 추출
+                List<InteractionObject> monsters = targets
+                    .Where(target => target.ObjectType == EObjectType.Monster)
+                    .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)
+                    .ThenBy(target => target.LockedOnCount)
+                    .ToList();
+
+                List<InteractionObject> resources = targets
+                    .Where(target => target.ObjectType == EObjectType.GatheringResources)
+                    .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)
+                    .ThenBy(target => target.LockedOnCount)
+                    .ToList();
+
+                if (monsters.Count > 0)
+                {
+                    foreach (var monster in monsters.Where(monster => monster.LockedOnCount < 3))
+                    {
+                        monster.LockedOnCount++;
+                        return monster;
+                    }
+
+                    //이미 거리에 따라 정렬되어 있기 때문에 가장 첫번째 인덱스 리턴
+                    monsters[0].LockedOnCount++;
+                    return monsters[0];
+                }
+
+                if (resources.Count > 0)
+                {
+                    foreach (var resource in resources.Where(resource => resource.LockedOnCount < 3))
+                    {
+                        resource.LockedOnCount++;
+                        return resource;
+                    }
+
+                    resources[0].LockedOnCount++;
+                    return resources[0];
+                }
+                // 주변에 아무것도 없으면 null
+                return null;
+            
+            case EObjectType.Monster:
+                List<InteractionObject> heroes = targets
+                    .Where(target => target.ObjectType == EObjectType.Hero)
+                    .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)
+                    .ThenBy(target => target.LockedOnCount)
+                    .ToList();
+                
+                if (heroes.Count > 0)
+                {
+                    foreach (var hero in heroes.Where(hero => hero.LockedOnCount < 3))
+                    {
+                        hero.LockedOnCount++;
+                        return hero;
+                    }
+
+                    heroes[0].LockedOnCount++;
+                    return heroes[0];
+                }
+
+                return null;
+
+            default:
+                return null;
         }
     }
 }

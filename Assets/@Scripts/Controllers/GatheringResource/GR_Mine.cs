@@ -9,7 +9,6 @@ public class GR_Mine : GatheringResource
     {
         base.Init();
         
-        ObjectType = Define.EObjectType.GR_Mine;
         return true;
     }
     

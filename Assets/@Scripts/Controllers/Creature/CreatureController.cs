@@ -6,10 +6,13 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class CreatureController : InteractionObject
 {
     protected Rigidbody2D _rigidBody { get; set; }
+
     #region Stat
 
     public Data.CreatureData CreatureData { get; private set; }
@@ -27,11 +30,12 @@ public class CreatureController : InteractionObject
     public virtual float MoveSpeedRate { get; set; } = 1;
     public virtual float MoveSpeed { get; set; } = 4;
     public virtual SkillBook Skills { get; set; }
-    
+
     #endregion
-    
+
     public InteractionObject InteractingTarget { get; set; }
     private Define.ECreatureState _creatureState = Define.ECreatureState.Moving;
+
     public virtual Define.ECreatureState CreatureState
     {
         get => _creatureState;
@@ -48,6 +52,16 @@ public class CreatureController : InteractionObject
     }
 
     protected Coroutine MoveCoroutine;
+    protected Coroutine ScanningCoroutine;
+
+    private Vector3 _gatheringPoint;
+
+    public Vector2 GatheringPoint
+    {
+        get => _gatheringPoint;
+        set => _gatheringPoint = value;
+    }
+
     private void Awake()
     {
         Init();
@@ -58,16 +72,16 @@ public class CreatureController : InteractionObject
         base.Init();
 
         Skills = gameObject.GetOrAddComponent<SkillBook>();
-        _rigidBody = gameObject.GetComponent<Rigidbody2D>() ;
+        _rigidBody = gameObject.GetComponent<Rigidbody2D>();
 
         CurrentSprite = GetComponent<SpriteRenderer>();
-        
+
         if (CurrentSprite == null)
             CurrentSprite = Util.FindChild<SpriteRenderer>(gameObject);
 
         return true;
     }
-    
+
     public void SetInfo(int creatureId)
     {
         DataId = creatureId;
@@ -77,7 +91,6 @@ public class CreatureController : InteractionObject
         var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
         CurrentSprite.sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
 
-        
         Init();
         InitSkill();
     }
@@ -89,18 +102,19 @@ public class CreatureController : InteractionObject
         Hp = MaxHp;
         MoveSpeed = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
     }
-    
+
     public virtual void InitSkill()
     {
         foreach (int skillId in CreatureData.SkillIdList)
         {
-             Skills.AddSkill(skillId);
+            Skills.AddSkill(skillId);
         }
     }
-    
+
     protected virtual void UpdateAnimation()
     {
-        _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;;
+        // _rigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+        ;
         switch (CreatureState)
         {
             case Define.ECreatureState.Idle:
@@ -108,16 +122,17 @@ public class CreatureController : InteractionObject
                 Scanning();
                 break;
             case Define.ECreatureState.Attack:
-                _rigidBody.constraints = RigidbodyConstraints2D.None; 
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; 
+                _rigidBody.constraints = RigidbodyConstraints2D.None;
+                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");
-                _rigidBody.constraints = RigidbodyConstraints2D.None; 
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; 
+                _rigidBody.constraints = RigidbodyConstraints2D.None;
+                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case Define.ECreatureState.Gathering:
                 Anim.Play("Gathering");
+                Gathering();
                 break;
             case Define.ECreatureState.OnDamaged:
                 Anim.Play("OnDamaged");
@@ -130,60 +145,133 @@ public class CreatureController : InteractionObject
                 break;
         }
     }
-    
+
+    protected IEnumerator CoScanning()
+    {
+        yield return new WaitForEndOfFrame();
+
+        while (CreatureState == Define.ECreatureState.Idle)
+        {
+            InteractionObject target;
+            if (ObjectType == Define.EObjectType.Hero)
+            {
+                InteractingTarget = Managers.Object.GetInteracctionTarget(this, Vector3.zero);
+            }
+            else
+            {
+                InteractingTarget = Managers.Object.GetInteracctionTarget(this, CenterPosition);
+            }
+
+            if (InteractingTarget.IsValid())
+            {
+                MoveAndAttack(InteractingTarget);
+                StopScanningCoroutine();
+                yield break;
+            }
+            else
+            {
+                if (ObjectType == Define.EObjectType.Hero)
+                {
+                    if (Vector3.Distance(CenterPosition, Managers.Game.Leader.GatheringPoint) > 3)
+                    {
+                        CreatureState = Define.ECreatureState.Gathering;
+                        StopScanningCoroutine();
+                        yield break;
+                        
+                    }
+
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     protected virtual void MoveAndAttack(InteractionObject target)
     {
+        GhostMode(true);
         MoveCoroutine = null;
-        MoveCoroutine = StartCoroutine(CoMove(target, false, () =>
+        MoveCoroutine = StartCoroutine(CoMove(false, () =>
         {
+            GhostMode(false);
             // 이동이 완료되면 공격
-            CreatureState = Define.ECreatureState.Attack;
-            Skills.BaseAttackSkill.DoSkill();
+            if (InteractingTarget.IsValid())
+            {
+                CurrentCollider.radius = ColliderRadius;
+                CreatureState = Define.ECreatureState.Attack;
+                Skills.BaseAttackSkill.DoSkill();
+            }
+            else
+            {
+                //진행중 타겟이 없어지면 Idle로 리셋
+                CreatureState = Define.ECreatureState.Idle;
+            }
+
+            StopMoveCoroutine();
         }));
     }
-    
-    protected IEnumerator CoMove(InteractionObject target,bool isGathering, Action callback = null)
+
+    protected virtual void Gathering()
+    {
+        GhostMode(true);
+        if (MoveCoroutine == null)
+            MoveCoroutine = StartCoroutine(CoMove(true, () =>
+            {
+                GhostMode(false);
+                // 다모이면
+                CreatureState = Define.ECreatureState.Idle;
+                StopMoveCoroutine();
+            }));
+    }
+
+    protected IEnumerator CoMove(bool isGathering, Action callback = null)
     {
         yield return new WaitForFixedUpdate();
         CreatureState = Define.ECreatureState.Moving;
         float elapsed = 0;
-        
+
+        Vector2 gatheringPos = Managers.Game.Leader.GatheringPoint;
+
         while (true)
         {
-            elapsed += Time.deltaTime;
-            if(target.IsValid() == false)
-                break;
-        
-            if (ObjectType == Define.EObjectType.Hero)
+            Vector3 targetPos;
+
+            if (isGathering)
             {
-                if(target.ObjectType == Define.EObjectType.Hero)
-                    Debug.Log("CoMove");
-                
+                targetPos = ObjectType == Define.EObjectType.Hero
+                    ? gatheringPos
+                    : InteractingTarget.CenterPosition;
             }
-            float dist = Vector3.Distance(CenterPosition, target.CenterPosition);
-            float stopDist = isGathering ? 1f : CreatureData.AtkRange;
-        
+            else
+            {
+                targetPos = InteractingTarget.CenterPosition;
+            }
+
+            elapsed += Time.deltaTime;
+            if (InteractingTarget.IsValid() == false && isGathering == false)
+                break;
+
+            float dist = Vector3.Distance(CenterPosition, targetPos);
+            float stopDist = isGathering ? 2.5f : CreatureData.AtkRange;
+
+
+            if (InteractingTarget && InteractingTarget.ObjectType == Define.EObjectType.GatheringResources)
+                stopDist = 1.5f;
+
             if (dist <= stopDist)
                 break;
             Vector2 position = _rigidBody.position;
-            Vector2 dirVec = target.CenterPosition - CenterPosition;
+            Vector2 dirVec = targetPos - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
             Vector2 nextVec = dirVec.normalized * (MoveSpeed * Time.fixedDeltaTime);
-        
+
             _rigidBody.MovePosition(position + nextVec);
-        
+
             yield return null;
-        }
-        
-        InteractingTarget = target;
-        if (ObjectType == Define.EObjectType.Hero)
-        {
-            Debug.Log("이동 완료");
         }
 
         yield return new WaitForSeconds(0.2f);
 
-        
         callback?.Invoke();
     }
 
@@ -192,11 +280,13 @@ public class CreatureController : InteractionObject
         if (MoveCoroutine != null)
         {
             StopCoroutine(MoveCoroutine);
-            MoveCoroutine = null; 
+            MoveCoroutine = null;
         }
     }
-   
-    protected virtual void Scanning() { }
+
+    protected virtual void Scanning()
+    {
+    }
 
     protected virtual void OnDead()
     {
@@ -204,7 +294,7 @@ public class CreatureController : InteractionObject
 
     public void OnAttackAnimationEvent()
     {
-        if(InteractingTarget.IsValid())
+        if (InteractingTarget.IsValid())
             InteractingTarget.OnDamaged(this);
         else
         {
@@ -214,7 +304,7 @@ public class CreatureController : InteractionObject
 
     public void OnAttackAnimationEndEvent()
     {
-        if(InteractingTarget.IsValid() == false)
+        if (InteractingTarget.IsValid() == false)
         {
             SetIdleStateAndScanning();
             return;
@@ -224,36 +314,56 @@ public class CreatureController : InteractionObject
         {
             float dist = Vector3.Distance(CenterPosition, InteractingTarget.CenterPosition);
             float stopDistance = (ColliderRadius + InteractingTarget.ColliderRadius) + 0.1f;
-            
+
             if (dist > stopDistance)
             {
                 SetIdleStateAndScanning();
             }
         }
     }
-    
+
     private void SetIdleStateAndScanning()
     {
         CreatureState = Define.ECreatureState.Idle;
         InteractingTarget = null;
     }
-    
+
+    protected void GhostMode(bool isOn)
+    {
+        if (isOn)
+        {
+            CurrentCollider.enabled = false;
+        }
+        else
+        {
+            CurrentCollider.enabled = true;
+        }
+    }
+
     public override void OnDamaged(InteractionObject Attacker)
     {
         base.OnDamaged(Attacker);
-        
-        if(ObjectType == Define.EObjectType.Hero)
+
+        if (ObjectType == Define.EObjectType.Hero)
             return;
         CreatureController creature = Attacker as CreatureController;
         if (creature)
         {
-            Hp = Mathf.Clamp(Hp-creature.Atk, 0, MaxHp);
+            Hp = Mathf.Clamp(Hp - creature.Atk, 0, MaxHp);
             if (Hp == 0)
             {
                 CreatureState = Define.ECreatureState.Dead;
             }
         }
+    }
 
+    protected void StopScanningCoroutine()
+    {
+        if (ScanningCoroutine != null)
+        {
+            StopCoroutine(ScanningCoroutine);
+            ScanningCoroutine = null;
+        }
     }
 
     private void OnDrawGizmos()
@@ -263,12 +373,11 @@ public class CreatureController : InteractionObject
         style.normal.textColor = Color.blue;
         style.fontSize = 15;
         Handles.Label(transform.position + Vector3.down * 0.3f, label, style);
-        
+
         if (InteractingTarget)
         {
             Gizmos.color = Color.red; // 선의 색상 설정
             Gizmos.DrawLine(CenterPosition, InteractingTarget.CenterPosition); // 시작점에서 끝점까지 선 그리기
         }
     }
-
 }

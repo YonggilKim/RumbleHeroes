@@ -46,10 +46,6 @@ public class DropItemController : BaseController
             float x0 = _startPosition.x;
             float x1 = TargetPosition.x;
             float distance = x1 - x0;
-            if (distance < 0.01f)
-            {
-                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
-            }
 
             float nextX = Mathf.MoveTowards(transform.position.x, x1, _speed * Time.deltaTime);
             float baseY = Mathf.Lerp(_startPosition.y, TargetPosition.y, (nextX - x0) / distance);

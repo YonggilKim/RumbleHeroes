@@ -5,8 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     #region Value
-    public Transform PlayerTransform;
-    public BaseController Target;
+    public CreatureController Target;
     public float Height { get; set; } = 0;
     public float Width { get; set; } = 0;
 
@@ -29,8 +28,8 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!PlayerTransform) return;
-        var position = PlayerTransform.position;
+        if (Target.IsValid() == false) return;
+        var position = Target.CenterPosition;
         transform.position = new Vector3(position.x, position.y, -10f);
     }
 }

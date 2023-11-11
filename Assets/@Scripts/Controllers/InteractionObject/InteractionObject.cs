@@ -11,18 +11,21 @@ public class InteractionObject : BaseController
     public Animator Anim { get; set; }
 
     public Vector3 CenterPosition => transform.position + Vector3.up * ColliderRadius;
+    public CircleCollider2D CurrentCollider;
     public float ColliderRadius { get; set; }
     protected DamageFlash DamageFlashComp;
     
     public virtual int DataId { get; set; }
     public virtual float Hp { get; set; }
     public virtual float MaxHp { get; set; }
-    
+
+    public int LockedOnCount = 0; 
     protected override bool Init()
     {
         base.Init();
         CurrentSprite = gameObject.GetOrAddComponent<SpriteRenderer>();
-        ColliderRadius = gameObject.GetOrAddComponent<CircleCollider2D>().radius;
+        CurrentCollider = gameObject.GetOrAddComponent<CircleCollider2D>();
+        ColliderRadius = CurrentCollider.radius;
         DamageFlashComp = gameObject.GetOrAddComponent<DamageFlash>();
         Anim = GetComponent<Animator>();
         if (Anim == null)

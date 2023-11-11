@@ -124,4 +124,15 @@ public static class Util
     {
         return (T)Enum.Parse(typeof(T), value, true);
     }
+
+    public static Vector2 GenerateRandomPositionOnCircle(Vector2 center, float radius)
+    {
+        int randomUnit = Random.Range(0, 10);
+        float randomAngle = randomUnit * 36f;
+        float radians = Mathf.Deg2Rad * randomAngle;
+        float x = center.x + radius * Mathf.Cos(radians);
+        float y = center.y + radius * Mathf.Sin(radians);
+
+        return new Vector2(x, y);
+    }
 }

@@ -19,6 +19,7 @@ public class GatheringResource : InteractionObject
         DataId = creatureId;
         _data = Managers.Data.GatheringResourceDic[creatureId];
         CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
+        ObjectType = Define.EObjectType.GatheringResources;
 
         MaxHp = _data.MaxHp;
         Hp = _data.MaxHp;
