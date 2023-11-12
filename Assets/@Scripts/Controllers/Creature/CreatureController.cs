@@ -177,9 +177,7 @@ public class CreatureController : InteractionObject
                         CreatureState = Define.ECreatureState.Gathering;
                         StopScanningCoroutine();
                         yield break;
-                        
                     }
-
                 }
             }
 
@@ -332,11 +330,11 @@ public class CreatureController : InteractionObject
     {
         if (isOn)
         {
-            CurrentCollider.enabled = false;
+            CurrentCollider.radius = ColliderRadius * 0.1f;
         }
         else
         {
-            CurrentCollider.enabled = true;
+            CurrentCollider.radius = ColliderRadius;
         }
     }
 

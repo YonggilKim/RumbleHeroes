@@ -107,6 +107,26 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+  - m_GUID: 1abd788f760371a46964a03b4c9cf03c
+    m_Address: Hero_02_Bullet.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 5861ef29f14630242bc07155b81683b4
+    m_Address: Hero_06_Bullet.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 135cf28e48696604786fd89a9084d1b7
+    m_Address: Hero_07_Bullet.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 9b0f2bc52c0551e408b1f593e78de997
+    m_Address: Hero_08_Bullet.sprite
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

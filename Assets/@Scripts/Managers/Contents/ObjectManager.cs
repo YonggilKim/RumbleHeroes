@@ -95,6 +95,15 @@ public class ObjectManager
             return di as T;
         }
 
+        if (type == typeof(RangeArcProjectile))
+        {
+            GameObject go = Managers.Resource.Instantiate(prefabName);
+            go.transform.position = position;
+            RangeArcProjectile di = go.GetOrAddComponent<RangeArcProjectile>();
+            
+            return di as T;
+        }
+        
         return null;
     }
 
@@ -116,6 +125,10 @@ public class ObjectManager
             Managers.Resource.Destroy(obj.gameObject);
         }
         else if (type == typeof(DropItemController))
+        {
+            Managers.Resource.Destroy(obj.gameObject);
+        }
+        else if (type == typeof(RangeArcProjectile))
         {
             Managers.Resource.Destroy(obj.gameObject);
         }
@@ -151,12 +164,6 @@ public class ObjectManager
                     .ThenBy(target => target.LockedOnCount)
                     .ToList();
 
-                List<InteractionObject> resources = targets
-                    .Where(target => target.ObjectType == EObjectType.GatheringResources)
-                    .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)
-                    .ThenBy(target => target.LockedOnCount)
-                    .ToList();
-
                 if (monsters.Count > 0)
                 {
                     foreach (var monster in monsters.Where(monster => monster.LockedOnCount < 3))
@@ -169,7 +176,12 @@ public class ObjectManager
                     monsters[0].LockedOnCount++;
                     return monsters[0];
                 }
-
+                
+                List<InteractionObject> resources = targets
+                    .Where(target => target.ObjectType == EObjectType.GatheringResources)
+                    .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)
+                    .ThenBy(target => target.LockedOnCount)
+                    .ToList();
                 if (resources.Count > 0)
                 {
                     foreach (var resource in resources.Where(resource => resource.LockedOnCount < 3))
