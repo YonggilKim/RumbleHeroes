@@ -2,7 +2,7 @@ using System.Collections;
 using Data;
 using DG.Tweening;
 using UnityEngine;
-
+//
 public class DropItemController : BaseController
 {
     private DropItemData _data { get; set; }
