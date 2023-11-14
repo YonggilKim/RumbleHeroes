@@ -1,11 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Data;
 using DG.Tweening;
-using UnityEditor.Build.Content;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class DropItemController : BaseController
 {

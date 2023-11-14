@@ -255,7 +255,8 @@ public class CreatureController : InteractionObject
         }
 
     }
-
+            
+    #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         string label = string.Format("({0})", CreatureState);
@@ -270,5 +271,6 @@ public class CreatureController : InteractionObject
             Gizmos.DrawLine(CenterPosition, InteractingTarget.CenterPosition); // 시작점에서 끝점까지 선 그리기
         }
     }
+    #endif
 
 }
