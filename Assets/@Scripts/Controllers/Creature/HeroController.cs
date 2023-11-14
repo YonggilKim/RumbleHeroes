@@ -26,14 +26,14 @@ public class HeroController : CreatureController
             else
             {
                 Indicator.gameObject.SetActive(true);
-                FindObjectOfType<CameraController>().PlayerTransform = gameObject.transform;
                 FindObjectOfType<CameraController>().Target = this;
+                GatheringPoint = CenterPosition;
                 IsLeader = true;
+                Managers.Game.Leader = this;
             }
             //1. 화살표 제거 
         }
     } 
-    private Coroutine ScanningCoroutine;
     public bool IsLeader = false;
 
     protected override bool Init()
@@ -94,61 +94,11 @@ public class HeroController : CreatureController
         base.Scanning();
         if (ScanningCoroutine == null)
         {
-            Debug.Log("Start Scanning...");
             ScanningCoroutine = StartCoroutine(CoScanning());
         }
     }
 
-    IEnumerator CoScanning()
-    {
-        while (true)
-        {
-            //1. 주변을 검색한다.
-            Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)CenterPosition, 4);
 
-            List<MonsterController> monsters = new List<MonsterController>();
-            List<GatheringResource> objects = new List<GatheringResource>();
-        
-            foreach (var collider in hitColliders)
-            {
-                MonsterController monster = collider.GetComponent<MonsterController>();
-                if(monster && monster.Hp > 0)
-                    monsters.Add(monster);
-            
-                GatheringResource gatheringResource = collider.GetComponent<GatheringResource>();
-                var test = collider.GetComponent<GatheringResource>();
-                if(gatheringResource &&gatheringResource.Hp > 0)
-                    objects.Add(gatheringResource);
-            }
-
-            if (monsters.Count > 0)
-            {
-                monsters = monsters.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
-                MonsterController target = monsters[0];
-                //Attack
-                MoveAndAttack(target);
-                yield break;
-            }
-            else if(objects.Count > 0)
-            {
-                objects = objects.OrderBy(target => (CenterPosition - target.CenterPosition).sqrMagnitude).ToList();
-                GatheringResource target = objects[0];
-                MoveAndAttack(target);
-                yield break;
-            }
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-    
-    protected void StopScanningCoroutine()
-    {
-        if (ScanningCoroutine != null)
-        {
-            Debug.Log("StopScanningCoroutine");
-            StopCoroutine(ScanningCoroutine);
-            ScanningCoroutine = null; 
-        }
-    }
     private void UpdatePlayerDirection()
     {
         if (_moveDir.x < 0)
@@ -189,11 +139,11 @@ public class HeroController : CreatureController
 
     private void MoveCrew()
     {
-        if (MyLeader)
-        {
-            if(MoveCoroutine == null)
-                MoveCoroutine = StartCoroutine(CoMove(MyLeader,true));
-        }
+        // if (MyLeader)
+        // {
+        //     if(MoveCoroutine == null)
+        //         MoveCoroutine = StartCoroutine(CoMove(MyLeader,true));
+        // }
     }
 
     private bool isDraw = false;
@@ -226,8 +176,12 @@ public class HeroController : CreatureController
             case Define.EJoystickState.PointUp:
                 StopMoveCoroutine();
                 StopScanningCoroutine();
-                Debug.Log("---------------------------------------------------------");
                 CreatureState = Define.ECreatureState.Idle;
+                if (IsLeader)
+                {
+                    GatheringPoint = CenterPosition;
+                }
+
                 break;
             default:
                 break;

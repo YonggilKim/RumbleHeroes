@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSprite: {fileID: 0}
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0
   Indicator: {fileID: 6348288741095228773}
   IsLeader: 0
 --- !u!50 &1842076329571298090
@@ -271,9 +273,9 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.675}
+  m_Offset: {x: 0, y: 0.7}
   serializedVersion: 2
-  m_Radius: 0.49
+  m_Radius: 0.4

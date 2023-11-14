@@ -137,6 +137,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload
+  - m_GUID: 51f4ac2543c9f9a4b8c48e51502f077e
+    m_Address: RangeArcProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 160b55112b3d9c14e8f3614f46ca6258, type: 2}
   m_SchemaSet:

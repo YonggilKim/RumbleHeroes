@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [FormerlySerializedAs("JoystickType")] public Define.EJoystickType eJoystickType = Define.EJoystickType.Flexible;
     
     #region Player
-    public HeroController Hero { get; set; }
+    public HeroController Leader { get; set; }
     private Vector2 _moveDir;
     public Vector2 MoveDir
     {

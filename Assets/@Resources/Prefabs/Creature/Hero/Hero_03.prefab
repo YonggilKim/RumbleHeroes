@@ -238,6 +238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSprite: {fileID: 0}
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0
   Indicator: {fileID: 6348288741095228773}
   IsLeader: 0
 --- !u!58 &9012526146850103789
@@ -249,13 +251,13 @@ CircleCollider2D:
   m_GameObject: {fileID: 6599454290486401067}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 0460e40fd33eaa542b74b6361f498ae1, type: 2}
-  m_IsTrigger: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.03}
+  m_Offset: {x: 0, y: 0.7}
   serializedVersion: 2
-  m_Radius: 0.39
+  m_Radius: 0.4
 --- !u!50 &7108465861557128910
 Rigidbody2D:
   serializedVersion: 4

@@ -1,7 +1,7 @@
 ﻿DataId,Name,ClassName,Description,PrefabLabel,IconLabel,SoundLabel,AnimName,CoolTime,DamageMultiplier,ProjectileSpacing,Duration,RecognitionRange,NumProjectiles,CastingSound,AngleBetweenProj,AttackInterval,NumBounce,BounceSpeed,BounceDist,NumPenerations,CastingEffect,HitSound,ProbCastingEffect,HitEffect,ProbHitEffect,ProjRange,MinCoverage,MaxCoverage,RoatateSpeed,ProjSpeed,ScaleMultiplier
-10001,근접공격,MeleeAttack,주변의 적을 향해 에너지 볼트를 발사한다,EnergyBolt,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1,0.2,0,8,3,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
-10002,원거리 직선 공격,MeleeAttack,,EnergyBolt,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1,0.2,0,8,5,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
-10003,원거리 포물선 공격,MeleeAttack,주변의 적을 향해 에너지 볼트를 발사한다,EnergyBolt,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1.28,0.2,0,8,3,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
+10001,근접공격,MeleeAttack,주변의 적을 향해 에너지 볼트를 발사한다,,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1,0.2,0,8,3,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
+10002,원거리 직선 공격,RangedArcAttack,,ProjectilePrefab,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1,0.2,0,8,5,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
+10003,원거리 포물선 공격,RangedArcAttack,주변의 적을 향해 에너지 볼트를 발사한다,RangeArcProjectile,BattleSkillIcon_01,EnergyBolt_Start,Attack,1.2,1.28,0.2,0,8,3,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1
 10004,에너지 볼트,MeleeAttack,피해량이 증가하고 볼트의 개수가 2회 증가한다.,EnergyBolt,BattleSkillIcon_01,EnergyBolt_Start,EnergyBolt,0.8,1.22,0.08,0,8,9,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1.3
 10005,에너지 볼트,MeleeAttack,피해량이 증가하고 볼트의 개수가 2회 증가한다.,EnergyBolt,BattleSkillIcon_01,EnergyBolt_Start,EnergyBolt,0.6,1.33,0.04,0,8,11,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1.5
 10006,에너지 볼트,MeleeAttack,피해량이 증가하고 볼트의 개수가 2회 증가한다.,EnergyBolt_Final,BattleSkillIcon_01,EnergyBolt_Start,EnergyBolt,0.5,1.44,0.04,0,8,13,EnergyBolt_Start,0,0,1,20,0,0,20000,EnergyBolt_Hit,3,20000,3,0,0,8,0,20,1.5
