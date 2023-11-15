@@ -12,7 +12,7 @@ public class BuildPlayer : MonoBehaviour
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[]
             { "Assets/@Scenes/TitleScene.unity", "Assets/@Scenes/LobbyScene.unity", "Assets/@Scenes/GameScene.unity" };
-        buildPlayerOptions.locationPathName = $"./Builds/AOS_{PlayerSettings.bundleVersion}.apk";
+        buildPlayerOptions.locationPathName = $"./Builds/RumbleHeroes.apk";
         buildPlayerOptions.target = BuildTarget.Android;
         buildPlayerOptions.options = BuildOptions.None;
 
