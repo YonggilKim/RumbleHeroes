@@ -18,7 +18,7 @@ public class BuildPlayer : MonoBehaviour
 
         PlayerSettings.Android.keystorePass = "rookiss";
         PlayerSettings.Android.keyaliasName = "rookiss";
-        PlayerSettings.Android.keyaliasPass = "rookiss";
+        // PlayerSettings.Android.keyaliasPass = "rookiss";
 
         BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
         BuildSummary summary = report.summary;
