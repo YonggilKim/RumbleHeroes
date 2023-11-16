@@ -17,17 +17,22 @@ public class TitleScene : BaseScene
         GraphicsSettings.transparencySortAxis = new Vector3(0.0f, 1.0f, 0.0f);
     }
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
-        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
-        {
-            Debug.Log($"{key} {count}/{totalCount}");
-
-            if (count == totalCount)
-            {
-                StartLoaded();
-            }
-        });
+        // Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
+        // {
+        //     Debug.Log($"{key} {count}/{totalCount}");
+        //
+        //     if (count == totalCount)
+        //     {
+        //         StartLoaded();
+        //     }
+        // });
     }
 
     private void StartLoaded()

@@ -10,6 +10,14 @@ public class Define
    
     #region Enum
 
+    public enum SizeUnits
+    {
+        Byte, 
+        KB, 
+        MB, 
+        GB
+    }
+    
     public enum EAnimationState
     {
         Attack,
