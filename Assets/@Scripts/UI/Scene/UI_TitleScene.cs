@@ -70,26 +70,18 @@ public class UI_TitleScene : UI_Scene
     {
         // SetState(State.CalculatingSize, true);
 
-        // yield return Downloader.StartDownloadRoutine((events) =>
-        // {
-        //     events.SystemInitializedListener += OnInitialized;
-        //     events.CatalogUpdatedListener += OnCatalogUpdated;
-        //     events.SizeDownloadedListener += OnSizeDownloaded;
-        //     events.DownloadProgressListener += OnDownloadProgress;
-        //     events.DownloadFinished += OnDownloadFinished;
-        //     
-        //
-        // });
-        yield return null;
-        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
+        yield return Downloader.StartDownloadRoutine((events) =>
         {
-            Debug.Log($"{key} {count}/{totalCount}");
+            events.SystemInitializedListener += OnInitialized;
+            events.CatalogUpdatedListener += OnCatalogUpdated;
+            events.SizeDownloadedListener += OnSizeDownloaded;
+            events.DownloadProgressListener += OnDownloadProgress;
+            events.DownloadFinished += OnDownloadFinished;
             
-            if (count == totalCount)
-            {
-                Managers.Data.Init();   
-            }
+        
         });
+        yield return null;
+
     }
 
     void UpdateUI()
@@ -143,6 +135,11 @@ public class UI_TitleScene : UI_Scene
             totalSizeInUnit = Util.ConvertByteByUnit(size, sizeUnit);
 
             CurrentState = State.AskingDownload;
+            
+            
+            //TODO 일단 묻지않고 바로 다운로드
+            CurrentState = State.Downloading;
+            Downloader.GoNext();
         }
     }
 
@@ -168,5 +165,15 @@ public class UI_TitleScene : UI_Scene
 
         CurrentState = State.DownloadFinished;
         Downloader.GoNext();
+        
+        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
+        {
+            Debug.Log($"{key} {count}/{totalCount}");
+            
+            if (count == totalCount)
+            {
+                Managers.Data.Init();   
+            }
+        });
     }
 }

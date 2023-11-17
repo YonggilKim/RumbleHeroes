@@ -25,10 +25,10 @@ public class EditorPlayButton
     /// </summary>
     private static void BeforePlay()
     {
-        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
-        AddressableAssetProfileSettings profile = settings.profileSettings;
-        string profileID2 = settings.profileSettings.GetProfileId("Default");
-        settings.activeProfileId = profileID2;
+        // AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+        // AddressableAssetProfileSettings profile = settings.profileSettings;
+        // string profileID2 = settings.profileSettings.GetProfileId("Default");
+        // settings.activeProfileId = profileID2;
     }
 }
 

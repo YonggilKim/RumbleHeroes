@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1989438424406686306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -158,22 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSprite: {fileID: 0}
-  CreatureData:
-    DataId: 0
-    DescriptionTextID: 
-    PrefabLabel: 
-    MaxHp: 0
-    MaxHpBonus: 0
-    Atk: 0
-    AtkBonus: 0
-    Def: 0
-    MoveSpeed: 0
-    TotalExp: 0
-    HpRate: 0
-    AtkRate: 0
-    DefRate: 0
-    MoveSpeedRate: 0
-    SpriteName: 
-    AnimatorName: 
-    SkillTypeList: 
-    DropItemId: 0
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0

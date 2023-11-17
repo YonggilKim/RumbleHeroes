@@ -14,17 +14,21 @@
     <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/Creature/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/DropItem/DropItemController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Controllers/Projectile/ProjectileController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/@Scripts/Editor/BuildPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.path@5.0.2/Editor/Shapes/Spline.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap.extras@2.2.4/Editor/Brushes/GameObjectBrush/GameObjectBrush.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.tilemap@1.0.0/Editor/TileDragAndDrop.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Editor/Build/DataBuilders/BuildScriptBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Runtime/Addressables.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.19.19/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@2.0.4/Editor/PlasticSCM/UI/UnityEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.10/Tests/Runtime/DecalTests.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/InputField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2171cd91f87046dc831f5be1bf059f921a200/35/76bce1bf/Network.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/665e819c4bb245828e233b90811a6e464000/49/ad21004e/Grid.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/941a4719b50f41b29409612f3478c8db1a000/0b/db29c4ce/CharacterController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/941a4719b50f41b29409612f3478c8db1a000/87/d017f92a/Collider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e8a406da998549af9a2680936c7da25a159c00/53/c6c58c53/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -86,10 +90,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="13756">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="13756" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -114,6 +118,12 @@
       <workItem from="1699492812775" duration="24424000" />
       <workItem from="1699576128856" duration="12783000" />
       <workItem from="1699841894414" duration="5525000" />
+      <workItem from="1699927623818" duration="6520000" />
+      <workItem from="1700027682680" duration="4288000" />
+      <workItem from="1700045390402" duration="111000" />
+      <workItem from="1700113106394" duration="605000" />
+      <workItem from="1700114689073" duration="12364000" />
+      <workItem from="1700186945877" duration="6954000" />
     </task>
     <servers />
   </component>
@@ -129,17 +139,69 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/@Scripts/Controllers/Creature/CreatureController.cs</url>
-          <line>180</line>
-          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Controllers\Creature\CreatureController.cs" initialLine="180" containingFunctionPresentation="Method 'CoMove'">
+          <url>file://$PROJECT_DIR$/Assets/@Scripts/Components/DownloadComponent.cs</url>
+          <line>38</line>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Components\DownloadComponent.cs" initialLine="38" containingFunctionPresentation="Method 'StartDownloadRoutine'">
             <startOffsets>
-              <option value="5765" />
+              <option value="908" />
             </startOffsets>
             <endOffsets>
-              <option value="5784" />
+              <option value="950" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/@Scripts/AddressableDownload/AddressableDownloader.cs</url>
+          <line>30</line>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\AddressableDownload\AddressableDownloader.cs" initialLine="31" containingFunctionPresentation="Method 'InitializedSystem'">
+            <startOffsets>
+              <option value="959" />
+            </startOffsets>
+            <endOffsets>
+              <option value="989" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/@Scripts/Components/DownloadComponent.cs</url>
+          <line>81</line>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Components\DownloadComponent.cs" initialLine="81" containingFunctionPresentation="Method 'OnExecute'">
+            <startOffsets>
+              <option value="1726" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1809" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/@Scripts/Editor/EditorPlaybutton.cs</url>
+          <line>54</line>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\Editor\EditorPlaybutton.cs" initialLine="54" containingFunctionPresentation="Method 'PreprocessBuild'">
+            <startOffsets>
+              <option value="1485" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1568" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/@Scripts/AddressableDownload/AddressableDownloader.cs</url>
+          <line>62</line>
+          <properties documentPath="C:\UnityProject\RumbleHeroes\Assets\@Scripts\AddressableDownload\AddressableDownloader.cs" initialLine="63" containingFunctionPresentation="Method 'DownloadSize'">
+            <startOffsets>
+              <option value="1815" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1896" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

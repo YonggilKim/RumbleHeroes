@@ -41,15 +41,5 @@ public class BuildPlayer : MonoBehaviour
             Debug.Log("Build failed");
         }
     }
-    
-    // 빌드 전에 호출되는 함수
-    [MenuItem("Build/Preprocess Build")]
-    static void PreprocessBuild()
-    {
-        // 이 곳에 빌드 전에 실행되길 원하는 코드를 작성
-        Debug.Log("Preprocessing Build!");
-        
-        // 여기서 필요한 작업을 수행하세요.
-        // 예: 설정 변경, 자동화된 작업 등
-    }
+
 }
