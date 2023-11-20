@@ -21,7 +21,7 @@ public class DownloadComponent: MonoBehaviour
 	string _downloadLabel = "Preload";
 	string _downloadURL;
 
-	private State _currentState { get; set; } = State.Idle;
+	public State CurrentState { get; set; } = State.Idle;
 	private State _lastState = State.Idle;
 	private Action<DownloadEvents> _onEventObtained;
 
@@ -39,9 +39,9 @@ public class DownloadComponent: MonoBehaviour
 		_downloader = new AddressableDownloader();
 		_onEventObtained = onEventObtained;
 
-		_lastState = _currentState = State.Initialize;
+		_lastState = CurrentState = State.Initialize;
 
-		while (_currentState != State.Finished)
+		while (CurrentState != State.Finished)
 		{
 			OnExecute();
 			yield return null;
@@ -52,54 +52,54 @@ public class DownloadComponent: MonoBehaviour
 	{
 		if (_lastState == State.Initialize)
 		{
-			_currentState = State.UpdateCatalog;
+			CurrentState = State.UpdateCatalog;
 		}
 		else if (_lastState == State.UpdateCatalog)
 		{
-			_currentState = State.DownloadSize;
+			CurrentState = State.DownloadSize;
 		}
 		else if (_lastState == State.DownloadSize)
 		{
-			_currentState = State.DownloadDependencies;
+			CurrentState = State.DownloadDependencies;
 		}
 		else if (_lastState == State.Downloading || _lastState == State.DownloadDependencies)
 		{
-			_currentState = State.Finished;
+			CurrentState = State.Finished;
 		}
 
-		_lastState = _currentState;
+		_lastState = CurrentState;
 	}
 
 	void OnExecute()
 	{
-		if (_currentState == State.Idle)
+		if (CurrentState == State.Idle)
 		{
 			return;
 		}
 
-		if (_currentState == State.Initialize)
+		if (CurrentState == State.Initialize)
 		{
 			var events = _downloader.InitializedSystem(this._downloadLabel, this._downloadURL);
 			_onEventObtained?.Invoke(events);
 
-			_currentState = State.Idle;
+			CurrentState = State.Idle;
 		}
-		else if (_currentState == State.UpdateCatalog)
+		else if (CurrentState == State.UpdateCatalog)
 		{
 			_downloader.UpdateCatalog();
-			_currentState = State.Idle;
+			CurrentState = State.Idle;
 		}
-		else if (_currentState == State.DownloadSize)
+		else if (CurrentState == State.DownloadSize)
 		{
 			_downloader.DownloadSize();
-			_currentState = State.Idle;
+			CurrentState = State.Idle;
 		}
-		else if (_currentState == State.DownloadDependencies)
+		else if (CurrentState == State.DownloadDependencies)
 		{
 			_downloader.StartDownload();
-			_currentState = State.Downloading;
+			CurrentState = State.Downloading;
 		}
-		else if (_currentState == State.Downloading)
+		else if (CurrentState == State.Downloading)
 		{
 			_downloader.Update();
 		}

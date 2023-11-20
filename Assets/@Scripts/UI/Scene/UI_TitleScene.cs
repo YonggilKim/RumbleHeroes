@@ -38,7 +38,7 @@ public class UI_TitleScene : UI_Scene
         DownloadFinished 
     }
 
-    DownloadComponent Downloader;
+    DownloadComponent DownloadComp;
     DownloadProgressStatus progressInfo;
     SizeUnits sizeUnit;
     long curDownloadedSizeInUnit;
@@ -61,7 +61,7 @@ public class UI_TitleScene : UI_Scene
             Managers.Scene.LoadScene(EScene.GameScene);
         });
 
-        Downloader = gameObject.GetOrAddComponent<DownloadComponent>();
+        DownloadComp = gameObject.GetOrAddComponent<DownloadComponent>();
 
         return true;
     }
@@ -70,7 +70,7 @@ public class UI_TitleScene : UI_Scene
     {
         // SetState(State.CalculatingSize, true);
 
-        yield return Downloader.StartDownloadRoutine((events) =>
+        yield return DownloadComp.StartDownloadRoutine((events) =>
         {
             events.SystemInitializedListener += OnInitialized;
             events.CatalogUpdatedListener += OnCatalogUpdated;
@@ -111,13 +111,13 @@ public class UI_TitleScene : UI_Scene
     /// <summary> 초기화 완료시 호출 </summary>
     private void OnInitialized()
     {
-        Downloader.GoNext();
+        DownloadComp.GoNext();
     }
 
     /// <summary> 카탈로그 업데이트 완료시 호출 </summary>
     private void OnCatalogUpdated()
     {
-        Downloader.GoNext();
+        DownloadComp.GoNext();
     }
 
     /// <summary> 사이즈 다운로드 완료시 호출 </summary>
@@ -139,7 +139,7 @@ public class UI_TitleScene : UI_Scene
             
             //TODO 일단 묻지않고 바로 다운로드
             CurrentState = State.Downloading;
-            Downloader.GoNext();
+            DownloadComp.GoNext();
         }
     }
 
@@ -164,7 +164,7 @@ public class UI_TitleScene : UI_Scene
         Debug.Log("다운로드 완료 ! 결과 : " + isSuccess);
 
         CurrentState = State.DownloadFinished;
-        Downloader.GoNext();
+        DownloadComp.GoNext();
         
         Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
         {
