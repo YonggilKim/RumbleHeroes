@@ -3,10 +3,10 @@ using System;
 /// <summary> 다운로드 진행 상황 정보 </summary>
 public struct DownloadProgressStatus
 {
-    public long downloadedBytes;      /* 다운로드된 바이트 사이즈 */
-    public long totalBytes;                   /* 다운로드 받을 전체 사이즈 */
-    public long remainedBytes;            /* 남은 바이트 사이즈 */
-    public float totalProgress;               /* 전체 진행률 0 ~ 1 */
+    public long downloadedBytes;/* 다운로드된 바이트 사이즈 */
+    public long totalBytes;     /* 다운로드 받을 전체 사이즈 */
+    public long remainedBytes;  /* 남은 바이트 사이즈 */
+    public float totalProgress; /* 전체 진행률 0 ~ 1 */
 
     public DownloadProgressStatus(long downloadedBytes, long totalBytes, long remainedBytes, float totalProgress)
     {
@@ -17,7 +17,6 @@ public struct DownloadProgressStatus
     }
 }
 
-/// <summary> 다운로드 관련 이벤트 제공 </summary>
 public class DownloadEvents
 {
     // 시스템 초기화

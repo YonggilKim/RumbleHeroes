@@ -76,36 +76,34 @@ public class AddressableDownloader
         }
     }
 
-    //--------------------------------------------------------//
+    #region DownloadEvent
 
-    /// <summary> 초기화 완료시 호출 </summary>
     private void OnInitialized(AsyncOperationHandle<IResourceLocator> result)
     {
         _events.NotifyInitialized();
     }
 
-    /// <summary> 카탈로그 업데이트 완료시 호출 </summary>
     void OnCatalogUpdated(AsyncOperationHandle<List<IResourceLocator>> result)
     {
         _events.NotifyCatalogUpdated();
     }
 
-    /// <summary> 사이즈 다운로드 완료시 호출 </summary>
     void OnSizeDownloaded(AsyncOperationHandle<long> result)
     {
         _totalSize = result.Result;
         _events.NotifySizeDownloaded(result.Result);
     }
 
-    /// <summary> 번들 다운로드 완료시 호출 </summary>
     void OnDependenciesDownloaded(AsyncOperationHandle result)
     {
         _events.NotifyDownloadFinished(result.Status == AsyncOperationStatus.Succeeded);
     }
 
-    /// <summary> 예외 발생시 호출 </summary>
     void OnException(AsyncOperationHandle handle, Exception exception)
     {
         Debug.LogError(exception.Message);
     }
+
+    #endregion
+
 }

@@ -53,7 +53,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
   - m_GUID: 7815d79ccc002924d995e450d716215e
-    m_Address: aloe_1.sprite
+    m_Address: aloe_1
     m_ReadOnly: 0
     m_SerializedLabels:
     - Preload

@@ -18,7 +18,7 @@ public class DownloadComponent: MonoBehaviour
 
 	private AddressableDownloader _downloader;
 	
-	string _downloadLabel = "Preload";
+	public string DownloadLabel;
 	string _downloadURL;
 
 	public State CurrentState { get; set; } = State.Idle;
@@ -27,8 +27,6 @@ public class DownloadComponent: MonoBehaviour
 
 	private void Awake()
 	{
-		_downloadLabel = "Preload";
-
 		_downloadURL = Application.platform == RuntimePlatform.IPhonePlayer  
 			? "https://rookiss-rumble-addressables.s3.ap-northeast-2.amazonaws.com/iOS" 
 			: "https://rookiss-rumble-addressables.s3.ap-northeast-2.amazonaws.com/Android";
@@ -79,7 +77,7 @@ public class DownloadComponent: MonoBehaviour
 
 		if (CurrentState == State.Initialize)
 		{
-			var events = _downloader.InitializedSystem(this._downloadLabel, this._downloadURL);
+			var events = _downloader.InitializedSystem(this.DownloadLabel, this._downloadURL);
 			_onEventObtained?.Invoke(events);
 
 			CurrentState = State.Idle;

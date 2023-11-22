@@ -51,19 +51,9 @@ public class BuildPlayer : MonoBehaviour
     {
         string path = Application.dataPath;
         string batFilePath = Path.GetFullPath(Path.Combine(path, @"../copy_to_s3.bat"));
-
-
-        // ProcessStartInfo startInfo = new ProcessStartInfo
-        // {
-        //     FileName = batFilePath,
-        //     UseShellExecute = true,
-        //     Verb = "runas", // "runas"는 관리자 권한으로 실행하도록 하는 옵션
-        // };
-
-        // Process.Start(startInfo);
         
         string awsCliPath = @"C:\Program Files\Amazon\AWSCLI\bin\aws"; // AWS CLI 설치 경로에 맞게 수정
-        string arguments = "s3 cp ServerData s3://rookiss-rumble-addressables/Android/ --recursive";
+        string arguments = "s3 cp ServerData s3://rookiss-rumble-addressables/ --recursive";
 
         ProcessStartInfo startInfo = new ProcessStartInfo
         {
@@ -81,12 +71,16 @@ public class BuildPlayer : MonoBehaviour
 
         process.Start();
 
-        // 명령어 실행 결과를 출력합니다.
-        UnityEngine.Debug.Log(process.StandardOutput.ReadToEnd());
+        Debug.Log(process.StandardOutput.ReadToEnd());
 
         process.WaitForExit();
         process.Close();
     }
 
-
+    [MenuItem("Clear/Clear Addressables")]
+    public static void ClearAddressableData()
+    {
+        Caching.ClearCache();
+    }
+    
 }
