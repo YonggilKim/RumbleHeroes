@@ -19551,7 +19551,7 @@ GameObject:
   - component: {fileID: 1868235899542790349}
   - component: {fileID: 6241499148411042332}
   m_Layer: 0
-  m_Name: SmallGrid
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,7 +6,7 @@ public class InteractionObject : BaseController
 {
     [SerializeField]
     // ReSharper disable once InconsistentNaming
-    protected SpriteRenderer CurrentSprite;
+    public SpriteRenderer CurrentSprite;
     protected string SpriteName;
     public Animator Anim { get; set; }
 
@@ -16,9 +16,7 @@ public class InteractionObject : BaseController
     protected DamageFlash DamageFlashComp;
     
     public virtual int DataId { get; set; }
-    public virtual float Hp { get; set; }
-    public virtual float MaxHp { get; set; }
-
+    public AttributeSet Attribute { get; set; }
     public int LockedOnCount = 0; 
     protected override bool Init()
     {

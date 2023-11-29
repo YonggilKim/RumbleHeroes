@@ -8,14 +8,14 @@ using Random = UnityEngine.Random;
 
 public class MonsterController : CreatureController
 {
-    private bool isAggressive { get; set; } = false;
+    private bool _hasAttackAnimClip { get; set; } = false;
 
     protected override bool Init()
     {
         base.Init();
         ObjectType = Define.EObjectType.Monster;
 
-        isAggressive = Util.HasAnimationClip(Anim, "Attack");
+        _hasAttackAnimClip = Util.HasAnimationClip(Anim, "Attack");
         
         return true;
     }
@@ -51,7 +51,7 @@ public class MonsterController : CreatureController
     protected override void Scanning()
     {
         base.Scanning();
-        if(isAggressive)
+        if(_hasAttackAnimClip)
             StartCoroutine(CoScanning());
         else
         {

@@ -117,7 +117,7 @@ public class HeroController : CreatureController
     private void MovePlayer()
     {
         // _rigidBody.velocity = Vector2.zero;
-        Vector3 dir = _moveDir * (MoveSpeed * Time.deltaTime);
+        Vector3 dir = _moveDir * (Attribute.MoveSpeed.CurrentValue * Time.deltaTime);
         // transform.position += dir;
         if (dir != Vector3.zero)
         {

@@ -106,6 +106,7 @@ public class UI_TitleScene : UI_Scene
             case EState.DownloadFinished:
                 Debug.Log("다운로드가 완료되었습니다. 게임을 진행하시겠습니까?");
 
+                // Load 시작
                 Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
                 {
                     Debug.Log($"{key} {count}/{totalCount}");
@@ -143,7 +144,6 @@ public class UI_TitleScene : UI_Scene
             totalSizeInUnit = Util.ConvertByteByUnit(size, sizeUnit);
 
             CurrentState = EState.AskingDownload;
-
 
             //TODO 일단 묻지않고 바로 다운로드
             CurrentState = EState.Downloading;

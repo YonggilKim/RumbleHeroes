@@ -38,6 +38,7 @@ public class GameScene : BaseScene
         foreach (var spawnInfo in Managers.Map.MonsterSpawnInfos)
         {
             Managers.Object.Spawn<MonsterController>(Managers.Map.CurrentGrid.GetCellCenterWorld(spawnInfo.SpawnPos), spawnInfo.DataId);
+            // break;
         }
 
     }

@@ -6,7 +6,6 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-/// <summary> Addressable 다운로드 수행 클래스 </summary>
 public class AddressableDownloader
 {
     public static string DownloadURL;
@@ -15,7 +14,6 @@ public class AddressableDownloader
     long _totalSize;
     AsyncOperationHandle _downloadHandle;
 
-    /// <summary> Addressable 시스템 초기화하기 </summary>
     public DownloadEvents InitializedSystem(string label, string downloadURL)
     {
         _events = new DownloadEvents();

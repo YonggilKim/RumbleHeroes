@@ -32,13 +32,13 @@ public static class Extension
         }
 
         CreatureController creature = bc as CreatureController;
-        if (creature != null && creature.Hp == 0)
+        if (creature != null && creature.Attribute.Hp.CurrentValue == 0)
         {
             return false;
         }
 
         GatheringResource gr = bc as GatheringResource;
-        if (gr != null && gr.Hp == 0)
+        if (gr != null && gr.Attribute.Hp.CurrentValue == 0)
         {
             return false;
         }

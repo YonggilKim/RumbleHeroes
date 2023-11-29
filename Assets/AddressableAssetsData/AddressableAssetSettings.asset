@@ -66,9 +66,9 @@ MonoBehaviour:
       - m_Id: 502083c8a0d5325479368193d1d27468
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: 30a342f886f1e4840a1c244056344f4b
-        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+        m_Value: ServerData/[BuildTarget]
       - m_Id: 59d6694656183724f80c9d6757f70e2c
-        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+        m_Value: ServerData/[BuildTarget]
     - m_InheritedParent: 
       m_Id: 8e3ebf5db5dc22c4891535fc5cc8bb1f
       m_ProfileName: Remote
@@ -116,7 +116,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f965d9cc71de10f48b424f27814c3ec5, type: 2}
   - {fileID: 11400000, guid: 0974357b585afe04e94d862c4e66672b, type: 2}
   - {fileID: 11400000, guid: e63756712f00b9f41ab408044513ea33, type: 2}
-  m_ActiveProfileId: 8e3ebf5db5dc22c4891535fc5cc8bb1f
+  m_ActiveProfileId: eb1f285e29fb6d0439bd63e3fa347ef7
   m_HostingServicesManager:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}

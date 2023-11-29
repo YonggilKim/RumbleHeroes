@@ -15,7 +15,6 @@ public class ObjectManager
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<InteractionObject> InteractionObjects { get; } = new HashSet<InteractionObject>();
 
-
     public ObjectManager()
     {
         Init();
@@ -72,7 +71,6 @@ public class ObjectManager
             GatheringResource gr = go.GetOrAddComponent<GatheringResource>();
             gr.SetInfo(templateID);
             InteractionObjects.Add(gr);
-
             return gr as T;
         }
 
@@ -150,7 +148,7 @@ public class ObjectManager
         foreach (var collider in hitColliders)
         {
             InteractionObject interactionObject = collider.GetComponent<InteractionObject>();
-            if (interactionObject && interactionObject.Hp > 0)
+            if (interactionObject && interactionObject.Attribute.Hp.CurrentValue > 0)
                 targets.Add(interactionObject);
         }
 
@@ -176,7 +174,6 @@ public class ObjectManager
                     monsters[0].LockedOnCount++;
                     return monsters[0];
                 }
-                
                 List<InteractionObject> resources = targets
                     .Where(target => target.ObjectType == EObjectType.GatheringResources)
                     .OrderBy(target => (pivotPosition - target.CenterPosition).sqrMagnitude)

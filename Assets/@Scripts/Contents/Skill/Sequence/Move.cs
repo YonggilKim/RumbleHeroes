@@ -21,7 +21,7 @@ public class Move : SequenceSkill
     {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
-        Speed = _owner.MoveSpeed;
+        Speed = _owner.Attribute.MoveSpeed.CurrentValue;
         _coroutine = StartCoroutine(CoMove(callback));
     }
 

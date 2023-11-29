@@ -6,11 +6,9 @@ public class GatheringResource : InteractionObject
 {
     private Data.GatheringResourceData _data;
     //GR Stage
-
     protected override bool Init()
     {
         base.Init();
-      
         return true;
     }
     
@@ -21,15 +19,18 @@ public class GatheringResource : InteractionObject
         CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
         ObjectType = Define.EObjectType.GatheringResources;
 
-        MaxHp = _data.MaxHp;
-        Hp = _data.MaxHp;
+        Attribute = new AttributeSet()
+        {
+            MaxHp = { BaseValue = _data.MaxHp, CurrentValue = _data.MaxHp },
+            Hp = { BaseValue = _data.MaxHp, CurrentValue = _data.MaxHp },
+        };
     }
     public override void OnDamaged(InteractionObject Attacker)
     {
         base.OnDamaged(Attacker);
         
-        Hp = Mathf.Clamp(Hp-1, 0, MaxHp);
-        if (Hp == 0)
+        Attribute.Hp.CurrentValue = Mathf.Clamp(Attribute.Hp.CurrentValue-1, 0, Attribute.MaxHp.CurrentValue);
+        if (Attribute.Hp.CurrentValue == 0)
         {
             var dropItem = Managers.Object.Spawn<DropItemController>(transform.position, _data.DropItemId);
             Vector2 ran = new Vector2(transform.position.x + Random.Range( -10, -15) * 0.1f, transform.position.y);

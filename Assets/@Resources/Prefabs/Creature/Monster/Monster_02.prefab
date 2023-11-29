@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1416419917131735922}
   - component: {fileID: 4330767108514075503}
   - component: {fileID: 4122030036771132434}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Monster_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,22 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSprite: {fileID: 0}
-  CreatureData:
-    DataId: 0
-    DescriptionTextID: 
-    PrefabLabel: 
-    MaxHp: 0
-    MaxHpBonus: 0
-    Atk: 0
-    AtkBonus: 0
-    Def: 0
-    MoveSpeed: 0
-    TotalExp: 0
-    HpRate: 0
-    AtkRate: 0
-    DefRate: 0
-    MoveSpeedRate: 0
-    SpriteName: 
-    AnimatorName: 
-    SkillTypeList: 
-    DropItemId: 0
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0

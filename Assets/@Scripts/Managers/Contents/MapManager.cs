@@ -39,9 +39,14 @@ public struct ObjectSpawnInfo
 	public Vector3Int SpawnPos;
 }
 
+class Cell
+{
+	public HashSet<BaseController> Objects { get; } = new HashSet<BaseController>();
+}
 public class MapManager 
 {
 	public Grid CurrentGrid { get; private set; }
+	Dictionary<Vector3Int, Cell> _cells = new Dictionary<Vector3Int, Cell>();
 
 	public int MinX { get; set; }
 	public int MaxX { get; set; }
@@ -55,7 +60,6 @@ public class MapManager
 	public List<ObjectSpawnInfo> GatheringResourceSpawnInfos { get; private set; } = new List<ObjectSpawnInfo>();
 	bool[,] _collision;
 	private int[,] _monsters;
-	
 	
 	public bool CanGo(Vector3Int cellPos)
 	{
@@ -73,17 +77,17 @@ public class MapManager
 	{
 		DestroyMap();
 		
-		GameObject go = Managers.Resource.Instantiate(mapName);
-		go.transform.position = Vector3.zero;
-		go.name = $"@Map_{mapName}";
+		GameObject map = Managers.Resource.Instantiate(mapName);
+		map.transform.position = Vector3.zero;
+		map.name = $"@Map_{mapName}";
 
 		#region collision
-			GameObject collision = Util.FindChild(go, "Tilemap_Collision", true);
+			GameObject collision = Util.FindChild(map, "Tilemap_Collision", true);
 			if (collision != null)
 				collision.SetActive(false);
 
 			// CurrentGrid = Util.FindChild<Grid>(go, "SmallGrid");
-			CurrentGrid = go.GetComponent<Grid>();
+			CurrentGrid = map.GetComponent<Grid>();
 
 			// Collision 관련 파일
 			TextAsset txt = Managers.Resource.Load<TextAsset>($"{mapName}Collision");
@@ -110,8 +114,8 @@ public class MapManager
 
 		#region  몬스터 위치정보 가져오기
 
-		Tilemap tmBase = Util.FindChild<Tilemap>(go, "Tilemap_Base", true);
-		Tilemap tmMonster = Util.FindChild<Tilemap>(go, "Tilemap_Monster", true);
+		Tilemap tmBase = Util.FindChild<Tilemap>(map, "Tilemap_Base", true);
+		Tilemap tmMonster = Util.FindChild<Tilemap>(map, "Tilemap_Monster", true);
         
 		
 		if (tmMonster != null)
@@ -138,7 +142,7 @@ public class MapManager
 		
 		#region  나무 위치정보 가져오기
 
-		Tilemap tmTree = Util.FindChild<Tilemap>(go, "Tilemap_Trees", true);
+		Tilemap tmTree = Util.FindChild<Tilemap>(map, "Tilemap_Trees", true);
 		
 		if (tmTree != null)
 			tmTree.gameObject.SetActive(false);
@@ -163,11 +167,6 @@ public class MapManager
 		#endregion
 	}
 
-	private void SetCollisionData()
-	{
-		
-	}
-
 	public void DestroyMap()
 	{
 		GameObject map = GameObject.Find("Map");
@@ -178,7 +177,72 @@ public class MapManager
 		}
 	}
 
+	#region Map Grid
 
+	public void Add(BaseController go)
+	{
+		Vector3Int cellPos = CurrentGrid.WorldToCell(go.transform.position);
+
+		Cell cell = GetCell(cellPos);
+		if (cell == null)
+			return;
+
+		cell.Objects.Add(go);
+	}
+	
+	public void Remove(BaseController go)
+	{
+		Vector3Int cellPos = CurrentGrid.WorldToCell(go.transform.position);
+
+		Cell cell = GetCell(cellPos);
+		if (cell == null)
+			return;
+
+		cell.Objects.Remove(go);
+	}
+
+	Cell GetCell(Vector3Int cellPos)
+	{
+		Cell cell = null;
+
+		if (_cells.TryGetValue(cellPos, out cell) == false)
+		{
+			cell = new Cell();
+			_cells.Add(cellPos, cell);
+		}
+
+		return cell;
+	}
+	
+	public List<BaseController> GatherObjects(Vector3 pos, float range)
+	{
+		List<BaseController> objects = new List<BaseController>();
+
+		Vector3Int left = CurrentGrid.WorldToCell(pos + new Vector3(-range, 0));
+		Vector3Int right = CurrentGrid.WorldToCell(pos + new Vector3(+range, 0));
+		Vector3Int bottom = CurrentGrid.WorldToCell(pos + new Vector3(0, -range));
+		Vector3Int top = CurrentGrid.WorldToCell(pos + new Vector3(0, +range));
+
+		int minX = left.x;
+		int maxX = right.x;
+		int minY = bottom.y;
+		int maxY = top.y;
+
+		for (int x = minX; x <= maxX; x++)
+		{
+			for (int y = minY; y <= maxY; y++)
+			{
+				if (_cells.ContainsKey(new Vector3Int(x, y, 0)) == false)
+					continue;
+
+				objects.AddRange(_cells[new Vector3Int(x, y, 0)].Objects);
+			}
+		}
+		return objects;
+	}
+
+	#endregion
+	
 	#region A* PathFinding
 
 	// U D L R

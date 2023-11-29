@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1416419917131735922}
   - component: {fileID: 4330767108514075503}
   - component: {fileID: 4122030036771132434}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Monster_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,21 +157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a287f304b2714746b3dbd72de0d2631, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreatureData:
-    DataId: 0
-    DescriptionTextID: 
-    PrefabLabel: 
-    MaxHp: 0
-    MaxHpBonus: 0
-    Atk: 0
-    AtkBonus: 0
-    Def: 0
-    MoveSpeed: 0
-    TotalExp: 0
-    HpRate: 0
-    AtkRate: 0
-    DefRate: 0
-    MoveSpeedRate: 0
-    SpriteName: 
-    AnimatorName: 
-    SkillTypeList: 
+  CurrentSprite: {fileID: 0}
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0

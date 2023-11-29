@@ -1,13 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 public class CreatureController : InteractionObject
 {
@@ -16,20 +10,7 @@ public class CreatureController : InteractionObject
     #region Stat
 
     public Data.CreatureData CreatureData { get; private set; }
-
-    public virtual float MaxHpBonusRate { get; set; } = 1;
-    public virtual float HealBonusRate { get; set; } = 1;
-    public virtual float HpRegen { get; set; }
-    public virtual float Atk { get; set; }
-    public virtual float AttackRate { get; set; } = 1;
-    public virtual float Def { get; set; }
-    public virtual float DefRate { get; set; }
-    public virtual float CriRate { get; set; }
-    public virtual float CriDamage { get; set; } = 1.5f;
-    public virtual float DamageReduction { get; set; }
-    public virtual float MoveSpeedRate { get; set; } = 1;
-    public virtual float MoveSpeed { get; set; } = 4;
-    public virtual SkillBook Skills { get; set; }
+    public SkillBook Skills { get; set; }
 
     #endregion
 
@@ -45,7 +26,6 @@ public class CreatureController : InteractionObject
             {
                 // Debug.Log($"Hero State : {value}");
             }
-
             _creatureState = value;
             UpdateAnimation();
         }
@@ -53,20 +33,15 @@ public class CreatureController : InteractionObject
 
     protected Coroutine MoveCoroutine;
     protected Coroutine ScanningCoroutine;
-
+  
     private Vector3 _gatheringPoint;
-
     public Vector2 GatheringPoint
     {
         get => _gatheringPoint;
         set => _gatheringPoint = value;
     }
 
-    private void Awake()
-    {
-        Init();
-    }
-
+    private AIController _aiController;
     protected override bool Init()
     {
         base.Init();
@@ -89,21 +64,34 @@ public class CreatureController : InteractionObject
         CreatureData = dict[creatureId];
         InitCreatureStat();
         var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
-        CurrentSprite.sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
+        CurrentSprite.sprite = sprite;
 
-        Init();
-        InitSkill();
+        if (ObjectType == Define.EObjectType.Monster)
+        {
+            // Add AI
+            _aiController = Util.GetOrAddComponent<AIController>(gameObject);
+            _aiController.SetInfo(this);
+            Agent agent = Util.GetOrAddComponent<Agent>(gameObject);
+            agent.SetInfo(this);
+        }
+
+        
+        SetSkill();
     }
 
     public virtual void InitCreatureStat(bool isFullHp = true)
     {
-        MaxHp = CreatureData.MaxHp;
-        Atk = CreatureData.Atk * CreatureData.AtkRate;
-        Hp = MaxHp;
-        MoveSpeed = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
+        float moveSpeed  = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
+        Attribute = new AttributeSet()
+        {
+            MaxHp = { BaseValue = CreatureData.MaxHp, CurrentValue = CreatureData.MaxHp },
+            Hp = { BaseValue = CreatureData.MaxHp, CurrentValue = CreatureData.MaxHp },
+            Atk = { BaseValue = CreatureData.Atk, CurrentValue = CreatureData.Atk },
+            MoveSpeed = { BaseValue = moveSpeed, CurrentValue = moveSpeed },
+        };
     }
 
-    public virtual void InitSkill()
+    public virtual void SetSkill()
     {
         foreach (int skillId in CreatureData.SkillIdList)
         {
@@ -119,20 +107,20 @@ public class CreatureController : InteractionObject
         {
             case Define.ECreatureState.Idle:
                 Anim.Play("Idle");
-                Scanning();
+                // Scanning();
                 break;
             case Define.ECreatureState.Attack:
-                _rigidBody.constraints = RigidbodyConstraints2D.None;
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                // _rigidBody.constraints = RigidbodyConstraints2D.None;
+                // _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case Define.ECreatureState.Moving:
                 Anim.Play("Move");
-                _rigidBody.constraints = RigidbodyConstraints2D.None;
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                // _rigidBody.constraints = RigidbodyConstraints2D.None;
+                // _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case Define.ECreatureState.Gathering:
                 Anim.Play("Gathering");
-                Gathering();
+                // Gathering();
                 break;
             case Define.ECreatureState.OnDamaged:
                 Anim.Play("OnDamaged");
@@ -261,7 +249,7 @@ public class CreatureController : InteractionObject
             Vector2 position = _rigidBody.position;
             Vector2 dirVec = targetPos - CenterPosition;
             CurrentSprite.flipX = !(dirVec.x < 0);
-            Vector2 nextVec = dirVec.normalized * (MoveSpeed * Time.fixedDeltaTime);
+            Vector2 nextVec = dirVec.normalized * (Attribute.MoveSpeed.CurrentValue * Time.fixedDeltaTime);
 
             _rigidBody.MovePosition(position + nextVec);
 
@@ -282,9 +270,7 @@ public class CreatureController : InteractionObject
         }
     }
 
-    protected virtual void Scanning()
-    {
-    }
+    protected virtual void Scanning(){ }
 
     protected virtual void OnDead()
     {
@@ -347,8 +333,8 @@ public class CreatureController : InteractionObject
         CreatureController creature = Attacker as CreatureController;
         if (creature)
         {
-            Hp = Mathf.Clamp(Hp - creature.Atk, 0, MaxHp);
-            if (Hp == 0)
+            Attribute.Hp.CurrentValue = Mathf.Clamp(Attribute.Hp.CurrentValue - creature.Attribute.Atk.CurrentValue, 0, Attribute.MaxHp.CurrentValue);
+            if (Attribute.Hp.CurrentValue == 0)
             {
                 CreatureState = Define.ECreatureState.Dead;
             }
