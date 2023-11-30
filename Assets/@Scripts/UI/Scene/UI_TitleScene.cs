@@ -64,6 +64,7 @@ public class UI_TitleScene : UI_Scene
             Managers.Scene.LoadScene(EScene.GameScene);
         });
 
+        GetObject((int)GameObjects.StartButton).gameObject.SetActive(false);
         DownloadComp = gameObject.GetOrAddComponent<DownloadComponent>();
         DownloadComp.DownloadLabel = "Preload";
         return true;
@@ -113,6 +114,7 @@ public class UI_TitleScene : UI_Scene
 
                     if (count == totalCount)
                     {
+                        GetObject((int)GameObjects.StartButton).gameObject.SetActive(true);
                         Managers.Data.Init();
                     }
                 });

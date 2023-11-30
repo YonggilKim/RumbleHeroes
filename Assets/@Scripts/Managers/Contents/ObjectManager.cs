@@ -134,11 +134,11 @@ public class ObjectManager
 
     public InteractionObject GetInteracctionTarget(InteractionObject scanner, Vector3 pivotPosition)
     {
-        int scanRange = 10;
+        int scanRange = Define.SCAN_RANGE_MONSTER;
         
         if (scanner.ObjectType == EObjectType.Hero)
         {
-            scanRange = 6;
+            scanRange = Define.SCAN_RANGE_HERO;
             pivotPosition = Managers.Game.Leader.GatheringPoint;
         }
 

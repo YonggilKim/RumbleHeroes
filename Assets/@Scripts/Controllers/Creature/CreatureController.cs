@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CreatureController : InteractionObject
@@ -24,13 +25,14 @@ public class CreatureController : InteractionObject
         {
             if (ObjectType == Define.EObjectType.Hero)
             {
-                // Debug.Log($"Hero State : {value}");
+                Debug.Log($"Hero State : {value}");
             }
             _creatureState = value;
             UpdateAnimation();
         }
     }
 
+    //
     protected Coroutine MoveCoroutine;
     protected Coroutine ScanningCoroutine;
   
@@ -41,7 +43,8 @@ public class CreatureController : InteractionObject
         set => _gatheringPoint = value;
     }
 
-    private AIController _aiController;
+    protected AIController _aiController;
+
     protected override bool Init()
     {
         base.Init();
@@ -66,29 +69,32 @@ public class CreatureController : InteractionObject
         var sprite = Managers.Resource.Load<Sprite>(CreatureData.SpriteName);
         CurrentSprite.sprite = sprite;
 
-        if (ObjectType == Define.EObjectType.Monster)
         {
             // Add AI
             _aiController = Util.GetOrAddComponent<AIController>(gameObject);
             _aiController.SetInfo(this);
+            //TODO 비활성화되면 OnAttackHandler 호출 X?
+            _aiController.OnAttack += OnAttackHandler;
             Agent agent = Util.GetOrAddComponent<Agent>(gameObject);
             agent.SetInfo(this);
         }
 
-        
         SetSkill();
     }
 
     public virtual void InitCreatureStat(bool isFullHp = true)
     {
         float moveSpeed  = CreatureData.MoveSpeed * CreatureData.MoveSpeedRate;
-        Attribute = new AttributeSet()
-        {
-            MaxHp = { BaseValue = CreatureData.MaxHp, CurrentValue = CreatureData.MaxHp },
-            Hp = { BaseValue = CreatureData.MaxHp, CurrentValue = CreatureData.MaxHp },
-            Atk = { BaseValue = CreatureData.Atk, CurrentValue = CreatureData.Atk },
-            MoveSpeed = { BaseValue = moveSpeed, CurrentValue = moveSpeed },
-        };
+        
+        Attribute = gameObject.AddComponent<AttributeSet>();
+        Attribute.MaxHp.BaseValue = CreatureData.MaxHp;
+        Attribute.MaxHp.CurrentValue = CreatureData.MaxHp;
+        Attribute.Hp.BaseValue = CreatureData.MaxHp;
+        Attribute.Hp.CurrentValue = CreatureData.MaxHp;
+        Attribute.Atk.BaseValue = CreatureData.Atk;
+        Attribute.Atk.CurrentValue = CreatureData.Atk;
+        Attribute.MoveSpeed.BaseValue = moveSpeed;
+        Attribute.MoveSpeed.CurrentValue = moveSpeed;
     }
 
     public virtual void SetSkill()
@@ -276,34 +282,40 @@ public class CreatureController : InteractionObject
     {
     }
 
+    private void OnAttackHandler()
+    {
+        //Attack
+        CreatureState = Define.ECreatureState.Attack;
+        Skills.BaseAttackSkill.DoSkill();
+    }
+    
     public void OnAttackAnimationEvent()
     {
         if (InteractingTarget.IsValid())
             InteractingTarget.OnDamaged(this);
-        else
-        {
-            CreatureState = Define.ECreatureState.Idle;
-        }
     }
 
+    //Animation에서 받는 이벤트 
     public void OnAttackAnimationEndEvent()
     {
-        if (InteractingTarget.IsValid() == false)
-        {
-            SetIdleStateAndScanning();
-            return;
-        }
+        CreatureState = Define.ECreatureState.Idle;
 
-        if (ObjectType == Define.EObjectType.Monster)
-        {
-            float dist = Vector3.Distance(CenterPosition, InteractingTarget.CenterPosition);
-            float stopDistance = (ColliderRadius + InteractingTarget.ColliderRadius) + 0.1f;
-
-            if (dist > stopDistance)
-            {
-                SetIdleStateAndScanning();
-            }
-        }
+        // if (InteractingTarget.IsValid() == false)
+        // {
+        //     SetIdleStateAndScanning();
+        //     return;
+        // }
+        //
+        // if (ObjectType == Define.EObjectType.Monster)
+        // {
+        //     float dist = Vector3.Distance(CenterPosition, InteractingTarget.CenterPosition);
+        //     float stopDistance = (ColliderRadius + InteractingTarget.ColliderRadius) + 0.1f;
+        //
+        //     if (dist > stopDistance)
+        //     {
+        //         SetIdleStateAndScanning();
+        //     }
+        // }
     }
 
     private void SetIdleStateAndScanning()

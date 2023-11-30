@@ -15,6 +15,19 @@ public class ObstacleDetector : Detector
 
     Collider2D[] colliders;
 
+    private void Start()
+    {
+        if (Owner.ObjectType == Define.EObjectType.Hero)
+        {
+            layerMask =  LayerMask.GetMask("Hero");
+        }
+        else
+        {
+            layerMask =  LayerMask.GetMask("Monster");
+        }
+    }
+
+    
     public override void Detect(AIData aiData)
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, layerMask);

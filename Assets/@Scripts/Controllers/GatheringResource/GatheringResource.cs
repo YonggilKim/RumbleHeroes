@@ -19,11 +19,12 @@ public class GatheringResource : InteractionObject
         CurrentSprite.sprite = Managers.Resource.Load<Sprite>(_data.SpriteName);
         ObjectType = Define.EObjectType.GatheringResources;
 
-        Attribute = new AttributeSet()
-        {
-            MaxHp = { BaseValue = _data.MaxHp, CurrentValue = _data.MaxHp },
-            Hp = { BaseValue = _data.MaxHp, CurrentValue = _data.MaxHp },
-        };
+        Attribute = gameObject.AddComponent<AttributeSet>();
+        Attribute.MaxHp.BaseValue = _data.MaxHp;
+        Attribute.MaxHp.CurrentValue = _data.MaxHp;
+        Attribute.Hp.BaseValue = _data.MaxHp;
+        Attribute.Hp.CurrentValue = _data.MaxHp;
+
     }
     public override void OnDamaged(InteractionObject Attacker)
     {

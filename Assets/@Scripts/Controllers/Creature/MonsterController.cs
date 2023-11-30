@@ -73,7 +73,7 @@ public class MonsterController : CreatureController
 
     IEnumerator CoOndead()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.4f);
         Managers.Object.Despawn(this);
     }
 

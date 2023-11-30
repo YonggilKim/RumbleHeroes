@@ -28,9 +28,6 @@ public class RangedArcAttack : StandardAttack
                 {
                     Owner.CreatureState = Define.ECreatureState.Idle;
                 }
-
-
-
                 break;
             case Define.EAnimationState.End:
                 Owner.OnAttackAnimationEndEvent();

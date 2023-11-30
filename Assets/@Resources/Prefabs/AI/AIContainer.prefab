@@ -159,14 +159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344a75e9890ba2840bf67c1b6bd9db0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetectionRange: 10
-  obstaclesLayerMask:
+  _obstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 448
-  playerLayerMask:
+    m_Bits: 0
+  _targetLayerMask:
     serializedVersion: 2
-    m_Bits: 64
-  showGizmos: 0
+    m_Bits: 0
+  _showGizmos: 1
 --- !u!1 &8443888616655727575
 GameObject:
   m_ObjectHideFlags: 0

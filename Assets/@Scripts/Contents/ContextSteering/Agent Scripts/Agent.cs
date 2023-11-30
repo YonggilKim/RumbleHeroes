@@ -9,10 +9,9 @@ public class Agent : MonoBehaviour
     public Vector2 MovementInput { get; set; }
     private Vector2 oldMovementInput;
 
-    [SerializeField]
     private float _maxSpeed = 4, _acceleration = 50, _deacceleration = 100;
     [SerializeField]
-    private float currentSpeed = 0;
+    private float _currentSpeed = 0;
     #endregion
 
     private void Awake()
@@ -43,17 +42,17 @@ public class Agent : MonoBehaviour
 
     private void Move()
     {
-        if (MovementInput.magnitude > 0 && currentSpeed >= 0)
+        if (MovementInput.magnitude > 0 && _currentSpeed >= 0)
         {
             oldMovementInput = MovementInput;
-            currentSpeed += _acceleration * _maxSpeed * Time.deltaTime;
+            _currentSpeed += _acceleration * _maxSpeed * Time.deltaTime;
         }
         else
         {
-            currentSpeed -= _deacceleration * _maxSpeed * Time.deltaTime;
+            _currentSpeed -= _deacceleration * _maxSpeed * Time.deltaTime;
         }
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, _maxSpeed);
-        _rigid.velocity = oldMovementInput * currentSpeed;
+        _currentSpeed = Mathf.Clamp(_currentSpeed, 0, _maxSpeed);
+        _rigid.velocity = oldMovementInput * _currentSpeed;
     }
 
     private void AnimateCharacter()
@@ -65,7 +64,7 @@ public class Agent : MonoBehaviour
         }
         else
         {
-            _creature.CreatureState = Define.ECreatureState.Idle;
+            // _creature.CreatureState = Define.ECreatureState.Idle;
         }
 
     }

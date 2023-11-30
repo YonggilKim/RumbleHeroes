@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3005654577430727579}
   - component: {fileID: 4572693231342442723}
   - component: {fileID: -5075759374193109213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GR_Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,17 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSprite: {fileID: 3005654577430727579}
-  DefaultMat: {fileID: 0}
-  HitEffectMat: {fileID: 0}
-  ResourceAmount: 0
-  RegenTime: 0
-  SpriteName: 
-  MineImgs:
-  - {fileID: 21300000, guid: 6c6b3e8a11c5a06408cc86f804900854, type: 3}
-  - {fileID: 21300000, guid: 37e9c510804ff934284f4c8ec9a59d97, type: 3}
-  - {fileID: 21300000, guid: 170de9ff0f2a3b242b764af10c0a9abe, type: 3}
-  - {fileID: 21300000, guid: 042e4f2b6eaab4845a0eb10e72a985db, type: 3}
-  - {fileID: 21300000, guid: 40ffe554659acec4aa4a7dff5c8cc3a9, type: 3}
+  CurrentCollider: {fileID: 0}
+  LockedOnCount: 0
 --- !u!58 &-5075759374193109213
 CircleCollider2D:
   m_ObjectHideFlags: 0

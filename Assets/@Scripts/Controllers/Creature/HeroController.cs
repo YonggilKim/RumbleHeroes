@@ -162,14 +162,7 @@ public class HeroController : CreatureController
                 StopMoveCoroutine();
                 StopScanningCoroutine();
                 CreatureState = Define.ECreatureState.Moving;
-                // if (IsLeader)
-                // {
-                //     CreatureState = Define.ECreatureState.Moving;
-                // }
-                // else
-                // {
-                // }
-
+                _aiController.IsAutoMode = false;
                 break;
             case Define.EJoystickState.Dragging:
              break;
@@ -177,11 +170,11 @@ public class HeroController : CreatureController
                 StopMoveCoroutine();
                 StopScanningCoroutine();
                 CreatureState = Define.ECreatureState.Idle;
+                _aiController.IsAutoMode = true;
                 if (IsLeader)
                 {
                     GatheringPoint = CenterPosition;
                 }
-
                 break;
             default:
                 break;

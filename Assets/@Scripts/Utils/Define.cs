@@ -6,6 +6,9 @@ using static Util;
 
 public class Define
 {
+    public static readonly int SCAN_RANGE_MONSTER =3;
+    public static readonly int SCAN_RANGE_HERO = 6;
+
     public static readonly Dictionary<Type, Array> _enumDict = new Dictionary<Type, Array>();
    
     #region Enum
