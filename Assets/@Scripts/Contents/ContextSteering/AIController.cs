@@ -33,11 +33,11 @@ public class AIController : MonoBehaviour
     }
     private ContextSolver _movementDirectionSolver;
 
-    private bool _following = false;
+    private bool _isFollowing = false;
+    private bool _isGathering = false;
     private CreatureController _owner;
     private bool _isAutoMode = false;
     private Coroutine detectionCoroutine;
-
     public bool IsAutoMode
     {
         get => _isAutoMode;
@@ -59,12 +59,16 @@ public class AIController : MonoBehaviour
                     detectionCoroutine = null;
                     
                     //aidata reset
+                    _aiData.targets = null;
+                    _aiData.obstacles = null;
                     _aiData.currentTarget = null;
                 }
 
             }
         }
     }
+
+
     private void Start()
     {
         IsAutoMode = _owner.ObjectType != Define.EObjectType.Hero;
@@ -111,12 +115,12 @@ public class AIController : MonoBehaviour
 
     private void Update()
     {
-        if(_aiData == null) return;
+        if (_aiData == null) return;
         if (_aiData.currentTarget.IsValid())
         {
-            if (_following == false)
+            if (_isFollowing == false)
             {
-                _following = true;
+                _isFollowing = true;
                 StartCoroutine(CoChaseAndAttack());
             }
         }
@@ -124,8 +128,56 @@ public class AIController : MonoBehaviour
         {
             _aiData.currentTarget = _aiData.targets[0];
         }
+        else // 아무것도 찾지 못했을 때
+        {
+            // if (_owner.ObjectType == Define.EObjectType.Hero)
+            // {
+            //     if (_isGathering == false)
+            //     {
+            //         _isGathering = true;
+            //         StartCoroutine(CoGathering());
+            //     }
+            // }
+
+        }
     }
 
+    private IEnumerator CoGathering()
+    {
+        _isAutoMode = false;
+        _owner.GhostMode(true);
+        WaitForSeconds waitAttack = new WaitForSeconds(ATTACK_DELAY);
+        WaitForSeconds waitADelay = new WaitForSeconds(AI_UPDATE_DELAY);
+        
+        HeroController hero = _owner as HeroController;
+        Vector3 gatheringPoint = Vector3.zero;
+        if(hero.IsValid())
+            gatheringPoint = Managers.Map.GetGatheringPoint(hero.IsLeader);
+        
+        while (true)
+        {
+            {
+                float distance = Vector2.Distance(gatheringPoint, _owner.CenterPosition);
+
+                if (distance < 2f)
+                {
+                    MovementInput = Vector2.zero;
+                    _isGathering = false;
+                    _isAutoMode = true;
+                    _owner.GhostMode(false);
+                    yield break;
+                }
+                else
+                {
+                    Vector3 dir = (gatheringPoint - _owner.CenterPosition ).normalized;
+                    MovementInput = dir;
+                    yield return waitADelay;
+                }
+            }
+            yield return null;
+        }
+    }
+    
     private IEnumerator CoChaseAndAttack()
     {
         WaitForSeconds waitAttack = new WaitForSeconds(ATTACK_DELAY);
@@ -137,7 +189,7 @@ public class AIController : MonoBehaviour
             {
                 MovementInput = Vector2.zero;
                 _owner.InteractingTarget = null;
-                _following = false;            
+                _isFollowing = false;            
                 yield break;
                 // _owner.CreatureState = Define.ECreatureState.Idle;
             }

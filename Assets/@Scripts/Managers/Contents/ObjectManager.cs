@@ -139,7 +139,7 @@ public class ObjectManager
         if (scanner.ObjectType == EObjectType.Hero)
         {
             scanRange = Define.SCAN_RANGE_HERO;
-            pivotPosition = Managers.Game.Leader.GatheringPoint;
+            pivotPosition = Managers.Map.GatheringPoint;
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)pivotPosition, scanRange);

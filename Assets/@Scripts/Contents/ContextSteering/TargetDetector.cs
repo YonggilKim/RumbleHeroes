@@ -73,7 +73,8 @@ public class TargetDetector : Detector
         if (_showGizmos == false)
             return;
 
-        // Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(transform.position, _targetDetectionRange);
 
         if (_targets == null)
             return;

@@ -63,7 +63,6 @@ public class SeekBehaviour : SteeringBehaviour
                 {
                     interest[i] = valueToPutIn;
                 }
-
             }
         }
         interestsTemp = interest;

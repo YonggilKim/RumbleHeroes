@@ -36,12 +36,16 @@ public class CreatureController : InteractionObject
     protected Coroutine MoveCoroutine;
     protected Coroutine ScanningCoroutine;
   
-    private Vector3 _gatheringPoint;
-    public Vector2 GatheringPoint
-    {
-        get => _gatheringPoint;
-        set => _gatheringPoint = value;
-    }
+    // private Vector3 _gatheringPoint;
+    // public Vector2 GatheringPoint
+    // {
+    //     get => _gatheringPoint;
+    //     set
+    //     {
+    //         _gatheringPoint = value;
+    //         
+    //     }
+    // }
 
     protected AIController _aiController;
 
@@ -166,7 +170,7 @@ public class CreatureController : InteractionObject
             {
                 if (ObjectType == Define.EObjectType.Hero)
                 {
-                    if (Vector3.Distance(CenterPosition, Managers.Game.Leader.GatheringPoint) > 3)
+                    if (Vector3.Distance(CenterPosition, Managers.Map.GatheringPoint) > 3)
                     {
                         CreatureState = Define.ECreatureState.Gathering;
                         StopScanningCoroutine();
@@ -222,7 +226,7 @@ public class CreatureController : InteractionObject
         CreatureState = Define.ECreatureState.Moving;
         float elapsed = 0;
 
-        Vector2 gatheringPos = Managers.Game.Leader.GatheringPoint;
+        Vector2 gatheringPos = Managers.Map.GatheringPoint;
 
         while (true)
         {
@@ -324,7 +328,7 @@ public class CreatureController : InteractionObject
         InteractingTarget = null;
     }
 
-    protected void GhostMode(bool isOn)
+    public void GhostMode(bool isOn)
     {
         if (isOn)
         {

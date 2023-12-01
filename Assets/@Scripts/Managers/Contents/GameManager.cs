@@ -31,7 +31,9 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
- 
+
+
+
     #region Action
     
     public event Action<Vector2> OnMoveDirChanged;
@@ -43,5 +45,6 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
 
 }

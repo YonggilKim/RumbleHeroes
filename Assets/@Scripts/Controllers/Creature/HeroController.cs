@@ -27,7 +27,7 @@ public class HeroController : CreatureController
             {
                 Indicator.gameObject.SetActive(true);
                 FindObjectOfType<CameraController>().Target = this;
-                GatheringPoint = CenterPosition;
+                Managers.Map.GatheringPoint = CenterPosition;
                 IsLeader = true;
                 Managers.Game.Leader = this;
             }
@@ -173,7 +173,7 @@ public class HeroController : CreatureController
                 _aiController.IsAutoMode = true;
                 if (IsLeader)
                 {
-                    GatheringPoint = CenterPosition;
+                    Managers.Map.GatheringPoint = CenterPosition;
                 }
                 break;
             default:
