@@ -27,7 +27,8 @@ public class HeroController : CreatureController
             {
                 Indicator.gameObject.SetActive(true);
                 FindObjectOfType<CameraController>().Target = this;
-                Managers.Map.GatheringPoint = CenterPosition;
+                // Managers.Map.GatheringPoint = CenterPosition;
+                Managers.Object.GatherPoint.transform.position = CenterPosition;
                 IsLeader = true;
                 Managers.Game.Leader = this;
             }
@@ -59,13 +60,6 @@ public class HeroController : CreatureController
         return true;
     }
 
-    private void FixedUpdate()
-    {
-        // if(IsLeader == false) return;
-        UpdatePlayerDirection();
-        MovePlayer();
-    }
-
     protected override void UpdateAnimation()
     {
         base.UpdateAnimation();
@@ -89,68 +83,10 @@ public class HeroController : CreatureController
         }
     }
 
-    protected override void Scanning()
-    {
-        base.Scanning();
-        if (ScanningCoroutine == null)
-        {
-            ScanningCoroutine = StartCoroutine(CoScanning());
-        }
-    }
-
-
-    private void UpdatePlayerDirection()
-    {
-        if (_moveDir.x < 0)
-            CurrentSprite.flipX = false;
-        else
-            CurrentSprite.flipX = true;
-
-        if (InteractingTarget)
-        {
-            Vector3 dirVec = InteractingTarget.CenterPosition - CenterPosition;
-            CurrentSprite.flipX = !(dirVec.x < 0);
-        }
-      
-    }
-
-    private void MovePlayer()
-    {
-        // _rigidBody.velocity = Vector2.zero;
-        Vector3 dir = _moveDir * (Attribute.MoveSpeed.CurrentValue * Time.deltaTime);
-        // transform.position += dir;
-        if (dir != Vector3.zero)
-        {
-            _rigidBody.MovePosition( transform.position + dir);
-            //MOVE
-            Indicator.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(-dir.x, dir.y) * 180 / Mathf.PI);
-            CellPos = Managers.Map.CurrentGrid.WorldToCell(transform.position);
-            CurrentSprite.flipX = !(dir.x < 0);
-             // Debug.Log($"@>>{gameObject.name} Move to ... Speed : {MoveSpeed}  , dir : {transform.position + dir}");
-
-            // Debug.Log($"CellPos : {CellPos}, WorldPos : {transform.position}");
-        }
-        else
-        {
-            //IDLE
-            _rigidBody.velocity = Vector2.zero;
-        }
-    }
-
-    private void MoveCrew()
-    {
-        // if (MyLeader)
-        // {
-        //     if(MoveCoroutine == null)
-        //         MoveCoroutine = StartCoroutine(CoMove(MyLeader,true));
-        // }
-    }
-
-    private bool isDraw = false;
-
     private void HandleOnMoveDirChanged(Vector2 dir)
     {
-        _moveDir = dir;
+        // _moveDir = dir;
+        CreatureMovementMovement.MovementInput = dir;
     }
 
     private void HandleOnJoystickStateChanged(Define.EJoystickState joystickState)
@@ -158,22 +94,17 @@ public class HeroController : CreatureController
         switch (joystickState)
         {
             case Define.EJoystickState.PointDown:
-                InteractingTarget = null;
-                StopMoveCoroutine();
-                StopScanningCoroutine();
                 CreatureState = Define.ECreatureState.Moving;
                 _aiController.IsAutoMode = false;
                 break;
             case Define.EJoystickState.Dragging:
              break;
             case Define.EJoystickState.PointUp:
-                StopMoveCoroutine();
-                StopScanningCoroutine();
                 CreatureState = Define.ECreatureState.Idle;
                 _aiController.IsAutoMode = true;
                 if (IsLeader)
                 {
-                    Managers.Map.GatheringPoint = CenterPosition;
+                    Managers.Object.GatherPoint.transform.position = CenterPosition;
                 }
                 break;
             default:

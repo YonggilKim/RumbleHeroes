@@ -27,21 +27,14 @@ public static class Extension
     public static bool IsValid(this BaseController bc)
     {
         if (bc == null || bc.isActiveAndEnabled == false)
-        {
             return false;
-        }
+        
+        InteractionObject io = bc as InteractionObject;
+        if (io != null && io.Attribute == null)
+            return false;
 
-        CreatureController creature = bc as CreatureController;
-        if (creature != null && creature.Attribute.Hp.CurrentValue == 0)
-        {
+        if (io.Attribute.Hp.CurrentValue == 0)
             return false;
-        }
-
-        GatheringResource gr = bc as GatheringResource;
-        if (gr != null && gr.Attribute.Hp.CurrentValue == 0)
-        {
-            return false;
-        }
         
         return bc != null && bc.isActiveAndEnabled;
     }

@@ -197,15 +197,15 @@ public class MapManager
 
     private Vector2 _gatherPoint;
 
-    public Vector2 GatheringPoint
-    {
-        get => _gatherPoint;
-        set
-        {
-            _gatherPoint = value;
-            SetGatherPoints(_gatherPoint);
-        }
-    }
+    // public Vector2 GatheringPoint
+    // {
+    //     get => _gatherPoint;
+    //     set
+    //     {
+    //         _gatherPoint = value;
+    //         SetGatherPoints(_gatherPoint);
+    //     }
+    // }
 
     public void SetGatherPoints(Vector3 gatherPoint)
     {
@@ -226,14 +226,14 @@ public class MapManager
         }
     }
 
-    public Vector3 GetGatheringPoint(bool isLeader)
-    {
-        if (isLeader)
-            return GatheringPoint;
-
-        var ret = CurrentGrid.GetCellCenterWorld(GatherPoints[Random.Range(0, 11)]);
-        return ret;
-    }
+    // public Vector3 GetGatheringPoint(bool isLeader)
+    // {
+    //     if (isLeader)
+    //         return GatheringPoint;
+    //
+    //     var ret = CurrentGrid.GetCellCenterWorld(GatherPoints[Random.Range(0, 11)]);
+    //     return ret;
+    // }
 
     #region Map Grid
 

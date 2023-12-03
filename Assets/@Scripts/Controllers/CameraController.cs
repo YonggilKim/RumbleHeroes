@@ -8,9 +8,6 @@ public class CameraController : MonoBehaviour
     public CreatureController Target;
     public float Height { get; set; } = 0;
     public float Width { get; set; } = 0;
-
-    private bool _isShake = false;
-
     #endregion
 
     private void Start()

@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ObstacleAvoidanceBehaviour : SteeringBehaviour
 {
     [SerializeField]
-    private float radius = 2f, agentColliderSize = 0.6f;
-
+    private float radius = 3f, agentColliderSize = 2f;
     [SerializeField]
     private bool showGizmo = true;
 
@@ -17,15 +17,12 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
     {
         foreach (Collider2D obstacleCollider in aiData.obstacles)
         {
-            Vector2 directionToObstacle
-                = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
+            Vector2 directionToObstacle = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
+            // owner <-> 장애물의 Collider에서가장 가까운 지점과의 거리
             float distanceToObstacle = directionToObstacle.magnitude;
-
-            //calculate weight based on the distance Enemy<--->Obstacle
-            float weight
-                = distanceToObstacle <= agentColliderSize
-                ? 1
-                : (radius - distanceToObstacle) / radius;
+            
+            //owner<--->장애물 거리를 가중치로 변환
+            float weight = distanceToObstacle <= agentColliderSize ? 1 : (radius - distanceToObstacle) / radius;
 
             Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
 
@@ -70,16 +67,3 @@ public class ObstacleAvoidanceBehaviour : SteeringBehaviour
     }
 }
 
-public static class Directions
-{
-    public static List<Vector2> eightDirections = new List<Vector2>{
-            new Vector2(0,1).normalized,
-            new Vector2(1,1).normalized,
-            new Vector2(1,0).normalized,
-            new Vector2(1,-1).normalized,
-            new Vector2(0,-1).normalized,
-            new Vector2(-1,-1).normalized,
-            new Vector2(-1,0).normalized,
-            new Vector2(-1,1).normalized
-        };
-}

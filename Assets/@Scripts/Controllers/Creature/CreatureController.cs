@@ -9,45 +9,32 @@ public class CreatureController : InteractionObject
     protected Rigidbody2D _rigidBody { get; set; }
 
     #region Stat
-
     public Data.CreatureData CreatureData { get; private set; }
     public SkillBook Skills { get; set; }
-
     #endregion
-
-    public InteractionObject InteractingTarget { get; set; }
+    public InteractionObject InteractingTarget
+    {
+        get => _aiController.AIData.currentTarget;
+    }
     private Define.ECreatureState _creatureState = Define.ECreatureState.Moving;
-
-    public virtual Define.ECreatureState CreatureState
+    public Define.ECreatureState CreatureState
     {
         get => _creatureState;
         set
         {
             if (ObjectType == Define.EObjectType.Hero)
             {
-                Debug.Log($"Hero State : {value}");
+                // Debug.Log($"Hero State : {value}");
             }
             _creatureState = value;
             UpdateAnimation();
         }
     }
-
-    //
+    public CreatureMovement CreatureMovementMovement { get; set; }
     protected Coroutine MoveCoroutine;
     protected Coroutine ScanningCoroutine;
   
-    // private Vector3 _gatheringPoint;
-    // public Vector2 GatheringPoint
-    // {
-    //     get => _gatheringPoint;
-    //     set
-    //     {
-    //         _gatheringPoint = value;
-    //         
-    //     }
-    // }
-
-    protected AIController _aiController;
+    public AIController _aiController;
 
     protected override bool Init()
     {
@@ -79,8 +66,8 @@ public class CreatureController : InteractionObject
             _aiController.SetInfo(this);
             //TODO 비활성화되면 OnAttackHandler 호출 X?
             _aiController.OnAttack += OnAttackHandler;
-            Agent agent = Util.GetOrAddComponent<Agent>(gameObject);
-            agent.SetInfo(this);
+            CreatureMovementMovement = Util.GetOrAddComponent<CreatureMovement>(gameObject);
+            CreatureMovementMovement.SetInfo(this);
         }
 
         SetSkill();
@@ -129,7 +116,7 @@ public class CreatureController : InteractionObject
                 // _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case Define.ECreatureState.Gathering:
-                Anim.Play("Gathering");
+                Anim.Play("Move");
                 // Gathering();
                 break;
             case Define.ECreatureState.OnDamaged:
@@ -143,144 +130,6 @@ public class CreatureController : InteractionObject
                 break;
         }
     }
-
-    protected IEnumerator CoScanning()
-    {
-        yield return new WaitForEndOfFrame();
-
-        while (CreatureState == Define.ECreatureState.Idle)
-        {
-            InteractionObject target;
-            if (ObjectType == Define.EObjectType.Hero)
-            {
-                InteractingTarget = Managers.Object.GetInteracctionTarget(this, Vector3.zero);
-            }
-            else
-            {
-                InteractingTarget = Managers.Object.GetInteracctionTarget(this, CenterPosition);
-            }
-
-            if (InteractingTarget.IsValid())
-            {
-                MoveAndAttack(InteractingTarget);
-                StopScanningCoroutine();
-                yield break;
-            }
-            else
-            {
-                if (ObjectType == Define.EObjectType.Hero)
-                {
-                    if (Vector3.Distance(CenterPosition, Managers.Map.GatheringPoint) > 3)
-                    {
-                        CreatureState = Define.ECreatureState.Gathering;
-                        StopScanningCoroutine();
-                        yield break;
-                    }
-                }
-            }
-
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    protected virtual void MoveAndAttack(InteractionObject target)
-    {
-        GhostMode(true);
-        MoveCoroutine = null;
-        MoveCoroutine = StartCoroutine(CoMove(false, () =>
-        {
-            GhostMode(false);
-            // 이동이 완료되면 공격
-            if (InteractingTarget.IsValid())
-            {
-                CurrentCollider.radius = ColliderRadius;
-                CreatureState = Define.ECreatureState.Attack;
-                Skills.BaseAttackSkill.DoSkill();
-            }
-            else
-            {
-                //진행중 타겟이 없어지면 Idle로 리셋
-                CreatureState = Define.ECreatureState.Idle;
-            }
-
-            StopMoveCoroutine();
-        }));
-    }
-
-    protected virtual void Gathering()
-    {
-        GhostMode(true);
-        if (MoveCoroutine == null)
-            MoveCoroutine = StartCoroutine(CoMove(true, () =>
-            {
-                GhostMode(false);
-                // 다모이면
-                CreatureState = Define.ECreatureState.Idle;
-                StopMoveCoroutine();
-            }));
-    }
-
-    protected IEnumerator CoMove(bool isGathering, Action callback = null)
-    {
-        yield return new WaitForFixedUpdate();
-        CreatureState = Define.ECreatureState.Moving;
-        float elapsed = 0;
-
-        Vector2 gatheringPos = Managers.Map.GatheringPoint;
-
-        while (true)
-        {
-            Vector3 targetPos;
-
-            if (isGathering)
-            {
-                targetPos = ObjectType == Define.EObjectType.Hero
-                    ? gatheringPos
-                    : InteractingTarget.CenterPosition;
-            }
-            else
-            {
-                targetPos = InteractingTarget.CenterPosition;
-            }
-
-            elapsed += Time.deltaTime;
-            if (InteractingTarget.IsValid() == false && isGathering == false)
-                break;
-
-            float dist = Vector3.Distance(CenterPosition, targetPos);
-            float stopDist = isGathering ? 2.5f : CreatureData.AtkRange;
-
-
-            if (InteractingTarget && InteractingTarget.ObjectType == Define.EObjectType.GatheringResources)
-                stopDist = 1.5f;
-
-            if (dist <= stopDist)
-                break;
-            Vector2 position = _rigidBody.position;
-            Vector2 dirVec = targetPos - CenterPosition;
-            CurrentSprite.flipX = !(dirVec.x < 0);
-            Vector2 nextVec = dirVec.normalized * (Attribute.MoveSpeed.CurrentValue * Time.fixedDeltaTime);
-
-            _rigidBody.MovePosition(position + nextVec);
-
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(0.2f);
-
-        callback?.Invoke();
-    }
-
-    protected void StopMoveCoroutine()
-    {
-        if (MoveCoroutine != null)
-        {
-            StopCoroutine(MoveCoroutine);
-            MoveCoroutine = null;
-        }
-    }
-
-    protected virtual void Scanning(){ }
 
     protected virtual void OnDead()
     {
@@ -299,7 +148,6 @@ public class CreatureController : InteractionObject
             InteractingTarget.OnDamaged(this);
     }
 
-    //Animation에서 받는 이벤트 
     public void OnAttackAnimationEndEvent()
     {
         CreatureState = Define.ECreatureState.Idle;
@@ -320,12 +168,6 @@ public class CreatureController : InteractionObject
         //         SetIdleStateAndScanning();
         //     }
         // }
-    }
-
-    private void SetIdleStateAndScanning()
-    {
-        CreatureState = Define.ECreatureState.Idle;
-        InteractingTarget = null;
     }
 
     public void GhostMode(bool isOn)
@@ -354,15 +196,6 @@ public class CreatureController : InteractionObject
             {
                 CreatureState = Define.ECreatureState.Dead;
             }
-        }
-    }
-
-    protected void StopScanningCoroutine()
-    {
-        if (ScanningCoroutine != null)
-        {
-            StopCoroutine(ScanningCoroutine);
-            ScanningCoroutine = null;
         }
     }
 

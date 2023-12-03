@@ -47,17 +47,6 @@ public class MonsterController : CreatureController
                 break;
         }
     }
-    
-    protected override void Scanning()
-    {
-        base.Scanning();
-        if(_hasAttackAnimClip)
-            StartCoroutine(CoScanning());
-        else
-        {
-            //TODO AUTO MOVING
-        }
-    }
 
     protected override void OnDead()
     {
@@ -77,17 +66,4 @@ public class MonsterController : CreatureController
         Managers.Object.Despawn(this);
     }
 
-    protected override void MoveAndAttack(InteractionObject target)
-    {
-        base.MoveAndAttack(target);
-    }
-    
-    // private void OnDrawGizmos()
-    // {
-    //     string label = string.Format("({0})", CreatureState);
-    //     GUIStyle style = new GUIStyle();
-    //     style.normal.textColor = Color.blue;
-    //     style.fontSize = 15;
-    //     Handles.Label(transform.position + Vector3.down * 0.3f, label, style);
-    // }
 }

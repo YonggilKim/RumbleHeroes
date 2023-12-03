@@ -49,7 +49,7 @@ public class UI_Joystick : UI_Scene
         _joystickTouchPos = Input.mousePosition;
         Managers.Game.JoystickState = Define.EJoystickState.PointDown;
 
-        if (Managers.Game.eJoystickType == Define.EJoystickType.Flexible)
+        if (Managers.Game.JoystickType == Define.EJoystickType.Flexible)
         {
             _handler.transform.position = Input.mousePosition;
             _joystickBG.transform.position = Input.mousePosition;
@@ -61,7 +61,7 @@ public class UI_Joystick : UI_Scene
         PointerEventData pointerEventData = baseEventData as PointerEventData;
         Vector2 dragePos = pointerEventData.position;
 
-        _moveDir = Managers.Game.eJoystickType == Define.EJoystickType.Fixed
+        _moveDir = Managers.Game.JoystickType == Define.EJoystickType.Fixed
             ? (dragePos - _joystickOriginalPos).normalized
             : (dragePos - _joystickTouchPos).normalized;
 
@@ -76,7 +76,7 @@ public class UI_Joystick : UI_Scene
         }
         else // 조이스틱이 반지름 밖에 있는 경우
         {
-            newPos = Managers.Game.eJoystickType == Define.EJoystickType.Fixed
+            newPos = Managers.Game.JoystickType == Define.EJoystickType.Fixed
                 ? _joystickOriginalPos + _moveDir * _joystickRadius
                 : _joystickTouchPos + _moveDir * _joystickRadius;
         }

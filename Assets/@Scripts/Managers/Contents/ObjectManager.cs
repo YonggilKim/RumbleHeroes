@@ -14,7 +14,8 @@ public class ObjectManager
     public HashSet<HeroController> Heros { get; } = new HashSet<HeroController>();
     public HashSet<MonsterController> Monsters { get; } = new HashSet<MonsterController>();
     public HashSet<InteractionObject> InteractionObjects { get; } = new HashSet<InteractionObject>();
-
+    public GatherPointObject GatherPoint { get; set; } 
+    
     public ObjectManager()
     {
         Init();
@@ -63,7 +64,6 @@ public class ObjectManager
             Heros.Add(hc);
             return hc as T;
         }
-
         if (type == typeof(GatheringResource))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.GatheringResourceDic[templateID].PrefabLabel);
@@ -84,7 +84,7 @@ public class ObjectManager
             InteractionObjects.Add(mc);
             return mc as T;
         }
-
+        
         if (type == typeof(DropItemController))
         {
             GameObject go = Managers.Resource.Instantiate(Managers.Data.DropItemDic[templateID].PrefabLabel);
@@ -100,6 +100,14 @@ public class ObjectManager
             RangeArcProjectile di = go.GetOrAddComponent<RangeArcProjectile>();
             
             return di as T;
+        }
+        
+        if (type == typeof(GatherPointObject))
+        {
+            GameObject go = Managers.Resource.Instantiate("GatherPoint");
+            go.transform.position = position;
+            GatherPoint= go.GetOrAddComponent<GatherPointObject>();
+            return GatherPoint as T;
         }
         
         return null;
@@ -139,7 +147,7 @@ public class ObjectManager
         if (scanner.ObjectType == EObjectType.Hero)
         {
             scanRange = Define.SCAN_RANGE_HERO;
-            pivotPosition = Managers.Map.GatheringPoint;
+            pivotPosition = Managers.Object.GatherPoint.GetGatheringPoint(true);
         }
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll((Vector2)pivotPosition, scanRange);
@@ -148,8 +156,10 @@ public class ObjectManager
         foreach (var collider in hitColliders)
         {
             InteractionObject interactionObject = collider.GetComponent<InteractionObject>();
-            if (interactionObject && interactionObject.Attribute.Hp.CurrentValue > 0)
+            if (interactionObject.IsValid() && !collider.gameObject.name.Contains("GatherPoint"))
+            {
                 targets.Add(interactionObject);
+            }
         }
 
         switch (scanner.ObjectType)

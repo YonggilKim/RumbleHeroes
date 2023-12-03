@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
-    [FormerlySerializedAs("JoystickType")] public Define.EJoystickType eJoystickType = Define.EJoystickType.Flexible;
+    public Define.EJoystickType JoystickType = Define.EJoystickType.Flexible;
     
     #region Player
     public HeroController Leader { get; set; }

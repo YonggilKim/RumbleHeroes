@@ -6,56 +6,70 @@ using UnityEngine;
 public class SeekBehaviour : SteeringBehaviour
 {
     [SerializeField]
-    private float targetRechedThreshold = 0.5f;
+    private float _targetRechedThreshold = 0.5f;
 
     [SerializeField]
-    private bool showGizmo = true;
+    private bool _showGizmo = true;
 
-    bool reachedLastTarget = true;
+    bool _reachedLastTarget = true;
 
     //gizmo parameters
-    private Vector2 targetPositionCached;
-    private float[] interestsTemp;
+    private Vector2 _targetPositionCached;
+    private float[] _interestsTemp;
 
     public override (float[] danger, float[] interest) GetSteering(float[] danger, float[] interest, AIData aiData)
     {
-        //if we don't have a target stop seeking
-        //else set a new target
-        if (reachedLastTarget)
+        if (_reachedLastTarget)
         {
             if (aiData.targets == null || aiData.targets.Count <= 0)
             {
+                //Stop Seeking
                 aiData.currentTarget = null;
                 return (danger, interest);
             }
             else
             {
-                reachedLastTarget = false;
-                aiData.currentTarget = aiData.targets.OrderBy
-                    (target => Vector2.Distance(target.CenterPosition, transform.position)).FirstOrDefault();
-            }
+                _reachedLastTarget = false;
 
+                // aiData.currentTarget = aiData.targets
+                //     .OrderBy(target => (target.CenterPosition - transform.position).sqrMagnitude)
+                //     .FirstOrDefault();
+                
+                //가장 가까운 원소 를 현재타겟으로 설정
+                float minDistance = float.MaxValue;
+                foreach (var target in aiData.targets)
+                {
+                    float distance = (target.CenterPosition - transform.position).sqrMagnitude;
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        aiData.currentTarget = target;
+                    }
+                }
+            }
         }
 
-        //cache the last position only if we still see the target (if the targets collection is not empty)
         if (aiData.currentTarget != null && aiData.targets != null && aiData.targets.Contains(aiData.currentTarget))
-            targetPositionCached = aiData.currentTarget.CenterPosition;
+            _targetPositionCached = aiData.currentTarget.CenterPosition;
 
-        //First check if we have reached the target
-        if (Vector2.Distance(transform.position, targetPositionCached) < targetRechedThreshold)
+        // 목표 위치에 도착
+        float distanceSquared = (_targetPositionCached - (Vector2)transform.position).sqrMagnitude;
+
+        if (Vector2.Distance(_targetPositionCached, transform.position) < _targetRechedThreshold )
         {
-            reachedLastTarget = true;
+            _reachedLastTarget = true;
             aiData.currentTarget = null;
             return (danger, interest);
         }
 
-        //If we havent yet reached the target do the main logic of finding the interest directions
-        Vector2 directionToTarget = (targetPositionCached - (Vector2)transform.position);
+        //도착할때까지 Direction 계산
+        Vector2 directionToTarget = (_targetPositionCached - (Vector2)transform.position);
         for (int i = 0; i < interest.Length; i++)
         {
             float result = Vector2.Dot(directionToTarget.normalized, Directions.eightDirections[i]);
 
-            //accept only directions at the less than 90 degrees to the target direction
+            // directionToTarget 방향과 eightDirection의 각도가 90도 미만인 경우에만 대입
+            // if (result > Mathf.Cos(Mathf.Deg2Rad * 120)) // 120도 미만
             if (result > 0)
             {
                 float valueToPutIn = result;
@@ -65,30 +79,30 @@ public class SeekBehaviour : SteeringBehaviour
                 }
             }
         }
-        interestsTemp = interest;
+        _interestsTemp = interest;
         return (danger, interest);
     }
 
     private void OnDrawGizmos()
     {
 
-        if (showGizmo == false)
+        if (_showGizmo == false)
             return;
-        Gizmos.DrawSphere(targetPositionCached, 0.2f);
+        Gizmos.DrawSphere(_targetPositionCached, 0.2f);
 
-        if (Application.isPlaying && interestsTemp != null)
+        if (Application.isPlaying && _interestsTemp != null)
         {
-            if (interestsTemp != null)
+            if (_interestsTemp != null)
             {
                 Gizmos.color = Color.green;
-                for (int i = 0; i < interestsTemp.Length; i++)
+                for (int i = 0; i < _interestsTemp.Length; i++)
                 {
-                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * interestsTemp[i]*2);
+                    Gizmos.DrawRay(transform.position, Directions.eightDirections[i] * _interestsTemp[i]*2);
                 }
-                if (reachedLastTarget == false)
+                if (_reachedLastTarget == false)
                 {
                     Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(targetPositionCached, 0.1f);
+                    Gizmos.DrawSphere(_targetPositionCached, 0.1f);
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObstacleDetector : Detector
@@ -31,7 +32,8 @@ public class ObstacleDetector : Detector
     public override void Detect(AIData aiData)
     {
         colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, layerMask);
-        aiData.obstacles = colliders;
+        aiData.obstacles = colliders.Where(c => c.gameObject != Owner.gameObject).ToArray();
+
     }
 
     private void OnDrawGizmos()

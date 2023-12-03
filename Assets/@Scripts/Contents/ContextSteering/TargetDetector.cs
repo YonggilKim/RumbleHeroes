@@ -17,11 +17,14 @@ public class TargetDetector : Detector
         if (Owner.ObjectType == Define.EObjectType.Hero)
         {
             _targetLayerMask =  LayerMask.GetMask("Monster");
+            _obstaclesLayerMask = LayerMask.GetMask("Hero");
             _targetDetectionRange = Define.SCAN_RANGE_HERO;
         }
         else
         {
             _targetLayerMask =  LayerMask.GetMask("Hero");
+            _obstaclesLayerMask = LayerMask.GetMask("Monster");
+
             _targetDetectionRange = Define.SCAN_RANGE_MONSTER;
         }
     }
@@ -37,28 +40,31 @@ public class TargetDetector : Detector
             var CenterPos = transform.position;
             Vector2 direction = (target.CenterPosition - CenterPos).normalized;
 
-            #region  temp 장애물 때문에 시야가 안보여서 그대로 멈추는 로직이 필요한 경우
-            // RaycastHit2D hit = 
-            //     Physics2D.Raycast(CenterPos, direction, _targetDetectionRange, _obstaclesLayerMask);
-            // if (hit.collider != null && (playerLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
+            // #region  
+            // RaycastHit2D hit = Physics2D.Raycast(CenterPos, direction, _targetDetectionRange, _obstaclesLayerMask);
+            // if (hit.collider != null && (_obstaclesLayerMask & (1 << hit.collider.gameObject.layer)) != 0)
             // {
-            //     Debug.DrawRay(CenterPos, direction * targetDetectionRange, Color.magenta);
-            //     targets = new List<InteractionObject>() { player };
+            //     Debug.DrawRay(CenterPos, direction * _targetDetectionRange, Color.magenta);
+            //     InteractionObject io = hit.collider.GetComponent<InteractionObject>();
+            //     _targets = new List<InteractionObject>() { io };
             // }
             // else
             // {
-            //     targets = null;
+            //     _targets = null;
             // }
-            #endregion
+            // #endregion
 
             //장애물이 있을때 돌아서 가게끔 하는 로직
-            Debug.DrawRay(CenterPos, direction * _targetDetectionRange, Color.magenta);
-            _targets = new List<InteractionObject>() { target };
+             Debug.DrawRay(CenterPos, direction * _targetDetectionRange, Color.magenta);
+             _targets = new List<InteractionObject>() { target };
         }
         else
         {
-            //Enemy doesn't see the player
-            _targets = null;
+            //타겟을 못찾았을 때
+            if(Owner.ObjectType == Define.EObjectType.Hero)
+                _targets = new List<InteractionObject>() { Managers.Object.GatherPoint};
+            else
+                _targets = null;
         }
         aiData.targets = _targets;
     }

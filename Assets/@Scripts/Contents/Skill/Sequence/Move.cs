@@ -7,7 +7,6 @@ public class Move : SequenceSkill
 {
     Rigidbody2D _rb;
     Coroutine _coroutine;
-    string AnimationName { get; } = "Moving";
     private float Speed { get; set; } = 2.0f;
     private CreatureController _owner;
     private InteractionObject _target;

@@ -6,8 +6,8 @@ using static Util;
 
 public class Define
 {
-    public static readonly int SCAN_RANGE_MONSTER =3;
-    public static readonly int SCAN_RANGE_HERO = 6;
+    public const int SCAN_RANGE_MONSTER = 8;
+    public const int SCAN_RANGE_HERO = 6;
 
     public static readonly Dictionary<Type, Array> _enumDict = new Dictionary<Type, Array>();
    
@@ -95,6 +95,23 @@ public class Define
     #endregion
 
 }
+
+public static class Directions
+{
+    public static readonly List<Vector2> eightDirections = new List<Vector2>
+    {
+        new Vector2(0,1).normalized,
+        new Vector2(1,1).normalized,
+        new Vector2(1,0).normalized,
+        new Vector2(1,-1).normalized,
+        new Vector2(0,-1).normalized,
+        new Vector2(-1,-1).normalized,
+        new Vector2(-1,0).normalized,
+        new Vector2(-1,1).normalized
+    };
+}
+
+
 public static class EquipmentUIColors
 {
     #region 장비 이름 색상

@@ -17,8 +17,12 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Joystick>();
         
         Managers.Map.LoadMap("BaseMap");
-        
+
         Vector3 pos = Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-39, -13, 0));
+        //GatheringPoint
+        Managers.Object.Spawn<GatherPointObject>(pos);
+
+        //리더
         HeroController LeaderHero = Managers.Object.Spawn<HeroController>(pos, 201000);
         LeaderHero.MyLeader = null;
 
@@ -28,8 +32,6 @@ public class GameScene : BaseScene
         Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-41,-15,0)), 201005).MyLeader = LeaderHero;
         Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-39,-14,0)), 201008).MyLeader = LeaderHero;
 
-        // Managers.Object.Spawn<HeroController>(Managers.Map.CurrentGrid.GetCellCenterWorld(new Vector3Int(-38,-14,0)), 201001).MyLeader = LeaderHero;
-        
         foreach (var spawnInfo in Managers.Map.GatheringResourceSpawnInfos)
         {
             Managers.Object.Spawn<GatheringResource>(Managers.Map.CurrentGrid.GetCellCenterWorld(spawnInfo.SpawnPos), spawnInfo.DataId);
@@ -38,7 +40,6 @@ public class GameScene : BaseScene
         foreach (var spawnInfo in Managers.Map.MonsterSpawnInfos)
         {
             Managers.Object.Spawn<MonsterController>(Managers.Map.CurrentGrid.GetCellCenterWorld(spawnInfo.SpawnPos), spawnInfo.DataId);
-            // break;
         }
 
     }
