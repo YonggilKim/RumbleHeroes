@@ -13,7 +13,9 @@ public class JenkinsBuilder : MonoBehaviour
     public static void BuildAndroid()
     {
         // 어드레서블 프로파일 변경
-        EditorUtils.SetAddressableProfile(Define.EBuildType.Remote);
+        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+        string profileID = settings.profileSettings.GetProfileId(Define.EBuildType.Remote.ToString());
+        settings.activeProfileId = profileID;        
         
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[]

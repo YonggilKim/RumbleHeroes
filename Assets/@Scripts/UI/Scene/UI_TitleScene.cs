@@ -76,7 +76,7 @@ public class UI_TitleScene : UI_Scene
         CurrentState = EState.DownloadFinished;
         yield break;
 #endif
-        // Addressables.ResourceManager.
+
         yield return DownloadComp.StartDownloadRoutine((events) =>
         {
             events.SystemInitializedListener += OnInitialized;
