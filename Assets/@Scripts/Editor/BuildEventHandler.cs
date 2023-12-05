@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 [InitializeOnLoad]
@@ -25,10 +27,7 @@ public class BuildEventHandler
     /// </summary>
     private static void BeforePlay()
     {
-        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
-        AddressableAssetProfileSettings profile = settings.profileSettings;
-        string profileId = settings.profileSettings.GetProfileId("Default");
-        settings.activeProfileId = profileId;
+        EditorUtils.SetAddressableProfile(Define.EBuildType.Editor_Local);
     }
 }
 
@@ -43,18 +42,11 @@ public class AndroidBuildPreprocessor
 
     static void BuildPlayerOptionsCallback(BuildPlayerOptions buildPlayerOptions)
     {
-        // 빌드 전에 실행될 함수 호출
-        PreprocessBuild();
+        EditorUtils.SetAddressableProfile(Define.EBuildType.Remote);
 
         // 나머지 빌드 옵션 처리
         BuildPipeline.BuildPlayer(buildPlayerOptions);
     }
 
-    static void PreprocessBuild()
-    {
-        AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
-        AddressableAssetProfileSettings profile = settings.profileSettings;
-        string profileID2 = settings.profileSettings.GetProfileId("Remote");
-        settings.activeProfileId = profileID2;
-    }
 }
+

@@ -13,7 +13,14 @@ public class Define
    
     #region Enum
 
-    public enum SizeUnits
+    public enum EBuildType
+    {
+        Remote, // 실제디바이스 에서 aws에서 로드
+        Editor_Local, // 에디터에서 로컬에서 로드
+        Editor_Remote // 애다터 aws에서 로드
+    }
+
+    public enum ESizeUnits
     {
         Byte, 
         KB, 

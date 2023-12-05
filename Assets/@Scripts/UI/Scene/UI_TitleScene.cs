@@ -34,7 +34,7 @@ public class UI_TitleScene : UI_Scene
 
     DownloadComponent DownloadComp;
     DownloadProgressStatus progressInfo;
-    SizeUnits sizeUnit;
+    ESizeUnits _eSizeUnit;
     long curDownloadedSizeInUnit;
     long totalSizeInUnit;
 
@@ -72,10 +72,10 @@ public class UI_TitleScene : UI_Scene
 
     IEnumerator Start()
     {
-// #if UNITY_EDITOR
-//         CurrentState = EState.DownloadFinished;
-//         yield return null;
-// #endif
+#if UNITY_EDITOR
+        CurrentState = EState.DownloadFinished;
+        yield break;
+#endif
         // Addressables.ResourceManager.
         yield return DownloadComp.StartDownloadRoutine((events) =>
         {
@@ -99,7 +99,7 @@ public class UI_TitleScene : UI_Scene
                 break;
             case EState.AskingDownload:
                 Debug.Log(
-                    $"다운로드를 받으시겠습니까 ? 데이터가 많이 사용될 수 있습니다. <color=green>({$"{this.totalSizeInUnit}{this.sizeUnit})</color>"}");
+                    $"다운로드를 받으시겠습니까 ? 데이터가 많이 사용될 수 있습니다. <color=green>({$"{this.totalSizeInUnit}{this._eSizeUnit})</color>"}");
                 break;
             case EState.Downloading:
                 // Debug.Log( $"다운로드중입니다. 잠시만 기다려주세요. {(progressInfo.totalProgress * 100).ToString("0.00")}% 완료");
@@ -110,8 +110,10 @@ public class UI_TitleScene : UI_Scene
                 // Load 시작
                 Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, totalCount) =>
                 {
-                    Debug.Log($"{key} {count}/{totalCount}");
 
+                    if(key.Contains("AIContainer"))
+                        Debug.Log($"{key} {count}/{totalCount}");
+                        
                     if (count == totalCount)
                     {
                         GetObject((int)GameObjects.StartButton).gameObject.SetActive(true);
@@ -134,7 +136,7 @@ public class UI_TitleScene : UI_Scene
 
     private void OnSizeDownloaded(long size)
     {
-        Debug.Log($"다운로드 사이즈 다운로드 완료 ! : {Util.GetConvertedByteString(size, SizeUnits.KB)} ({size}바이트)");
+        Debug.Log($"다운로드 사이즈 다운로드 완료 ! : {Util.GetConvertedByteString(size, ESizeUnits.KB)} ({size}바이트)");
 
         if (size == 0)
         {
@@ -142,8 +144,8 @@ public class UI_TitleScene : UI_Scene
         }
         else
         {
-            sizeUnit = Util.GetProperByteUnit(size);
-            totalSizeInUnit = Util.ConvertByteByUnit(size, sizeUnit);
+            _eSizeUnit = Util.GetProperByteUnit(size);
+            totalSizeInUnit = Util.ConvertByteByUnit(size, _eSizeUnit);
 
             CurrentState = EState.AskingDownload;
 
@@ -163,7 +165,7 @@ public class UI_TitleScene : UI_Scene
         {
             UpdateUI();
 
-            curDownloadedSizeInUnit = Util.ConvertByteByUnit(newInfo.downloadedBytes, sizeUnit);
+            curDownloadedSizeInUnit = Util.ConvertByteByUnit(newInfo.downloadedBytes, _eSizeUnit);
         }
     }
 

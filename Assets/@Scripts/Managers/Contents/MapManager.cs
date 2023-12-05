@@ -52,7 +52,8 @@ class Cell
 
 public class MapManager
 {
-    public Grid CurrentGrid { get; private set; }
+    public Grid CurrentGrid { get; private set; }//CellSize가 작은 Grid
+    public Grid StandardGrid { get; private set; }// GridController를 위한 Grid
     Dictionary<Vector3Int, Cell> _cells = new Dictionary<Vector3Int, Cell>();
 
     public int MinX { get; set; }
@@ -101,7 +102,7 @@ public class MapManager
         if (collision != null)
             collision.SetActive(false);
 
-        // CurrentGrid = Util.FindChild<Grid>(go, "SmallGrid");
+        StandardGrid = Util.FindChild<Grid>(map, "StandardGrid");
         CurrentGrid = map.GetComponent<Grid>();
 
         // Collision 관련 파일
@@ -192,48 +193,6 @@ public class MapManager
             CurrentGrid = null;
         }
     }
-
-    private List<Vector3Int> GatherPoints = new List<Vector3Int>();
-
-    private Vector2 _gatherPoint;
-
-    // public Vector2 GatheringPoint
-    // {
-    //     get => _gatherPoint;
-    //     set
-    //     {
-    //         _gatherPoint = value;
-    //         SetGatherPoints(_gatherPoint);
-    //     }
-    // }
-
-    public void SetGatherPoints(Vector3 gatherPoint)
-    {
-        // 3       3
-        //   2 2 2
-        //   2 O 2
-        //   2 2 2
-        // 3       3
-        int[] dx = { 2, 0, -2, 0, 2, 2, -2, -2, 3, 3, -3, -3 };
-        int[] dy = { 0, 2, 0, -2, 2, -2, 2, -2, 3, -3, 3, -3 };
-
-        GatherPoints.Clear();
-        Vector3Int cur = CurrentGrid.WorldToCell(gatherPoint);
-        for (int dir = 0; dir < dx.Length; dir++)
-        {
-            Vector3Int temp = new Vector3Int(cur.x + dx[dir], cur.y + dy[dir]);
-            GatherPoints.Add(temp);
-        }
-    }
-
-    // public Vector3 GetGatheringPoint(bool isLeader)
-    // {
-    //     if (isLeader)
-    //         return GatheringPoint;
-    //
-    //     var ret = CurrentGrid.GetCellCenterWorld(GatherPoints[Random.Range(0, 11)]);
-    //     return ret;
-    // }
 
     #region Map Grid
 
@@ -427,7 +386,6 @@ public class MapManager
 
     #endregion
 }
-
 
 public class PriorityQueue<T> where T : IComparable<T>
 {

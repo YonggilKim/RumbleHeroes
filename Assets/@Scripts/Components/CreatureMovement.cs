@@ -19,12 +19,6 @@ public class CreatureMovement : MonoBehaviour
         gameObject.GetComponent<AIController>().OnChangedMovementInput = (input) =>
         {
             MovementInput = input;
-            if (Managers.Game.JoystickState == Define.EJoystickState.Dragging &&
-                _owner.ObjectType == Define.EObjectType.Hero && MovementInput == Vector2.zero)
-            {
-                Debug.LogError("게더링추격");
-            }
-            
         };
 
         _rigid = GetComponent<Rigidbody2D>();

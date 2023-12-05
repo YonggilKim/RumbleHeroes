@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class GameplayAttributeData
+public class AttributeData
 {
     /// <summary>
     /// CurrentValue를 조작하여 현재 상태를 반영하고,
@@ -29,20 +29,20 @@ public class GameplayAttributeData
 public class AttributeSet : MonoBehaviour
 {
     #region GameplayAttributeData
-    public GameplayAttributeData MaxHp = new GameplayAttributeData();
-    public GameplayAttributeData Hp = new GameplayAttributeData();
-    public GameplayAttributeData MaxHpBonusRate = new GameplayAttributeData();
-    public GameplayAttributeData HealBonusRate = new GameplayAttributeData();
-    public GameplayAttributeData HpRegen = new GameplayAttributeData();
-    public GameplayAttributeData Atk = new GameplayAttributeData();
-    public GameplayAttributeData AttackRate = new GameplayAttributeData();
-    public GameplayAttributeData Def = new GameplayAttributeData();
-    public GameplayAttributeData DefRate = new GameplayAttributeData();
-    public GameplayAttributeData CriRate = new GameplayAttributeData();
-    public GameplayAttributeData CriDamage = new GameplayAttributeData();
-    public GameplayAttributeData DamageReduction = new GameplayAttributeData();
-    public GameplayAttributeData MoveSpeedRate = new GameplayAttributeData();
-    public GameplayAttributeData MoveSpeed= new GameplayAttributeData();
+    public AttributeData MaxHp = new AttributeData();
+    public AttributeData Hp = new AttributeData();
+    public AttributeData MaxHpBonusRate = new AttributeData();
+    public AttributeData HealBonusRate = new AttributeData();
+    public AttributeData HpRegen = new AttributeData();
+    public AttributeData Atk = new AttributeData();
+    public AttributeData AttackRate = new AttributeData();
+    public AttributeData Def = new AttributeData();
+    public AttributeData DefRate = new AttributeData();
+    public AttributeData CriRate = new AttributeData();
+    public AttributeData CriDamage = new AttributeData();
+    public AttributeData DamageReduction = new AttributeData();
+    public AttributeData MoveSpeedRate = new AttributeData();
+    public AttributeData MoveSpeed= new AttributeData();
     #endregion
     
     protected virtual bool PreGameplayEffectExecute() { return true; }
