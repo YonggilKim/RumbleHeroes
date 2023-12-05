@@ -18,7 +18,7 @@ public class JenkinsBuilder : MonoBehaviour
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
         buildPlayerOptions.scenes = new[]
             { "Assets/@Scenes/TitleScene.unity", "Assets/@Scenes/LobbyScene.unity", "Assets/@Scenes/GameScene.unity" };
-        buildPlayerOptions.locationPathName = $"./Builds/APK_{PlayerSettings.Android.bundleVersionCode}.apk";
+        buildPlayerOptions.locationPathName = $"./Builds/RumbleHeroes.apk";
         buildPlayerOptions.target = BuildTarget.Android;
         buildPlayerOptions.options = BuildOptions.None;
 

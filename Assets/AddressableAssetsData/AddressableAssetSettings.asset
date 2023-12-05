@@ -85,7 +85,21 @@ MonoBehaviour:
         m_Value: https://rookiss-rumble-addressables.s3.ap-northeast-2.amazonaws.com/[BuildTarget]
     - m_InheritedParent: 
       m_Id: 5dfa9af1ee1ead7418b08ab464246ad6
-      m_ProfileName: Test
+      m_ProfileName: Editor_Local
+      m_Values:
+      - m_Id: 143f7f8c007f95c45b61d399f29ff792
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: cc23d96533481c14796302408722d228
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 502083c8a0d5325479368193d1d27468
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 30a342f886f1e4840a1c244056344f4b
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 59d6694656183724f80c9d6757f70e2c
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 2f77e91cbda02394cbeb11d12bef379f
+      m_ProfileName: Editor_Remote
       m_Values:
       - m_Id: 143f7f8c007f95c45b61d399f29ff792
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
@@ -96,7 +110,7 @@ MonoBehaviour:
       - m_Id: 30a342f886f1e4840a1c244056344f4b
         m_Value: ServerData/[BuildTarget]
       - m_Id: 59d6694656183724f80c9d6757f70e2c
-        m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+        m_Value: ServerData/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: 143f7f8c007f95c45b61d399f29ff792
       m_Name: BuildTarget
@@ -130,7 +144,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f965d9cc71de10f48b424f27814c3ec5, type: 2}
   - {fileID: 11400000, guid: 0974357b585afe04e94d862c4e66672b, type: 2}
   - {fileID: 11400000, guid: e63756712f00b9f41ab408044513ea33, type: 2}
-  m_ActiveProfileId: eb1f285e29fb6d0439bd63e3fa347ef7
+  m_ActiveProfileId: 8e3ebf5db5dc22c4891535fc5cc8bb1f
   m_HostingServicesManager:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}
