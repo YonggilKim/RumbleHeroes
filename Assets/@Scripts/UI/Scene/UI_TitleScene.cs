@@ -73,8 +73,8 @@ public class UI_TitleScene : UI_Scene
     IEnumerator Start()
     {
 #if UNITY_EDITOR
-        CurrentState = EState.DownloadFinished;
-        yield break;
+        // CurrentState = EState.DownloadFinished;
+        // yield break;
 #endif
 
         yield return DownloadComp.StartDownloadRoutine((events) =>

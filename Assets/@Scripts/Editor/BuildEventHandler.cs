@@ -27,7 +27,7 @@ public class BuildEventHandler
     /// </summary>
     private static void BeforePlay()
     {
-        EditorUtils.SetAddressableProfile(Define.EBuildType.Editor_Local);
+        EditorUtils.SetAddressableProfile(Define.EBuildType.Editor_Remote);
     }
 }
 
