@@ -1,19 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using System.IO;
-using System.Xml.Serialization;
-using System.Text;
-using System.Text.RegularExpressions;
-using System;
 using UnityEngine;
 using System.Linq;
-using UnityEditor.AddressableAssets;
 using Unity.Plastic.Newtonsoft.Json;
 using Data;
 using System.ComponentModel;
-using static Define;
-using UnityEngine.Analytics;
 
 public class DataTransformer : EditorWindow
 {

@@ -1,9 +1,4 @@
 using UnityEditor;
-using UnityEditor.AddressableAssets;
-using UnityEditor.AddressableAssets.Settings;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
-using UnityEngine;
 
 [InitializeOnLoad]
 public class BuildEventHandler
@@ -27,7 +22,7 @@ public class BuildEventHandler
     /// </summary>
     private static void BeforePlay()
     {
-        EditorUtils.SetAddressableProfile(Define.EBuildType.Editor_Remote);
+        EditorUtils.SetAddressableProfile(Define.EBuildType.Editor_Local);
     }
 }
 
@@ -47,6 +42,5 @@ public class AndroidBuildPreprocessor
         // 나머지 빌드 옵션 처리
         BuildPipeline.BuildPlayer(buildPlayerOptions);
     }
-
 }
 

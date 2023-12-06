@@ -10,16 +10,6 @@ public class UI_TitleScene : UI_Scene
     {
         StartButton
     }
-
-    private enum Buttons
-    {
-    }
-
-
-    private enum Texts
-    {
-    }
-
     #endregion
 
     public enum EState
@@ -32,7 +22,7 @@ public class UI_TitleScene : UI_Scene
         DownloadFinished
     }
 
-    DownloadComponent DownloadComp;
+    Downloader _downloader;
     DownloadProgressStatus progressInfo;
     ESizeUnits _eSizeUnit;
     long curDownloadedSizeInUnit;
@@ -65,8 +55,8 @@ public class UI_TitleScene : UI_Scene
         });
 
         GetObject((int)GameObjects.StartButton).gameObject.SetActive(false);
-        DownloadComp = gameObject.GetOrAddComponent<DownloadComponent>();
-        DownloadComp.DownloadLabel = "Preload";
+        _downloader = gameObject.GetOrAddComponent<Downloader>();
+        _downloader.DownloadLabel = "Preload";
         return true;
     }
 
@@ -77,13 +67,13 @@ public class UI_TitleScene : UI_Scene
         // yield break;
 #endif
 
-        yield return DownloadComp.StartDownloadRoutine((events) =>
+        yield return _downloader.StartDownload((events) =>
         {
-            events.SystemInitializedListener += OnInitialized;
-            events.CatalogUpdatedListener += OnCatalogUpdated;
-            events.SizeDownloadedListener += OnSizeDownloaded;
-            events.DownloadProgressListener += OnDownloadProgress;
-            events.DownloadFinished += OnDownloadFinished;
+            events.Initialized += OnInitialized;
+            events.CatalogUpdated += OnCatalogUpdated;
+            events.SizeDownloaded += OnSizeDownloaded;
+            events.ProgressUpdated += OnProgress;
+            events.Finished += OnFinished;
         });
     }
 
@@ -102,7 +92,7 @@ public class UI_TitleScene : UI_Scene
                     $"다운로드를 받으시겠습니까 ? 데이터가 많이 사용될 수 있습니다. <color=green>({$"{this.totalSizeInUnit}{this._eSizeUnit})</color>"}");
                 break;
             case EState.Downloading:
-                // Debug.Log( $"다운로드중입니다. 잠시만 기다려주세요. {(progressInfo.totalProgress * 100).ToString("0.00")}% 완료");
+                Debug.Log( $"다운로드중입니다. 잠시만 기다려주세요. {(progressInfo.totalProgress * 100).ToString("0.00")}% 완료");
                 break;
             case EState.DownloadFinished:
                 Debug.Log("다운로드가 완료되었습니다. 게임을 진행하시겠습니까?");
@@ -126,12 +116,12 @@ public class UI_TitleScene : UI_Scene
 
     private void OnInitialized()
     {
-        DownloadComp.GoNext();
+        _downloader.GoNext();
     }
 
     private void OnCatalogUpdated()
     {
-        DownloadComp.GoNext();
+        _downloader.GoNext();
     }
 
     private void OnSizeDownloaded(long size)
@@ -151,11 +141,11 @@ public class UI_TitleScene : UI_Scene
 
             //TODO 일단 묻지않고 바로 다운로드
             CurrentState = EState.Downloading;
-            DownloadComp.GoNext();
+            _downloader.GoNext();
         }
     }
 
-    private void OnDownloadProgress(DownloadProgressStatus newInfo)
+    private void OnProgress(DownloadProgressStatus newInfo)
     {
         bool changed = this.progressInfo.downloadedBytes != newInfo.downloadedBytes;
 
@@ -169,9 +159,9 @@ public class UI_TitleScene : UI_Scene
         }
     }
 
-    private void OnDownloadFinished(bool isSuccess)
+    private void OnFinished(bool isSuccess)
     {
         CurrentState = EState.DownloadFinished;
-        DownloadComp.GoNext();
+        _downloader.GoNext();
     }
 }

@@ -1,7 +1,5 @@
-using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
-using UnityEngine;
 
 public static class EditorUtils
 {
